@@ -1,0 +1,332 @@
+{
+  "contractName": "PoolToken",
+  "abi": [
+    {
+      "name": "Transfer",
+      "inputs": [
+        {
+          "type": "address",
+          "name": "_from",
+          "indexed": true
+        },
+        {
+          "type": "address",
+          "name": "_to",
+          "indexed": true
+        },
+        {
+          "type": "uint256",
+          "name": "_value",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "name": "Approval",
+      "inputs": [
+        {
+          "type": "address",
+          "name": "_owner",
+          "indexed": true
+        },
+        {
+          "type": "address",
+          "name": "_spender",
+          "indexed": true
+        },
+        {
+          "type": "uint256",
+          "name": "_value",
+          "indexed": false
+        }
+      ],
+      "anonymous": false,
+      "type": "event"
+    },
+    {
+      "outputs": [],
+      "inputs": [
+        {
+          "type": "string",
+          "name": "_name"
+        },
+        {
+          "type": "string",
+          "name": "_symbol"
+        },
+        {
+          "type": "uint256",
+          "name": "_decimals"
+        },
+        {
+          "type": "uint256",
+          "name": "_supply"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "name": "set_minter",
+      "outputs": [],
+      "inputs": [
+        {
+          "type": "address",
+          "name": "_minter"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "gas": 36218
+    },
+    {
+      "name": "set_name",
+      "outputs": [],
+      "inputs": [
+        {
+          "type": "string",
+          "name": "_name"
+        },
+        {
+          "type": "string",
+          "name": "_symbol"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "gas": 177979
+    },
+    {
+      "name": "totalSupply",
+      "outputs": [
+        {
+          "type": "uint256",
+          "name": ""
+        }
+      ],
+      "inputs": [],
+      "stateMutability": "view",
+      "type": "function",
+      "gas": 1121
+    },
+    {
+      "name": "allowance",
+      "outputs": [
+        {
+          "type": "uint256",
+          "name": ""
+        }
+      ],
+      "inputs": [
+        {
+          "type": "address",
+          "name": "_owner"
+        },
+        {
+          "type": "address",
+          "name": "_spender"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "gas": 1581
+    },
+    {
+      "name": "transfer",
+      "outputs": [
+        {
+          "type": "bool",
+          "name": ""
+        }
+      ],
+      "inputs": [
+        {
+          "type": "address",
+          "name": "_to"
+        },
+        {
+          "type": "uint256",
+          "name": "_value"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "gas": 74803
+    },
+    {
+      "name": "transferFrom",
+      "outputs": [
+        {
+          "type": "bool",
+          "name": ""
+        }
+      ],
+      "inputs": [
+        {
+          "type": "address",
+          "name": "_from"
+        },
+        {
+          "type": "address",
+          "name": "_to"
+        },
+        {
+          "type": "uint256",
+          "name": "_value"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "gas": 112299
+    },
+    {
+      "name": "approve",
+      "outputs": [
+        {
+          "type": "bool",
+          "name": ""
+        }
+      ],
+      "inputs": [
+        {
+          "type": "address",
+          "name": "_spender"
+        },
+        {
+          "type": "uint256",
+          "name": "_value"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "gas": 39049
+    },
+    {
+      "name": "mint",
+      "outputs": [
+        {
+          "type": "bool",
+          "name": ""
+        }
+      ],
+      "inputs": [
+        {
+          "type": "address",
+          "name": "_to"
+        },
+        {
+          "type": "uint256",
+          "name": "_value"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "gas": 75779
+    },
+    {
+      "name": "burnFrom",
+      "outputs": [
+        {
+          "type": "bool",
+          "name": ""
+        }
+      ],
+      "inputs": [
+        {
+          "type": "address",
+          "name": "_to"
+        },
+        {
+          "type": "uint256",
+          "name": "_value"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "gas": 75797
+    },
+    {
+      "name": "name",
+      "outputs": [
+        {
+          "type": "string",
+          "name": ""
+        }
+      ],
+      "inputs": [],
+      "stateMutability": "view",
+      "type": "function",
+      "gas": 7733
+    },
+    {
+      "name": "symbol",
+      "outputs": [
+        {
+          "type": "string",
+          "name": ""
+        }
+      ],
+      "inputs": [],
+      "stateMutability": "view",
+      "type": "function",
+      "gas": 6786
+    },
+    {
+      "name": "decimals",
+      "outputs": [
+        {
+          "type": "uint256",
+          "name": ""
+        }
+      ],
+      "inputs": [],
+      "stateMutability": "view",
+      "type": "function",
+      "gas": 1391
+    },
+    {
+      "name": "balanceOf",
+      "outputs": [
+        {
+          "type": "uint256",
+          "name": ""
+        }
+      ],
+      "inputs": [
+        {
+          "type": "address",
+          "name": "arg0"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "gas": 1636
+    },
+    {
+      "name": "minter",
+      "outputs": [
+        {
+          "type": "address",
+          "name": ""
+        }
+      ],
+      "inputs": [],
+      "stateMutability": "view",
+      "type": "function",
+      "gas": 1451
+    }
+  ],
+  "bytecode": "0x60806109f961014039606060206109f960c03960c0516109f9016101c039604060206109f960c03960c05160040135111561003957600080fd5b6040602060206109f90160c03960c0516109f901610240396020602060206109f90160c03960c05160040135111561007057600080fd5b6101a051604e610180511061008457600080fd5b61018051600a0a808202821582848304141761009f57600080fd5b809050905090506102a0526101c080600060c052602060c020602082510161012060006003818352015b826101205160200211156100dc576100fe565b61012051602002850151610120518501555b81516001018083528114156100c9575b50505050505061024080600160c052602060c020602082510161012060006002818352015b8261012051602002111561013657610158565b61012051602002850151610120518501555b8151600101808352811415610123575b505050505050610180516002556102a05160033360e05260c052604060c020556102a051600555336006556102a0516102c0523360007fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef60206102c0a36109e156341561000a57600080fd5b600436101561001857610821565b600035601c52631652e9fc60005114156100525760043560a01c1561003c57600080fd5b600654331461004a57600080fd5b600435600655005b63e1430e06600051141561019657606060043560040161014037604060043560040135111561008057600080fd5b60406024356004016101c03760206024356004013511156100a057600080fd5b3360206102806004638da5cb5b6102205261023c6006545afa6100c257600080fd5b601f3d116100cf57600080fd5b60005061028051146100e057600080fd5b61014080600060c052602060c020602082510161012060006003818352015b8261012051602002111561011257610134565b61012051602002850151610120518501555b81516001018083528114156100ff575b5050505050506101c080600160c052602060c020602082510161012060006002818352015b8261012051602002111561016c5761018e565b61012051602002850151610120518501555b8151600101808352811415610159575b505050505050005b6318160ddd60005114156101b25760055460005260206000f350005b63dd62ed3e600051141561020a5760043560a01c156101d057600080fd5b60243560a01c156101e057600080fd5b600460043560e05260c052604060c02060243560e05260c052604060c0205460005260206000f350005b63a9059cbb60005114156102bf5760043560a01c1561022857600080fd5b60033360e05260c052604060c02080546024358082101561024857600080fd5b80820390509050815550600360043560e05260c052604060c020805460243581818301101561027657600080fd5b8082019050905081555060243561014052600435337fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef6020610140a3600160005260206000f350005b6323b872dd60005114156104185760043560a01c156102dd57600080fd5b60243560a01c156102ed57600080fd5b600360043560e05260c052604060c02080546044358082101561030f57600080fd5b80820390509050815550600360243560e05260c052604060c020805460443581818301101561033d57600080fd5b808201905090508155506006543318156103d757600460043560e05260c052604060c0203360e05260c052604060c02054610140527fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6101405118156103d65761014051604435808210156103b157600080fd5b80820390509050600460043560e05260c052604060c0203360e05260c052604060c020555b5b604435610140526024356004357fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef6020610140a3600160005260206000f350005b63095ea7b360005114156104ce5760043560a01c1561043657600080fd5b6024351515610446576001610465565b60043360e05260c052604060c02060043560e05260c052604060c02054155b5b61046f57600080fd5b60243560043360e05260c052604060c02060043560e05260c052604060c0205560243561014052600435337f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9256020610140a3600160005260206000f350005b6340c10f1960005114156105975760043560a01c156104ec57600080fd5b60065433146104fa57600080fd5b60006004351861050957600080fd5b6005805460243581818301101561051f57600080fd5b80820190509050815550600360043560e05260c052604060c020805460243581818301101561054d57600080fd5b808201905090508155506024356101405260043560007fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef6020610140a3600160005260206000f350005b6379cc6790600051141561065c5760043560a01c156105b557600080fd5b60065433146105c357600080fd5b6000600435186105d257600080fd5b60058054602435808210156105e657600080fd5b80820390509050815550600360043560e05260c052604060c02080546024358082101561061257600080fd5b808203905090508155506024356101405260006004357fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef6020610140a3600160005260206000f350005b6306fdde0360005114156107055760008060c052602060c020610180602082540161012060006003818352015b8261012051602002111561069c576106be565b61012051850154610120516020028501525b8151600101808352811415610689575b50505050505061018051806101a001818260206001820306601f82010390500336823750506020610160526040610180510160206001820306601f8201039050610160f350005b6395d89b4160005114156107ae5760018060c052602060c020610180602082540161012060006002818352015b8261012051602002111561074557610767565b61012051850154610120516020028501525b8151600101808352811415610732575b50505050505061018051806101a001818260206001820306601f82010390500336823750506020610160526040610180510160206001820306601f8201039050610160f350005b63313ce56760005114156107ca5760025460005260206000f350005b6370a0823160005114156108045760043560a01c156107e857600080fd5b600360043560e05260c052604060c0205460005260206000f350005b630754617260005114156108205760065460005260206000f350005b5b60006000fd5b6101ba6109e1036101ba6000396101ba6109e1036000f3",
+  "deployedBytecode": "0x341561000a57600080fd5b600436101561001857610821565b600035601c52631652e9fc60005114156100525760043560a01c1561003c57600080fd5b600654331461004a57600080fd5b600435600655005b63e1430e06600051141561019657606060043560040161014037604060043560040135111561008057600080fd5b60406024356004016101c03760206024356004013511156100a057600080fd5b3360206102806004638da5cb5b6102205261023c6006545afa6100c257600080fd5b601f3d116100cf57600080fd5b60005061028051146100e057600080fd5b61014080600060c052602060c020602082510161012060006003818352015b8261012051602002111561011257610134565b61012051602002850151610120518501555b81516001018083528114156100ff575b5050505050506101c080600160c052602060c020602082510161012060006002818352015b8261012051602002111561016c5761018e565b61012051602002850151610120518501555b8151600101808352811415610159575b505050505050005b6318160ddd60005114156101b25760055460005260206000f350005b63dd62ed3e600051141561020a5760043560a01c156101d057600080fd5b60243560a01c156101e057600080fd5b600460043560e05260c052604060c02060243560e05260c052604060c0205460005260206000f350005b63a9059cbb60005114156102bf5760043560a01c1561022857600080fd5b60033360e05260c052604060c02080546024358082101561024857600080fd5b80820390509050815550600360043560e05260c052604060c020805460243581818301101561027657600080fd5b8082019050905081555060243561014052600435337fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef6020610140a3600160005260206000f350005b6323b872dd60005114156104185760043560a01c156102dd57600080fd5b60243560a01c156102ed57600080fd5b600360043560e05260c052604060c02080546044358082101561030f57600080fd5b80820390509050815550600360243560e05260c052604060c020805460443581818301101561033d57600080fd5b808201905090508155506006543318156103d757600460043560e05260c052604060c0203360e05260c052604060c02054610140527fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6101405118156103d65761014051604435808210156103b157600080fd5b80820390509050600460043560e05260c052604060c0203360e05260c052604060c020555b5b604435610140526024356004357fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef6020610140a3600160005260206000f350005b63095ea7b360005114156104ce5760043560a01c1561043657600080fd5b6024351515610446576001610465565b60043360e05260c052604060c02060043560e05260c052604060c02054155b5b61046f57600080fd5b60243560043360e05260c052604060c02060043560e05260c052604060c0205560243561014052600435337f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9256020610140a3600160005260206000f350005b6340c10f1960005114156105975760043560a01c156104ec57600080fd5b60065433146104fa57600080fd5b60006004351861050957600080fd5b6005805460243581818301101561051f57600080fd5b80820190509050815550600360043560e05260c052604060c020805460243581818301101561054d57600080fd5b808201905090508155506024356101405260043560007fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef6020610140a3600160005260206000f350005b6379cc6790600051141561065c5760043560a01c156105b557600080fd5b60065433146105c357600080fd5b6000600435186105d257600080fd5b60058054602435808210156105e657600080fd5b80820390509050815550600360043560e05260c052604060c02080546024358082101561061257600080fd5b808203905090508155506024356101405260006004357fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef6020610140a3600160005260206000f350005b6306fdde0360005114156107055760008060c052602060c020610180602082540161012060006003818352015b8261012051602002111561069c576106be565b61012051850154610120516020028501525b8151600101808352811415610689575b50505050505061018051806101a001818260206001820306601f82010390500336823750506020610160526040610180510160206001820306601f8201039050610160f350005b6395d89b4160005114156107ae5760018060c052602060c020610180602082540161012060006002818352015b8261012051602002111561074557610767565b61012051850154610120516020028501525b8151600101808352811415610732575b50505050505061018051806101a001818260206001820306601f82010390500336823750506020610160526040610180510160206001820306601f8201039050610160f350005b63313ce56760005114156107ca5760025460005260206000f350005b6370a0823160005114156108045760043560a01c156107e857600080fd5b600360043560e05260c052604060c0205460005260206000f350005b630754617260005114156108205760065460005260206000f350005b5b60006000fd",
+  "source": "# @version ^0.2.7\r\n\"\"\"\r\n@title Curve LP Token\r\n@author Curve.Fi\r\n@notice Base implementation for an LP token provided for\r\n        supplying liquidity to `StableSwap`\r\n@dev Follows the ERC-20 token standard as defined at\r\n     https://eips.ethereum.org/EIPS/eip-20\r\n\"\"\"\r\n\r\nfrom vyper.interfaces import ERC20\r\n\r\nimplements: ERC20\r\n\r\ninterface Curve:\r\n    def owner() -> address: view\r\n\r\n\r\nevent Transfer:\r\n    _from: indexed(address)\r\n    _to: indexed(address)\r\n    _value: uint256\r\n\r\nevent Approval:\r\n    _owner: indexed(address)\r\n    _spender: indexed(address)\r\n    _value: uint256\r\n\r\n\r\nname: public(String[64])\r\nsymbol: public(String[32])\r\ndecimals: public(uint256)\r\n\r\n# NOTE: By declaring `balanceOf` as public, vyper automatically generates a 'balanceOf()' getter\r\n#       method to allow access to account balances.\r\n#       The _KeyType will become a required parameter for the getter and it will return _ValueType.\r\n#       See: https://vyper.readthedocs.io/en/v0.1.0-beta.8/types.html?highlight=getter#mappings\r\nbalanceOf: public(HashMap[address, uint256])\r\nallowances: HashMap[address, HashMap[address, uint256]]\r\ntotal_supply: uint256\r\nminter: public(address)\r\n\r\n\r\n@external\r\ndef __init__(_name: String[64], _symbol: String[32], _decimals: uint256, _supply: uint256):\r\n    init_supply: uint256 = _supply * 10 ** _decimals\r\n    self.name = _name\r\n    self.symbol = _symbol\r\n    self.decimals = _decimals\r\n    self.balanceOf[msg.sender] = init_supply\r\n    self.total_supply = init_supply\r\n    self.minter = msg.sender\r\n    log Transfer(ZERO_ADDRESS, msg.sender, init_supply)\r\n\r\n\r\n@external\r\ndef set_minter(_minter: address):\r\n    assert msg.sender == self.minter\r\n    self.minter = _minter\r\n\r\n\r\n@external\r\ndef set_name(_name: String[64], _symbol: String[32]):\r\n    assert Curve(self.minter).owner() == msg.sender\r\n    self.name = _name\r\n    self.symbol = _symbol\r\n\r\n\r\n@view\r\n@external\r\ndef totalSupply() -> uint256:\r\n    \"\"\"\r\n    @dev Total number of tokens in existence.\r\n    \"\"\"\r\n    return self.total_supply\r\n\r\n\r\n@view\r\n@external\r\ndef allowance(_owner : address, _spender : address) -> uint256:\r\n    \"\"\"\r\n    @dev Function to check the amount of tokens that an owner allowed to a spender.\r\n    @param _owner The address which owns the funds.\r\n    @param _spender The address which will spend the funds.\r\n    @return An uint256 specifying the amount of tokens still available for the spender.\r\n    \"\"\"\r\n    return self.allowances[_owner][_spender]\r\n\r\n\r\n@external\r\ndef transfer(_to : address, _value : uint256) -> bool:\r\n    \"\"\"\r\n    @dev Transfer token for a specified address\r\n    @param _to The address to transfer to.\r\n    @param _value The amount to be transferred.\r\n    \"\"\"\r\n    # NOTE: vyper does not allow underflows\r\n    #       so the following subtraction would revert on insufficient balance\r\n    self.balanceOf[msg.sender] -= _value\r\n    self.balanceOf[_to] += _value\r\n    log Transfer(msg.sender, _to, _value)\r\n    return True\r\n\r\n\r\n@external\r\ndef transferFrom(_from : address, _to : address, _value : uint256) -> bool:\r\n    \"\"\"\r\n     @dev Transfer tokens from one address to another.\r\n     @param _from address The address which you want to send tokens from\r\n     @param _to address The address which you want to transfer to\r\n     @param _value uint256 the amount of tokens to be transferred\r\n    \"\"\"\r\n    # NOTE: vyper does not allow underflows\r\n    #       so the following subtraction would revert on insufficient balance\r\n    self.balanceOf[_from] -= _value\r\n    self.balanceOf[_to] += _value\r\n    if msg.sender != self.minter:  # minter is allowed to transfer anything\r\n        _allowance: uint256 = self.allowances[_from][msg.sender]\r\n        if _allowance != MAX_UINT256:\r\n            # NOTE: vyper does not allow underflows\r\n            # so the following subtraction would revert on insufficient allowance\r\n            self.allowances[_from][msg.sender] = _allowance - _value\r\n    log Transfer(_from, _to, _value)\r\n    return True\r\n\r\n\r\n@external\r\ndef approve(_spender : address, _value : uint256) -> bool:\r\n    \"\"\"\r\n    @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.\r\n         Beware that changing an allowance with this method brings the risk that someone may use both the old\r\n         and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this\r\n         race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:\r\n         https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\r\n    @param _spender The address which will spend the funds.\r\n    @param _value The amount of tokens to be spent.\r\n    \"\"\"\r\n    assert _value == 0 or self.allowances[msg.sender][_spender] == 0\r\n    self.allowances[msg.sender][_spender] = _value\r\n    log Approval(msg.sender, _spender, _value)\r\n    return True\r\n\r\n\r\n@external\r\ndef mint(_to: address, _value: uint256) -> bool:\r\n    \"\"\"\r\n    @dev Mint an amount of the token and assigns it to an account.\r\n         This encapsulates the modification of balances such that the\r\n         proper events are emitted.\r\n    @param _to The account that will receive the created tokens.\r\n    @param _value The amount that will be created.\r\n    \"\"\"\r\n    assert msg.sender == self.minter\r\n    assert _to != ZERO_ADDRESS\r\n    self.total_supply += _value\r\n    self.balanceOf[_to] += _value\r\n    log Transfer(ZERO_ADDRESS, _to, _value)\r\n    return True\r\n\r\n\r\n@external\r\ndef burnFrom(_to: address, _value: uint256) -> bool:\r\n    \"\"\"\r\n    @dev Burn an amount of the token from a given account.\r\n    @param _to The account whose tokens will be burned.\r\n    @param _value The amount that will be burned.\r\n    \"\"\"\r\n    assert msg.sender == self.minter\r\n    assert _to != ZERO_ADDRESS\r\n\r\n    self.total_supply -= _value\r\n    self.balanceOf[_to] -= _value\r\n    log Transfer(_to, ZERO_ADDRESS, _value)\r\n\r\n    return True\r\n",
+  "sourcePath": "C:/Users/MayankVats/Desktop/WORK/blockchain/Royale/royale-contracts/contracts/curve/PoolToken.vy",
+  "compiler": {
+    "name": "vyper",
+    "version": "0.2.7+commit.0b3f3b3"
+  },
+  "networks": {},
+  "schemaVersion": "3.3.2",
+  "updatedAt": "2020-12-03T07:30:38.057Z"
+}
