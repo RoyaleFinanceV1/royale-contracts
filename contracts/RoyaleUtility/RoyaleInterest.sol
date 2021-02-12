@@ -42,7 +42,7 @@ contract RoyaInterest{
    
     
      
-     constructor(address _royatoken) public{
+    constructor(address _royatoken) public{
           tokenAddress = Token(_royatoken);
           ownerAddress=msg.sender;
      }

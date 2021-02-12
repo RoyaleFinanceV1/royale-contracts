@@ -14,7 +14,7 @@ interface IERC20{
 
     function transfer(address,uint256) external  returns(bool);
 
-    function mint(address recipient, uint256 amount) external ;
-    function burn(address recipient, uint256 amount) external ;
+    function mint(address , uint256 ) external ;
+    function burn(address , uint256 ) external ;
     function getPricePerFullShare()  external view returns (uint256);
 }

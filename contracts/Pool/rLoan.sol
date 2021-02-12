@@ -2,9 +2,10 @@
 pragma solidity ^0.6.0;
 pragma experimental ABIEncoderV2;
 
+
+import '@openzeppelin/contracts/math/SafeMath.sol';
 import '../../Interfaces/IERC20Interface.sol';
 import '../../Interfaces/RoyaleInterface.sol';
-import '@openzeppelin/contracts/math/SafeMath.sol';
 import './ReentrancyGuard.sol';
 
 contract rLoan is ReentrancyGuard{
@@ -166,17 +167,27 @@ contract rLoan is ReentrancyGuard{
    
 
     function withdrawLoan( uint256[N_COINS] calldata amounts,uint _loanID) external nonReentrant{
-
+        for(uint8 i=0;i<3;i++){
+            require(amounts[i]<=royale.selfBalance(i),"Not Enough Balance");
+        }
         require(transactions[_loanID].iGamingCompany == msg.sender, "company not-exist");
         require(transactions[_loanID].approved, "not approved for loan");
         uint256[N_COINS] memory loanAmount;
         for(uint8 i=0; i<N_COINS; i++) {
             require(transactions[_loanID].remAmt[i] >= amounts[i], "amount requested exceeds amount approved");
         }
-        bool b = royale._loanWithdraw(amounts,transactions[_loanID].iGamingCompany);
+        uint256 poolBalance;
+        uint256[3] memory withdrawAmount;
+         for(uint8 i=0;i<3;i++){
+             poolBalance=tokens[i].balanceOf(address(royale));
+             if(amounts[i]>poolBalance){
+                 withdrawAmount[i]=amounts[i].sub(poolBalance);
+             }
+         }
+        bool b = royale._loanWithdraw(amounts,withdrawAmount,transactions[_loanID].iGamingCompany);
         require(b, "Loan Withdraw not succesfull");
 
-        uint8 check = 0;
+        uint check = 0;
         for(uint8 i=0; i<N_COINS; i++) {
             if(amounts[i] > 0) {
                 totalLoanTaken[i] =totalLoanTaken[i].add(amounts[i]);
@@ -201,6 +212,7 @@ contract rLoan is ReentrancyGuard{
             transactions[_loanID].executed = true;
         }
     } 
+    
     
     
     function repayLoan(uint256[N_COINS] calldata _amounts, uint _loanId) external nonReentrant{

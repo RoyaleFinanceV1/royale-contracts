@@ -25,14 +25,12 @@ contract WithdrawQueue {
 
         return data;
     }
-    function resetQueue()internal{
-        first=1;
-        last=0;
-    }
+    
 }
 
 
 contract RoyaleLPstorage  is WithdrawQueue {
+    
     //storage for pool features
     
     uint256 public constant DENOMINATOR = 10000;
@@ -46,33 +44,27 @@ contract RoyaleLPstorage  is WithdrawQueue {
     IERC20[3] tokens;
 
     IERC20 rpToken;
-   
-    address public loanContract;
 
     rCurveStrategy curveStrategy;
     
     address public wallet;
 
     uint[3] public YieldPoolBalance;
+    uint[3] public liquidityProvidersAPY;
 
-    uint256 public thresholdTokenAmount = 500;
+    uint256 public threshold = 500;
     //storage for user related to supply and withdraw
     uint256 public lock_period = 1 minutes;
 
     struct depositDetails {
-        uint256 amount;
         uint256 index;
-        
-    }
-    
-    struct lockedDetails{
+        uint256 amount;
         uint256 time;
         uint256 remAmt;
         
     }
-
+    
     mapping(address => depositDetails[]) public amountSupplied;
-    mapping(address => mapping(uint256 => lockedDetails[]))public lockedRPT;
     mapping(address => uint256[3]) public amountWithdraw;
     mapping(address => uint256[3]) public amountBurnt;
     
@@ -85,5 +77,6 @@ contract RoyaleLPstorage  is WithdrawQueue {
     //storage to store total loan given
     uint256[3] public loanGiven;  
     
-    
+    //storage realated to loan contract
+     address public loanContract;
 }

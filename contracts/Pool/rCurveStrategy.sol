@@ -56,7 +56,7 @@ contract CurveStrategy {
         _;
     }
 
-     constructor(
+    constructor(
          address _wallet,
          IERC20[3] memory coins, 
          IERC20[3] memory ucoins,
@@ -93,7 +93,7 @@ contract CurveStrategy {
 // Functions to deposit and withdraw stable coins in the y pool and recieve LP tokens (Ycrv)
 
 
-    function updateArray(uint[3] memory amount) internal pure returns(uint[4] memory){  // for Y Pool
+    function updateArray(uint[3] memory amount) internal pure returns(uint[4] memory){
         uint256[4] memory uamount;
         for(uint8 i=0;i<3;i++){
                 uamount[i]=amount[i];
@@ -143,7 +143,7 @@ contract CurveStrategy {
             if(amounts[i]>0){
                 decimal = Coins[i].decimals();
                 depositBal[i] =depositBal[i].sub(amounts[i]);
-                totalDeposited =totalDeposited.sub(amounts[i].mul(1e18).div(10**decimal));
+               // totalDeposited =totalDeposited.sub(amounts[i].mul(1e18).div(10**decimal));
                 //damount[i] = amounts[i].mul(1e18).div(uCoins[i].getPricePerFullShare());
                 currentTotal =currentTotal.add(amounts[i].mul(1e18).div(10**decimal));
             }  
@@ -157,11 +157,12 @@ contract CurveStrategy {
                Coins[i].transfer(royaleAddress, Coins[i].balanceOf(address(this)));
             }
         } 
+        totalDeposited=totalDeposited.sub(currentTotal);
         stakeLP();
     }
 
     function withdrawAll() external onlyRoyaleLP() returns(uint256[3] memory){
-        unstakeAll();
+        unstakeLP(gauge.balanceOf(address(this)));
         uint256 poolTokenBalance;
         uint256[3] memory withdrawAmt;
         uint totalBurnt;
@@ -194,26 +195,23 @@ contract CurveStrategy {
 
     // Functions to stake and unstake LPTokens(Ycrv) and claim CRV
 
-    function stakeLP() public onlyWallet() {
+    function stakeLP() public onlyWallet {
         uint depositAmt = poolToken.balanceOf(address(this)) ;
         poolToken.approve(address(gauge), depositAmt);
         gauge.deposit(depositAmt);  
     }
 
-    function unstakeLP(uint _amount) public  onlyWallet(){
+    function unstakeLP(uint _amount) public  onlyWallet{
         require(gauge.balanceOf(address(this)) >= _amount,"You have not staked that much amount");
         gauge.withdraw(_amount);
     }
 
-    function unstakeAll()public onlyWallet(){
-        gauge.withdraw(gauge.balanceOf(address(this)));  
-    }
 
     function checkClaimableToken()public view  returns(uint256){
         return gauge.claimable_tokens(address(this));
     }
 
-    function claimCRV() public onlyWallet(){
+    function claimCRV() public onlyWallet{
         minter.mint(address(gauge));
     }
 
@@ -270,10 +268,10 @@ contract CurveStrategy {
 
     function calculateProfit()public view returns(uint256,bool) {
         if(pool.get_virtual_price() >= virtualPrice){
-            return (gauge.balanceOf(address(this)).mul(pool.get_virtual_price().sub(virtualPrice)),true);
+            return (gauge.balanceOf(address(this)).mul(pool.get_virtual_price().sub(virtualPrice)).div(10**18),true);
         }    
         else{
-            return (gauge.balanceOf(address(this)).mul(virtualPrice.sub(pool.get_virtual_price())),false);
+            return (gauge.balanceOf(address(this)).mul(virtualPrice.sub(pool.get_virtual_price())).div(10**18),false);
         }
         
     }
