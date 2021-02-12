@@ -1,7 +1,3 @@
-/**
- *Submitted for verification at Etherscan.io on 2021-02-02
-*/
-
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 
@@ -1068,7 +1064,7 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
             else{
                 discountedAmount = amount;
                 amount = 0;
-                isDiscounted[msg.sender] -= amount;
+                isDiscounted[msg.sender] -= discountedAmount;
             }
         }
         _burn(msg.sender, amountToBurn);
@@ -1090,7 +1086,7 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
             else{
                 discountedAmount = amount;
                 amount = 0;
-                isDiscounted[msg.sender] -= amount;
+                isDiscounted[msg.sender] -= discountedAmount;
             }
         }
         if(RNFT.balanceOf(address(this),id)>0){
@@ -1151,7 +1147,7 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
     }
         
     function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
-        require(isDiscounted[msg.sender]==0,"There is NFT locked");
+        require(balanceOf(msg.sender) - isDiscounted[msg.sender] >= amount,"There is NFT locked");
         _transfer(_msgSender(), recipient, amount);
         return true;
     }
