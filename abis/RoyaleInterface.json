@@ -72,24 +72,43 @@
       ],
       "stateMutability": "view",
       "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "reserveAmount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256[3]\",\"name\":\"amounts\",\"type\":\"uint256[3]\"},{\"internalType\":\"address\",\"name\":\"_loanSeeker\",\"type\":\"address\"}],\"name\":\"_loanRepayment\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[3]\",\"name\":\"amounts\",\"type\":\"uint256[3]\"},{\"internalType\":\"uint256[3]\",\"name\":\"withdrawAmounts\",\"type\":\"uint256[3]\"},{\"internalType\":\"address\",\"name\":\"_loanSeeker\",\"type\":\"address\"}],\"name\":\"_loanWithdraw\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"selfBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/RoyaleInterface.sol\":\"RoyaleInterface\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/RoyaleInterface.sol\":{\"keccak256\":\"0x6a3cdfa6da79e77e7b737c7b96ad23567d5ade2b6fc97878b023da11abc0a8a3\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://da2b1e8032d323f3c19614398eff64d24964476b76212231fa3af1d1599194b0\",\"dweb:/ipfs/QmQTCA3VeydccZUaS4RSBnDJL6q5xagq93KJR6pthxi8Yi\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256[3]\",\"name\":\"amounts\",\"type\":\"uint256[3]\"},{\"internalType\":\"address\",\"name\":\"_loanSeeker\",\"type\":\"address\"}],\"name\":\"_loanRepayment\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[3]\",\"name\":\"amounts\",\"type\":\"uint256[3]\"},{\"internalType\":\"uint256[3]\",\"name\":\"withdrawAmounts\",\"type\":\"uint256[3]\"},{\"internalType\":\"address\",\"name\":\"_loanSeeker\",\"type\":\"address\"}],\"name\":\"_loanWithdraw\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"reserveAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"selfBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/RoyaleInterface.sol\":\"RoyaleInterface\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/RoyaleInterface.sol\":{\"keccak256\":\"0xfa935ba052bff15d4f27f654072ac7b335fae0248e7b554487f7b3b5ce80a706\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://d2307b21af2d79e6951e95b9423241b91d2b179af63b95641331ba7dc3788403\",\"dweb:/ipfs/QmRm8L1N9FZMXvrb1Lgyu5L7K7ttcsERgMQuaeR8oyw66c\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: UNLICENSED\r\npragma solidity ^0.6.0;\r\npragma experimental ABIEncoderV2;\r\n\r\nabstract contract RoyaleInterface {\r\n    function _loanWithdraw(uint256[3] calldata amounts,uint256[3] calldata withdrawAmounts,address _loanSeeker) virtual  external returns(bool);\r\n    function _loanRepayment(uint256[3] calldata amounts,address _loanSeeker) virtual  external returns(bool);\r\n    function selfBalance(uint) virtual external view returns(uint256);\r\n    \r\n    \r\n}",
+  "source": "// SPDX-License-Identifier: UNLICENSED\r\npragma solidity ^0.6.0;\r\npragma experimental ABIEncoderV2;\r\n\r\nabstract contract RoyaleInterface {\r\n    function _loanWithdraw(uint256[3] calldata amounts,uint256[3] calldata withdrawAmounts,address _loanSeeker) virtual  external returns(bool);\r\n    function _loanRepayment(uint256[3] calldata amounts,address _loanSeeker) virtual  external returns(bool);\r\n    function selfBalance(uint) virtual external view returns(uint256);\r\n    function reserveAmount(uint) virtual external view returns(uint);\r\n    \r\n    \r\n}",
   "sourcePath": "C:\\Users\\vishn\\OneDrive\\Desktop\\RoyaleProject\\RoyaleFinance\\royale-contracts\\Interfaces\\RoyaleInterface.sol",
   "ast": {
     "absolutePath": "/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/RoyaleInterface.sol",
     "exportedSymbols": {
       "RoyaleInterface": [
-        297
+        304
       ]
     },
-    "id": 298,
+    "id": 305,
     "license": "UNLICENSED",
     "nodeType": "SourceUnit",
     "nodes": [
@@ -120,9 +139,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 297,
+        "id": 304,
         "linearizedBaseContracts": [
-          297
+          304
         ],
         "name": "RoyaleInterface",
         "nodeType": "ContractDefinition",
@@ -319,7 +338,7 @@
               ],
               "src": "276:6:3"
             },
-            "scope": 297,
+            "scope": 304,
             "src": "143:140:3",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -462,7 +481,7 @@
               ],
               "src": "387:6:3"
             },
-            "scope": 297,
+            "scope": 304,
             "src": "289:105:3",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -549,27 +568,114 @@
               ],
               "src": "456:9:3"
             },
-            "scope": 297,
+            "scope": 304,
             "src": "400:66:3",
+            "stateMutability": "view",
+            "virtual": true,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "functionSelector": "f0dd71c7",
+            "id": 303,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "reserveAmount",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 299,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 298,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 303,
+                  "src": "495:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 297,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "495:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "494:6:3"
+            },
+            "returnParameters": {
+              "id": 302,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 301,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 303,
+                  "src": "531:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 300,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "531:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "530:6:3"
+            },
+            "scope": 304,
+            "src": "472:65:3",
             "stateMutability": "view",
             "virtual": true,
             "visibility": "external"
           }
         ],
-        "scope": 298,
-        "src": "102:379:3"
+        "scope": 305,
+        "src": "102:450:3"
       }
     ],
-    "src": "40:441:3"
+    "src": "40:512:3"
   },
   "legacyAST": {
     "absolutePath": "/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/RoyaleInterface.sol",
     "exportedSymbols": {
       "RoyaleInterface": [
-        297
+        304
       ]
     },
-    "id": 298,
+    "id": 305,
     "license": "UNLICENSED",
     "nodeType": "SourceUnit",
     "nodes": [
@@ -600,9 +706,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 297,
+        "id": 304,
         "linearizedBaseContracts": [
-          297
+          304
         ],
         "name": "RoyaleInterface",
         "nodeType": "ContractDefinition",
@@ -799,7 +905,7 @@
               ],
               "src": "276:6:3"
             },
-            "scope": 297,
+            "scope": 304,
             "src": "143:140:3",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -942,7 +1048,7 @@
               ],
               "src": "387:6:3"
             },
-            "scope": 297,
+            "scope": 304,
             "src": "289:105:3",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -1029,18 +1135,105 @@
               ],
               "src": "456:9:3"
             },
-            "scope": 297,
+            "scope": 304,
             "src": "400:66:3",
+            "stateMutability": "view",
+            "virtual": true,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "functionSelector": "f0dd71c7",
+            "id": 303,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "reserveAmount",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 299,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 298,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 303,
+                  "src": "495:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 297,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "495:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "494:6:3"
+            },
+            "returnParameters": {
+              "id": 302,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 301,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 303,
+                  "src": "531:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 300,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "531:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "530:6:3"
+            },
+            "scope": 304,
+            "src": "472:65:3",
             "stateMutability": "view",
             "virtual": true,
             "visibility": "external"
           }
         ],
-        "scope": 298,
-        "src": "102:379:3"
+        "scope": 305,
+        "src": "102:450:3"
       }
     ],
-    "src": "40:441:3"
+    "src": "40:512:3"
   },
   "compiler": {
     "name": "solc",
@@ -1048,7 +1241,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.2",
-  "updatedAt": "2021-02-12T05:36:02.868Z",
+  "updatedAt": "2021-02-17T14:26:52.186Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

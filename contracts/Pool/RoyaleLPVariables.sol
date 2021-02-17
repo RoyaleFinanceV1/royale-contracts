@@ -4,7 +4,7 @@ pragma solidity ^0.6.0;
 import '../../Interfaces/IERC20Interface.sol';
 import '../../Interfaces/CurveStrategyInterface.sol';
 
-contract WithdrawQueue {
+/*contract WithdrawQueue {
     mapping(uint256 => address) withdrawQ;
     uint256 first = 1;
     uint256 last = 0;
@@ -26,12 +26,13 @@ contract WithdrawQueue {
         return data;
     }
     
-}
+}*/
 
 
-contract RoyaleLPstorage  is WithdrawQueue {
+contract RoyaleLPstorage{
     
     //storage for pool features
+    bool public paused;
     
     uint256 public constant DENOMINATOR = 10000;
 
@@ -52,8 +53,9 @@ contract RoyaleLPstorage  is WithdrawQueue {
     uint[3] public YieldPoolBalance;
     uint[3] public liquidityProvidersAPY;
 
-    uint256 public threshold = 500;
+    uint256 public threshold = 50;
     //storage for user related to supply and withdraw
+    
     uint256 public lock_period = 1 minutes;
 
     struct depositDetails {
@@ -68,12 +70,17 @@ contract RoyaleLPstorage  is WithdrawQueue {
     mapping(address => uint256[3]) public amountWithdraw;
     mapping(address => uint256[3]) public amountBurnt;
     
-    mapping(address => bool) public isInQ;
     
-    uint32 recipientCount;
+    mapping(address => bool) public isInQ;
+    address[] public withdrawRecipients;
     
     uint256[3] public totalWithdraw;
-
+    
+    uint[3] public reserveAmount;
+    mapping(address => bool)public reserveRecipients;
+    
+    
+    
     //storage to store total loan given
     uint256[3] public loanGiven;  
     

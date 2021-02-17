@@ -86,10 +86,10 @@ contract rLoan is ReentrancyGuard{
 
     /* Modifiers */
 
-     modifier onlyWallet(){
+    modifier onlyWallet(){
       require(wallet==msg.sender, "Not Authorized");
       _;
-  }
+    }
 
     
 
@@ -146,6 +146,7 @@ contract rLoan is ReentrancyGuard{
        
         for(uint8 i=0;i<N_COINS;i++) {
             uint royaleBalance=royale.selfBalance(i);
+            royaleBalance=royaleBalance.sub(royale.reserveAmount(i));
             require(totalApprovedLoan[i].add(transactions[_loanID].tokenAmounts[i]).sub(totalLoanTaken[i])<royaleBalance,"Can not approve that much amount");
         }
         transactions[_loanID].approved = true;
@@ -180,6 +181,7 @@ contract rLoan is ReentrancyGuard{
         uint256[3] memory withdrawAmount;
          for(uint8 i=0;i<3;i++){
              poolBalance=tokens[i].balanceOf(address(royale));
+             poolBalance=poolBalance.sub(royale.reserveAmount(i));
              if(amounts[i]>poolBalance){
                  withdrawAmount[i]=amounts[i].sub(poolBalance);
              }
@@ -212,8 +214,7 @@ contract rLoan is ReentrancyGuard{
             transactions[_loanID].executed = true;
         }
     } 
-    
-    
+   
     
     function repayLoan(uint256[N_COINS] calldata _amounts, uint _loanId) external nonReentrant{
         require(_loanId <= transactionCount, "invalid loan id");
@@ -235,22 +236,11 @@ contract rLoan is ReentrancyGuard{
                 }
             }
         }
-        emit loanRepayed(
-            msg.sender,
-            _amounts, 
-            gamingCompanyRepayment[_loanId].remainingTokenAmounts,
-            _loanId
-        );
-
+        emit loanRepayed(msg.sender,_amounts,  gamingCompanyRepayment[_loanId].remainingTokenAmounts, _loanId);
         if(counter==3){
             gamingCompanyRepayment[_loanId].isRepaymentDone=true;
 
-            emit wholeLoanRepayed(
-                msg.sender,
-                _amounts, 
-                gamingCompanyRepayment[_loanId].remainingTokenAmounts,
-                _loanId
-            );
+            emit wholeLoanRepayed( msg.sender, _amounts,  gamingCompanyRepayment[_loanId].remainingTokenAmounts,_loanId);
         }       
     }
 }

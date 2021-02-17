@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.0;
 
+import '@openzeppelin/contracts/math/SafeMath.sol';
 import '../../Interfaces/IERC20Interface.sol';
 import '../../Interfaces/CurveInterface.sol';
 import '../../Interfaces/UniswapInterface.sol';
-import '@openzeppelin/contracts/math/SafeMath.sol';
 
 contract CurveStrategy {
 
@@ -13,9 +13,9 @@ contract CurveStrategy {
     address royaleAddress;
     IERC20 poolToken;
     IERC20[3] Coins;  // DAI / USDC / USDT
-    IERC20[3] uCoins; // yDAI / yUSDC / yUSDT
+   // IERC20[3] uCoins; // yDAI / yUSDC / yUSDT
     CurvePool public pool;
-    DepositY public depositY;
+   // DepositY public depositY;
     PoolGauge public gauge;
     Minter public minter;
     VoteEscrow public voteEscrow;
@@ -33,9 +33,9 @@ contract CurveStrategy {
     
     uint256 public crvBreak=10000;
     
-    uint256[4] public depositBal;
+   // uint256[4] public depositBal;
 
-    uint256 public totalDeposited;
+   // uint256 public totalDeposited;
 
     uint256 public virtualPrice;
  
@@ -59,10 +59,10 @@ contract CurveStrategy {
     constructor(
          address _wallet,
          IERC20[3] memory coins, 
-         IERC20[3] memory ucoins,
+         //IERC20[3] memory ucoins,
          address _royaleaddress,
          address _crvpool,
-         address _depositY,
+        // address _depositY,
          address _poolToken,
          address _gauge,
          address _minter
@@ -70,9 +70,9 @@ contract CurveStrategy {
 
         wallet=_wallet;
         Coins = coins;
-        uCoins=ucoins;
+        //uCoins=ucoins;
         royaleAddress =_royaleaddress;
-        depositY=DepositY(_depositY);
+        //depositY=DepositY(_depositY);
         pool = CurvePool(_crvpool);
         poolToken = IERC20(_poolToken);
         gauge = PoolGauge(_gauge);
@@ -112,8 +112,8 @@ contract CurveStrategy {
                uint decimal;
                decimal=Coins[i].decimals();
                Coins[i].approve(address(pool), amounts[i]); 
-               depositBal[i] =depositBal[i].add(amounts[i]);
-               totalDeposited = totalDeposited.add(amounts[i].mul(1e18).div(10**decimal));
+               //depositBal[i] =depositBal[i].add(amounts[i]);
+               //totalDeposited = totalDeposited.add(amounts[i].mul(1e18).div(10**decimal));
                //damount[i] = amounts[i].mul(1e18).div(uCoins[i].getPricePerFullShare());
                currentTotal =currentTotal.add(amounts[i].mul(1e18).div(10**decimal));
             }
@@ -142,7 +142,7 @@ contract CurveStrategy {
         for(uint8 i=0;i<3;i++){
             if(amounts[i]>0){
                 decimal = Coins[i].decimals();
-                depositBal[i] =depositBal[i].sub(amounts[i]);
+                //depositBal[i] =depositBal[i].sub(amounts[i]);
                // totalDeposited =totalDeposited.sub(amounts[i].mul(1e18).div(10**decimal));
                 //damount[i] = amounts[i].mul(1e18).div(uCoins[i].getPricePerFullShare());
                 currentTotal =currentTotal.add(amounts[i].mul(1e18).div(10**decimal));
@@ -157,17 +157,16 @@ contract CurveStrategy {
                Coins[i].transfer(royaleAddress, Coins[i].balanceOf(address(this)));
             }
         } 
-        totalDeposited=totalDeposited.sub(currentTotal);
+        //totalDeposited=totalDeposited.sub(currentTotal);
         stakeLP();
     }
 
     function withdrawAll() external onlyRoyaleLP() returns(uint256[3] memory){
         unstakeLP(gauge.balanceOf(address(this)));
-        uint256 poolTokenBalance;
         uint256[3] memory withdrawAmt;
-        uint totalBurnt;
-        poolTokenBalance=poolToken.balanceOf(address(this));
-        for(uint8 i=0;i<3;i++){
+       
+        pool.remove_liquidity(poolToken.balanceOf(address(this)),withdrawAmt);
+       /* for(uint8 i=0;i<3;i++){
             uint decimal;
             uint poolTokenShare;
             decimal=Coins[i].decimals();
@@ -179,15 +178,15 @@ contract CurveStrategy {
             }
             totalBurnt =totalBurnt.add(poolTokenShare);
             pool.remove_liquidity_one_coin(poolTokenShare, i, poolTokenShare.mul(10**decimal).mul(DENOMINATOR.sub(withdrawSlip)).div(DENOMINATOR).div(10**18));
-        }
+        }*/
         for(uint8 i=0;i<3;i++){
-            depositBal[i] =0;
+           
             if(Coins[i].balanceOf(address(this))!=0){
-                 withdrawAmt[i]= Coins[i].balanceOf(address(this));
+                withdrawAmt[i]=Coins[i].balanceOf(address(this));
                  Coins[i].transfer(royaleAddress,withdrawAmt[i]);
+                 
             }
         }
-        totalDeposited=0;
         return withdrawAmt; 
     } 
 
@@ -228,7 +227,7 @@ contract CurveStrategy {
     }
 
     function releaseLock() external onlyWallet(){
-        voteEscrow.withdraw();
+        voteEscrow.withdraw();  
     }
 
     function claim3CRV()public onlyWallet(){
@@ -249,7 +248,7 @@ contract CurveStrategy {
             path[0] = crvAddr;
             path[1] = address(Coins[_index]);
 
-        } else {
+        } else {    
             path = new address[](3);
             path[0] = crvAddr;
             path[1] = wethAddr;

@@ -15,8 +15,13 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
       require(wallet ==msg.sender, "NA");
       _;
     }
+    
+    modifier notPaused {
+        require(!paused, "contract is paused");
+        _;
+    }
   
-    modifier validAmount(uint amount){
+     modifier validAmount(uint amount){
       require(amount > 0, "NV");
       _;
     }
@@ -49,6 +54,17 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
     }
 
     /* INTERNAL FUNCTIONS */
+    
+     function setPaused(bool _paused) internal {
+        // Ensure we're actually changing the state before we do anything
+        if (_paused == paused) {
+            return;
+        }
+
+        // Set our paused state.
+        paused = _paused;
+
+    }
 
     function checkValidArray(uint256[3] memory amounts)internal pure returns(bool){
         for(uint8 i=0;i<3;i++){
@@ -58,46 +74,23 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
         }
         return false;
     }
+    
 
     // functions related to deposit and supply
     
     // This function deposits the fund to Yield Optimizer
     function _deposit(uint256[3] memory amounts) internal {
         curveStrategy.deposit(amounts);
-        for(uint8 i=0; i<3; i++) {
+        for(uint8 i=0;i<3;i++){
             YieldPoolBalance[i] =YieldPoolBalance[i].add(amounts[i]);
         }
     }
    
-    //Internal Calculation For User Supply 
-
-
-
-    // functions related to withdraw, withdraw queue and withdraw from Yield Optimizer
-    function _takeBack(address recipient) internal {
-        bool result;
-        for(uint8 i=0; i<3; i++) {
-            if(amountWithdraw[recipient][i] > 0) {
-                uint temp = amountWithdraw[recipient][i].sub((amountWithdraw[recipient][i].mul(fees)).div(DENOMINATOR));
-                result = tokens[i].transfer(recipient,  temp);
-                require(result,"Transfer Not Succesful");
-                totalWithdraw[i] =totalWithdraw[i].sub(amountWithdraw[recipient][i]);
-                selfBalance[i] = selfBalance[i].sub(temp);
-                updateLockedRPT(recipient,amountBurnt[recipient][i],i);
-                amountWithdraw[recipient][i] = 0;
-                amountBurnt[recipient][i]=0;
-                emit userRecieved(recipient,temp);
-            }
-        }
-        isInQ[recipient] = false;
-        recipientCount -= 1;
-    }
-
 
     
-     function updateLockedRPT(address recipient,uint256 amount,uint _index) internal{
+     function updateLockedRPT(address recipient,uint256 amount) internal{
         for(uint8 j=0; j<amountSupplied[recipient].length; j++) {
-             if(amountSupplied[recipient][j].index==_index && amountSupplied[recipient][j].remAmt > 0 && amount > 0 ) {
+             if(amountSupplied[recipient][j].remAmt > 0 && amount > 0 ) {
                   if(amount >= amountSupplied[recipient][j].remAmt) {
                         amount = amount.sub( amountSupplied[recipient][j].remAmt);
                         amountSupplied[recipient][j].remAmt = 0;
@@ -120,7 +113,7 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
             selfBalance[_index] =selfBalance[_index].sub(temp);
             result = tokens[_index].transfer(msg.sender, temp);
             require(result,"Transfer not Succesful");
-            updateLockedRPT(msg.sender,burnAmt,_index);
+            updateLockedRPT(msg.sender,burnAmt);
             emit userRecieved(msg.sender, temp); 
          }
          else {
@@ -136,21 +129,20 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
         amountWithdraw[msg.sender][_index] =amountWithdraw[msg.sender][_index].add( amount);
         amountBurnt[msg.sender][_index]=amountBurnt[msg.sender][_index].add(_burnAmount);
         totalWithdraw[_index] =totalWithdraw[_index].add(amount);
+        require(totalWithdraw[_index]<=YieldPoolBalance[_index],"Not enough balance");
         if(!isInQ[msg.sender]) {
-            recipientCount += 1;
             isInQ[msg.sender] = true;
-            addToQ(msg.sender);
+            withdrawRecipients.push(msg.sender);
+            
         }
 
     }
-
-  
 
 
     // this will withdraw from Yield Optimizer into this contract
     function _withdraw(uint256[3] memory amounts) internal {
         curveStrategy.withdraw(amounts);
-        for(uint8 i=0; i<3; i++) {
+        for(uint8 i=0;i<3;i++){
             YieldPoolBalance[i] =YieldPoolBalance[i].sub(amounts[i]);
         }
     }
@@ -170,13 +162,13 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
     function availableLiquidity(address addr, uint coin,bool _time) public view returns(uint256 token,uint256 RPT) {
         uint256 amount=0;
         for(uint8 j=0; j<amountSupplied[addr].length; j++) {
-            if(amountSupplied[addr][j].index==coin){
                 if( (!_time || (now - amountSupplied[addr][j].time)  > lock_period)&&amountSupplied[addr][j].remAmt >0)   {
                         amount =amount.add(amountSupplied[addr][j].remAmt);
                 }
-            }
         }
-        amount =amount.sub(amountBurnt[addr][coin]);
+        for(uint8 i=0;i<3;i++){
+            amount =amount.sub(amountBurnt[addr][i]);
+        }
         uint256 total=calculateTotalToken();
         uint256 decimal;
         decimal=tokens[coin].decimals();
@@ -188,7 +180,7 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
         uint256 decimal;
         for(uint8 i=0; i<3; i++) {
             decimal = tokens[i].decimals();
-            total =total.add((selfBalance[i].sub(totalWithdraw[i]).add(loanGiven[i])).mul(1e18).div(10**decimal));
+            total =total.add((selfBalance[i].sub(totalWithdraw[i]).sub(reserveAmount[i]).add(loanGiven[i])).mul(1e18).div(10**decimal));
         } 
         return total;
     }
@@ -209,7 +201,8 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
 
     
     
-    function requestWithdrawWithRPT(uint256 amount,uint256 _index) external nonReentrant validAmount(amount){
+    function requestWithdrawWithRPT(uint256 amount,uint256 _index) external nonReentrant notPaused validAmount(amount){
+        require(!reserveRecipients[msg.sender],"Claim first");
         require(rpToken.balanceOf(msg.sender) >= amount, "low RPT");
         (,uint availableRPT)=availableLiquidity(msg.sender,_index,true );
         bool instant=true;
@@ -222,36 +215,33 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
         uint256 tokenAmount;
         decimal=tokens[_index].decimals();
         tokenAmount=amount.mul(total).mul(10**decimal).div(rpToken.totalSupply()).div(10**18);
-        require(tokenAmount <= selfBalance[_index],"Not Enough balance");
+        require(tokenAmount <= selfBalance[_index].sub(reserveAmount[_index]),"Not Enough balance");
         checkWithdraw(tokenAmount,amount,_index);  
     }
-   
-    // Following two functions are called by rLoan Only
-    function _loanWithdraw(uint256[3] memory amounts,uint256[3] memory withdrawAmount, address _loanSeeker) public onlyAuthorized() returns(bool) {
-        if(checkValidArray(withdrawAmount)){
-            _withdraw(withdrawAmount);
-        }
-        for(uint8 i=0; i<3; i++) {
-            if(amounts[i] > 0) {
-                loanGiven[i] =loanGiven[i].add(amounts[i]);
-                selfBalance[i] =selfBalance[i].sub( amounts[i]);
-                tokens[i].transfer(_loanSeeker, amounts[i]);
-            }
-        }
-        return true;
-    }
     
-    //Function only called by multisig contract for transfering tokens
-    function _loanRepayment(uint256[3] memory amounts, address _loanSeeker) public onlyAuthorized()  returns(bool) {
+    function claimTokens() external nonReentrant{
+        require(reserveRecipients[msg.sender] , "request withdraw first");
+        bool result;
+        uint totalBurnt;
         for(uint8 i=0; i<3; i++) {
-            if(amounts[i] > 0) {
-                loanGiven[i] =loanGiven[i].sub(amounts[i]);
-                selfBalance[i] =selfBalance[i].add(amounts[i]);
-                tokens[i].transferFrom(_loanSeeker, address(this), amounts[i]);
+            if(amountWithdraw[msg.sender][i] > 0) {
+                uint temp = amountWithdraw[msg.sender][i].sub((amountWithdraw[msg.sender][i].mul(fees)).div(DENOMINATOR));
+                result = tokens[i].transfer(msg.sender,  temp);
+                require(result,"Transfer Not Succesful");
+                reserveAmount[i] =reserveAmount[i].sub(amountWithdraw[msg.sender][i]);
+                selfBalance[i] = selfBalance[i].sub(temp);
+                totalBurnt =totalBurnt.add(amountBurnt[msg.sender][i]);
+                amountWithdraw[msg.sender][i] = 0;
+                amountBurnt[msg.sender][i]=0;
+                emit userRecieved(msg.sender,temp);
             }
         }
-        return true;
+        updateLockedRPT(msg.sender,totalBurnt);
+        reserveRecipients[msg.sender] = false;
     }
+
+   
+
 
     // this function deposits without minting RPT
     function depsoitYield(uint256[3] calldata amounts) external {
@@ -268,7 +258,7 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
     /* CORE FUNCTIONS (called by owner only) */
 
     //Deposit in the smart backed pool
-    function deposit() onlyWallet() external {
+    function deposit() onlyWallet() external  {
         uint256[3] memory amounts;
         uint256 decimal;
         for(uint8 i=0; i<3; i++) {
@@ -286,34 +276,50 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
             _deposit(amounts);
         }
     }
+    
 
     //Withdraw from Pool
-    function withdraw() onlyWallet() external {
+    function withdraw() onlyWallet() external  {
         require(checkValidArray(totalWithdraw), "withdraw queue empty");
+        setPaused(true);
         _withdraw(totalWithdraw);
-        uint32 counter = recipientCount;
-        for(uint8 i=0; i<counter; i++) {
-            address recipient = getFromQ();
-            _takeBack(recipient);
+        for(uint8 i=0;i<3;i++){
+            reserveAmount[i]=reserveAmount[i].add(totalWithdraw[i]);
+            totalWithdraw[i]=0;
         }
-        first=1;
-        last=0;
+        for(uint i=0; i<withdrawRecipients.length; i++) {
+            reserveRecipients[withdrawRecipients[i]]=true;
+            isInQ[withdrawRecipients[i]]=false;
+        }
+        uint count=withdrawRecipients.length;
+        for(uint i=0;i<count;i++){
+            withdrawRecipients.pop();
+        }
+        setPaused(false);
     }
 
 
     function withdrawAll() public onlyWallet() {
+        setPaused(true);
         uint[3] memory amounts;
         amounts=curveStrategy.withdrawAll();
         for(uint8 i=0;i<3;i++){
-            if(amounts[i]>YieldPoolBalance[i]){
-                 selfBalance[i] =selfBalance[i].add(amounts[i].sub(YieldPoolBalance[i]));
-            }
-            else{
-               selfBalance[i] = selfBalance[i].sub(YieldPoolBalance[i].sub(amounts[i]));
-            }
+            selfBalance[i]=tokens[i].balanceOf(address(this));
             YieldPoolBalance[i]=0;
-
         }
+        for(uint8 i=0;i<3;i++){
+            reserveAmount[i]=reserveAmount[i].add(totalWithdraw[i]);
+            totalWithdraw[i]=0;
+        }
+        for(uint i=0; i<withdrawRecipients.length; i++) {
+            reserveRecipients[withdrawRecipients[i]]=true;
+            isInQ[withdrawRecipients[i]]=false;
+        }
+        uint count=withdrawRecipients.length;
+        for(uint i=0;i<count;i++){
+            withdrawRecipients.pop();
+        }
+        setPaused(false);
     }
 
     //function for rebalancing pool(ratio)      
@@ -325,7 +331,7 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
         for(uint8 i=0;i<3;i++) {
            currentAmount=getBalances(i);
            decimal=tokens[i].decimals();
-           uint256 strategyAmount=selfBalance[i].mul(poolPart).div(DENOMINATOR);
+           uint256 strategyAmount=selfBalance[i].sub(reserveAmount[i]).mul(poolPart).div(DENOMINATOR);
            if(strategyAmount > currentAmount) {
               amountToWithdraw[i] = strategyAmount.sub(currentAmount);
               if(amountToWithdraw[i]<(50*(10**decimal))){
@@ -356,10 +362,37 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
         }
 
     }
+    
+     // Following two functions are called by rLoan Only
+    function _loanWithdraw(uint256[3] memory amounts,uint256[3] memory withdrawAmount, address _loanSeeker) external onlyAuthorized() returns(bool) {
+        if(checkValidArray(withdrawAmount)){
+            _withdraw(withdrawAmount);
+        }
+        for(uint8 i=0; i<3; i++) {
+            if(amounts[i] > 0) {
+                loanGiven[i] =loanGiven[i].add(amounts[i]);
+                selfBalance[i] =selfBalance[i].sub( amounts[i]);
+                tokens[i].transfer(_loanSeeker, amounts[i]);
+            }
+        }
+        return true;
+    }
+    
+    //Function only called by multisig contract for transfering tokens
+    function _loanRepayment(uint256[3] memory amounts, address _loanSeeker) external onlyAuthorized()  returns(bool) {
+        for(uint8 i=0; i<3; i++) {
+            if(amounts[i] > 0) {
+                loanGiven[i] =loanGiven[i].sub(amounts[i]);
+                selfBalance[i] =selfBalance[i].add(amounts[i]);
+                tokens[i].transferFrom(_loanSeeker, address(this), amounts[i]);
+            }
+        }
+        return true;
+    }
 
 
     function getBalances(uint _index) public view returns(uint256) {
-        return tokens[_index].balanceOf(address(this));
+        return (tokens[_index].balanceOf(address(this)).sub(reserveAmount[_index]));
     }
 
     /* ADMIN FUNCTIONS */
@@ -397,13 +430,13 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
         fees = _fees;
 
     }
-    
-    function getAmountSuppliedLength(address _address)public view returns(uint256){
+
+   /* function getAmountSuppliedLength(address _address)public view returns(uint256){
         return amountSupplied[_address].length;
     }
     
     function getYourLiquidity(address _address , uint256 _index) public view returns(uint256){
        (uint256 amount,)= availableLiquidity(_address,_index,false);
        return amount;
-    }
+    }*/
 }
