@@ -15,13 +15,7 @@
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [],
       "name": "YieldPoolBalance",
       "outputs": [
         {
@@ -122,6 +116,19 @@
     },
     {
       "inputs": [],
+      "name": "curveStrategy",
+      "outputs": [
+        {
+          "internalType": "contract rCurveStrategy",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
       "name": "fees",
       "outputs": [
         {
@@ -153,13 +160,7 @@
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [],
       "name": "liquidityProvidersAPY",
       "outputs": [
         {
@@ -218,19 +219,6 @@
     },
     {
       "inputs": [],
-      "name": "paused",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
       "name": "poolPart",
       "outputs": [
         {
@@ -281,13 +269,20 @@
       "type": "function"
     },
     {
-      "inputs": [
+      "inputs": [],
+      "name": "rpToken",
+      "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "contract IERC20",
           "name": "",
-          "type": "uint256"
+          "type": "address"
         }
       ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
       "name": "selfBalance",
       "outputs": [
         {
@@ -300,13 +295,19 @@
       "type": "function"
     },
     {
-      "inputs": [],
-      "name": "threshold",
-      "outputs": [
+      "inputs": [
         {
           "internalType": "uint256",
           "name": "",
           "type": "uint256"
+        }
+      ],
+      "name": "tokens",
+      "outputs": [
+        {
+          "internalType": "contract IERC20",
+          "name": "",
+          "type": "address"
         }
       ],
       "stateMutability": "view",
@@ -364,27 +365,27 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"DENOMINATOR\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"YieldPoolBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"amountBurnt\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"amountSupplied\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"remAmt\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"amountWithdraw\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"fees\",\"outputs\":[{\"internalType\":\"uint128\",\"name\":\"\",\"type\":\"uint128\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"isInQ\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"liquidityProvidersAPY\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"loanContract\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"loanGiven\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"lock_period\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"poolPart\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"reserveAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"reserveRecipients\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"selfBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"threshold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"totalWithdraw\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"wallet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"withdrawRecipients\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/contracts/Pool/RoyaleLPVariables.sol\":\"RoyaleLPstorage\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/CurveStrategyInterface.sol\":{\"keccak256\":\"0x6f401a8f1c59e61fe57a246cb0116acbe5906aae51e31fcc2427fb5385a54aa6\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://57415dc779812821b02087f242fe4eaba1341934b95df2592cded5b5a0d0d2a9\",\"dweb:/ipfs/QmU8j291ra335WnCTZaAUwTAquVjN2pH3SRNRfCJsFNB1j\"]},\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/IERC20Interface.sol\":{\"keccak256\":\"0x9cd4a0bd88574db61e42cc4607ad75b702b6dd54dcbc03bd9f8acdb1fe75a554\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://df9af3d9e31f0c63eb97be684b30e33d227f2c643b9d1ab10622ad755dfea8cc\",\"dweb:/ipfs/QmaBQ22C2qHUYZHGCRe9ZFHSApd2CUWxDT9d57g89HCNu7\"]},\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/contracts/Pool/RoyaleLPVariables.sol\":{\"keccak256\":\"0x76c44b338aa248361441be1b61088605360f8a3a9d30eda09094f73315524cc2\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://bf9db84a5f3d9f0c223bfc356d9f39bf6ca12d413d0398082e81aa1d5fc550c9\",\"dweb:/ipfs/QmTJWoR8L6yRRfM4xtXMwT6Ym5afBtkMyDx8qsghfMPgXc\"]}},\"version\":1}",
-  "bytecode": "0x60806040526019600060016101000a8154816fffffffffffffffffffffffffffffffff02191690836fffffffffffffffffffffffffffffffff1602179055506102ee6001556032601155603c60125534801561005a57600080fd5b506108a18061006a6000396000f3fe608060405234801561001057600080fd5b506004361061012c5760003560e01c80638e9b0326116100ad578063c6b93df711610071578063c6b93df7146104ee578063db28bfd014610550578063eabc9e3114610592578063f0dd71c7146105d4578063f83e9a20146106165761012c565b80638e9b0326146103b1578063905f692e146103cf578063918f8674146104295780639af1d35a14610447578063c23177b2146104775761012c565b80635c975abb116100f45780635c975abb146102535780635cd60cd11461027357806369850424146102d55780636d6ea25714610317578063876171dc146103595761012c565b8063253f284b1461013157806331805a2b1461016557806342cde4e8146101a7578063449deb6b146101c5578063521eb2731461021f575b600080fd5b610139610634565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6101916004803603602081101561017b57600080fd5b810190808035906020019092919050505061065a565b6040518082815260200191505060405180910390f35b6101af610672565b6040518082815260200191505060405180910390f35b610207600480360360208110156101db57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610678565b60405180821515815260200191505060405180910390f35b610227610698565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b61025b6106be565b60405180821515815260200191505060405180910390f35b6102bf6004803603604081101561028957600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291905050506106cf565b6040518082815260200191505060405180910390f35b610301600480360360208110156102eb57600080fd5b81019080803590602001909291905050506106f4565b6040518082815260200191505060405180910390f35b6103436004803603602081101561032d57600080fd5b810190808035906020019092919050505061070c565b6040518082815260200191505060405180910390f35b6103856004803603602081101561036f57600080fd5b8101908080359060200190929190505050610724565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6103b9610760565b6040518082815260200191505060405180910390f35b610411600480360360208110156103e557600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610766565b60405180821515815260200191505060405180910390f35b610431610786565b6040518082815260200191505060405180910390f35b61044f61078c565b60405180826fffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6104c36004803603604081101561048d57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291905050506107ae565b6040518085815260200184815260200183815260200182815260200194505050505060405180910390f35b61053a6004803603604081101561050457600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291905050506107f8565b6040518082815260200191505060405180910390f35b61057c6004803603602081101561056657600080fd5b810190808035906020019092919050505061081d565b6040518082815260200191505060405180910390f35b6105be600480360360208110156105a857600080fd5b8101908080359060200190929190505050610835565b6040518082815260200191505060405180910390f35b610600600480360360208110156105ea57600080fd5b810190808035906020019092919050505061084d565b6040518082815260200191505060405180910390f35b61061e610865565b6040518082815260200191505060405180910390f35b602260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600b816003811061066757fe5b016000915090505481565b60115481565b601e6020528060005260406000206000915054906101000a900460ff1681565b600a60009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60008054906101000a900460ff1681565b601460205281600052604060002081600381106106e857fe5b01600091509150505481565b6002816003811061070157fe5b016000915090505481565b601f816003811061071957fe5b016000915090505481565b6017818154811061073157fe5b906000526020600020016000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60015481565b60166020528060005260406000206000915054906101000a900460ff1681565b61271081565b600060019054906101000a90046fffffffffffffffffffffffffffffffff1681565b601360205281600052604060002081815481106107c757fe5b9060005260206000209060040201600091509150508060000154908060010154908060020154908060030154905084565b6015602052816000526040600020816003811061081157fe5b01600091509150505481565b6018816003811061082a57fe5b016000915090505481565b600e816003811061084257fe5b016000915090505481565b601b816003811061085a57fe5b016000915090505481565b6012548156fea26469706673582212208469fae806d6cc5e264b5fd5f89d58dc945fb05d2dbfb0cad5ff62d3f36b74f164736f6c634300060c0033",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061012c5760003560e01c80638e9b0326116100ad578063c6b93df711610071578063c6b93df7146104ee578063db28bfd014610550578063eabc9e3114610592578063f0dd71c7146105d4578063f83e9a20146106165761012c565b80638e9b0326146103b1578063905f692e146103cf578063918f8674146104295780639af1d35a14610447578063c23177b2146104775761012c565b80635c975abb116100f45780635c975abb146102535780635cd60cd11461027357806369850424146102d55780636d6ea25714610317578063876171dc146103595761012c565b8063253f284b1461013157806331805a2b1461016557806342cde4e8146101a7578063449deb6b146101c5578063521eb2731461021f575b600080fd5b610139610634565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6101916004803603602081101561017b57600080fd5b810190808035906020019092919050505061065a565b6040518082815260200191505060405180910390f35b6101af610672565b6040518082815260200191505060405180910390f35b610207600480360360208110156101db57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610678565b60405180821515815260200191505060405180910390f35b610227610698565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b61025b6106be565b60405180821515815260200191505060405180910390f35b6102bf6004803603604081101561028957600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291905050506106cf565b6040518082815260200191505060405180910390f35b610301600480360360208110156102eb57600080fd5b81019080803590602001909291905050506106f4565b6040518082815260200191505060405180910390f35b6103436004803603602081101561032d57600080fd5b810190808035906020019092919050505061070c565b6040518082815260200191505060405180910390f35b6103856004803603602081101561036f57600080fd5b8101908080359060200190929190505050610724565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6103b9610760565b6040518082815260200191505060405180910390f35b610411600480360360208110156103e557600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610766565b60405180821515815260200191505060405180910390f35b610431610786565b6040518082815260200191505060405180910390f35b61044f61078c565b60405180826fffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6104c36004803603604081101561048d57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291905050506107ae565b6040518085815260200184815260200183815260200182815260200194505050505060405180910390f35b61053a6004803603604081101561050457600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291905050506107f8565b6040518082815260200191505060405180910390f35b61057c6004803603602081101561056657600080fd5b810190808035906020019092919050505061081d565b6040518082815260200191505060405180910390f35b6105be600480360360208110156105a857600080fd5b8101908080359060200190929190505050610835565b6040518082815260200191505060405180910390f35b610600600480360360208110156105ea57600080fd5b810190808035906020019092919050505061084d565b6040518082815260200191505060405180910390f35b61061e610865565b6040518082815260200191505060405180910390f35b602260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600b816003811061066757fe5b016000915090505481565b60115481565b601e6020528060005260406000206000915054906101000a900460ff1681565b600a60009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60008054906101000a900460ff1681565b601460205281600052604060002081600381106106e857fe5b01600091509150505481565b6002816003811061070157fe5b016000915090505481565b601f816003811061071957fe5b016000915090505481565b6017818154811061073157fe5b906000526020600020016000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60015481565b60166020528060005260406000206000915054906101000a900460ff1681565b61271081565b600060019054906101000a90046fffffffffffffffffffffffffffffffff1681565b601360205281600052604060002081815481106107c757fe5b9060005260206000209060040201600091509150508060000154908060010154908060020154908060030154905084565b6015602052816000526040600020816003811061081157fe5b01600091509150505481565b6018816003811061082a57fe5b016000915090505481565b600e816003811061084257fe5b016000915090505481565b601b816003811061085a57fe5b016000915090505481565b6012548156fea26469706673582212208469fae806d6cc5e264b5fd5f89d58dc945fb05d2dbfb0cad5ff62d3f36b74f164736f6c634300060c0033",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"DENOMINATOR\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"YieldPoolBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"amountBurnt\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"amountSupplied\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"time\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"remAmt\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"amountWithdraw\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"curveStrategy\",\"outputs\":[{\"internalType\":\"contract rCurveStrategy\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"fees\",\"outputs\":[{\"internalType\":\"uint128\",\"name\":\"\",\"type\":\"uint128\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"isInQ\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"liquidityProvidersAPY\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"loanContract\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"loanGiven\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"lock_period\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"poolPart\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"reserveAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"reserveRecipients\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"rpToken\",\"outputs\":[{\"internalType\":\"contract IERC20\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"selfBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"tokens\",\"outputs\":[{\"internalType\":\"contract IERC20\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"totalWithdraw\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"wallet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"withdrawRecipients\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/contracts/Pool/RoyaleLPVariables.sol\":\"RoyaleLPstorage\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/CurveStrategyInterface.sol\":{\"keccak256\":\"0x6f401a8f1c59e61fe57a246cb0116acbe5906aae51e31fcc2427fb5385a54aa6\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://57415dc779812821b02087f242fe4eaba1341934b95df2592cded5b5a0d0d2a9\",\"dweb:/ipfs/QmU8j291ra335WnCTZaAUwTAquVjN2pH3SRNRfCJsFNB1j\"]},\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/IERC20Interface.sol\":{\"keccak256\":\"0xa9bdd8cb907d0fe48dcfa74cbb4d8afc96ad326628f7f7a6c2172c0fe6d887e8\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://143031c8f9ebbdd5cf50a6fb098f92d2211c84c9bbab92c4e280d369228de658\",\"dweb:/ipfs/QmP4MjV9FEuzryQKmqFiJWjUAfYvtmye6JSs82EnVZEcki\"]},\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/contracts/Pool/RoyaleLPVariables.sol\":{\"keccak256\":\"0x514947e5ea7ecb1c4aa48ad6409242e6559ccca11aba34f1a62cf7ae3122fa53\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://fca33366a136d3e969c288081a7bb22a9e2a49e255b7a06a3d46cefbc9132f85\",\"dweb:/ipfs/QmUkJmLQfHBz4curZAxdpi5ZhFtbkSehErhUhvxMaMLCCi\"]}},\"version\":1}",
+  "bytecode": "0x608060405260196000806101000a8154816fffffffffffffffffffffffffffffffff02191690836fffffffffffffffffffffffffffffffff1602179055506102ee600155603c600b5534801561005457600080fd5b506108f2806100646000396000f3fe608060405234801561001057600080fd5b50600436106101375760003560e01c80638e9b0326116100b8578063c23177b21161007c578063c23177b2146104bc578063c6b93df714610533578063db28bfd014610595578063df7ce7e4146105d7578063f0dd71c7146105f5578063f83e9a201461063757610137565b80638e9b0326146103d8578063905f692e146103f6578063918f8674146104505780639af1d35a1461046e578063b0bed0ba1461049e57610137565b80634f64b2be116100ff5780634f64b2be14610250578063521eb273146102a85780635cd60cd1146102dc5780636d6ea2571461033e578063876171dc1461038057610137565b806325340b8c1461013c578063253f284b1461015a57806338b183141461018e57806342f1bd5d146101c2578063449deb6b146101f6575b600080fd5b610144610655565b6040518082815260200191505060405180910390f35b61016261065b565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610196610681565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6101ca6106a7565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6102386004803603602081101561020c57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506106cd565b60405180821515815260200191505060405180910390f35b61027c6004803603602081101561026657600080fd5b81019080803590602001909291905050506106ed565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6102b0610720565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610328600480360360408110156102f257600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610746565b6040518082815260200191505060405180910390f35b61036a6004803603602081101561035457600080fd5b810190808035906020019092919050505061076b565b6040518082815260200191505060405180910390f35b6103ac6004803603602081101561039657600080fd5b8101908080359060200190929190505050610783565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6103e06107bf565b6040518082815260200191505060405180910390f35b6104386004803603602081101561040c57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506107c5565b60405180821515815260200191505060405180910390f35b6104586107e5565b6040518082815260200191505060405180910390f35b6104766107eb565b60405180826fffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6104a661080b565b6040518082815260200191505060405180910390f35b610508600480360360408110156104d257600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610811565b6040518085815260200184815260200183815260200182815260200194505050505060405180910390f35b61057f6004803603604081101561054957600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291908035906020019092919050505061085b565b6040518082815260200191505060405180910390f35b6105c1600480360360208110156105ab57600080fd5b8101908080359060200190929190505050610880565b6040518082815260200191505060405180910390f35b6105df610898565b6040518082815260200191505060405180910390f35b6106216004803603602081101561060b57600080fd5b810190808035906020019092919050505061089e565b6040518082815260200191505060405180910390f35b61063f6108b6565b6040518082815260200191505060405180910390f35b60095481565b601b60009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600760009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600660009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60176020528060005260406000206000915054906101000a900460ff1681565b600381600381106106fa57fe5b016000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600860009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600d602052816000526040600020816003811061075f57fe5b01600091509150505481565b6018816003811061077857fe5b016000915090505481565b6010818154811061079057fe5b906000526020600020016000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60015481565b600f6020528060005260406000206000915054906101000a900460ff1681565b61271081565b60008054906101000a90046fffffffffffffffffffffffffffffffff1681565b60025481565b600c602052816000526040600020818154811061082a57fe5b9060005260206000209060040201600091509150508060000154908060010154908060020154908060030154905084565b600e602052816000526040600020816003811061087457fe5b01600091509150505481565b6011816003811061088d57fe5b016000915090505481565b600a5481565b601481600381106108ab57fe5b016000915090505481565b600b548156fea2646970667358221220c850da8c98b4b2d47a36c606aa7890d96718aae42d218570c30980fd6009673164736f6c634300060c0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106101375760003560e01c80638e9b0326116100b8578063c23177b21161007c578063c23177b2146104bc578063c6b93df714610533578063db28bfd014610595578063df7ce7e4146105d7578063f0dd71c7146105f5578063f83e9a201461063757610137565b80638e9b0326146103d8578063905f692e146103f6578063918f8674146104505780639af1d35a1461046e578063b0bed0ba1461049e57610137565b80634f64b2be116100ff5780634f64b2be14610250578063521eb273146102a85780635cd60cd1146102dc5780636d6ea2571461033e578063876171dc1461038057610137565b806325340b8c1461013c578063253f284b1461015a57806338b183141461018e57806342f1bd5d146101c2578063449deb6b146101f6575b600080fd5b610144610655565b6040518082815260200191505060405180910390f35b61016261065b565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610196610681565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6101ca6106a7565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6102386004803603602081101561020c57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506106cd565b60405180821515815260200191505060405180910390f35b61027c6004803603602081101561026657600080fd5b81019080803590602001909291905050506106ed565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6102b0610720565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610328600480360360408110156102f257600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610746565b6040518082815260200191505060405180910390f35b61036a6004803603602081101561035457600080fd5b810190808035906020019092919050505061076b565b6040518082815260200191505060405180910390f35b6103ac6004803603602081101561039657600080fd5b8101908080359060200190929190505050610783565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6103e06107bf565b6040518082815260200191505060405180910390f35b6104386004803603602081101561040c57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506107c5565b60405180821515815260200191505060405180910390f35b6104586107e5565b6040518082815260200191505060405180910390f35b6104766107eb565b60405180826fffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6104a661080b565b6040518082815260200191505060405180910390f35b610508600480360360408110156104d257600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610811565b6040518085815260200184815260200183815260200182815260200194505050505060405180910390f35b61057f6004803603604081101561054957600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291908035906020019092919050505061085b565b6040518082815260200191505060405180910390f35b6105c1600480360360208110156105ab57600080fd5b8101908080359060200190929190505050610880565b6040518082815260200191505060405180910390f35b6105df610898565b6040518082815260200191505060405180910390f35b6106216004803603602081101561060b57600080fd5b810190808035906020019092919050505061089e565b6040518082815260200191505060405180910390f35b61063f6108b6565b6040518082815260200191505060405180910390f35b60095481565b601b60009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600760009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600660009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60176020528060005260406000206000915054906101000a900460ff1681565b600381600381106106fa57fe5b016000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600860009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600d602052816000526040600020816003811061075f57fe5b01600091509150505481565b6018816003811061077857fe5b016000915090505481565b6010818154811061079057fe5b906000526020600020016000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60015481565b600f6020528060005260406000206000915054906101000a900460ff1681565b61271081565b60008054906101000a90046fffffffffffffffffffffffffffffffff1681565b60025481565b600c602052816000526040600020818154811061082a57fe5b9060005260206000209060040201600091509150508060000154908060010154908060020154908060030154905084565b600e602052816000526040600020816003811061087457fe5b01600091509150505481565b6011816003811061088d57fe5b016000915090505481565b600a5481565b601481600381106108ab57fe5b016000915090505481565b600b548156fea2646970667358221220c850da8c98b4b2d47a36c606aa7890d96718aae42d218570c30980fd6009673164736f6c634300060c0033",
   "immutableReferences": {},
-  "sourceMap": "645:1439:12:-:0;;;820:2;798:24;;;;;;;;;;;;;;;;;;;;895:3;869:29;;1226:2;1199:29;;1325:9;1296:38;;645:1439;;;;;;;;;;;;;;;;",
-  "deployedSourceMap": "645:1439:12:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2053:27;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;1116:31;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1199:29;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1855:48;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;1086:21;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;715:18;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;1557:52;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;959:29;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1969:27;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1728:35;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;869:29;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1684:37;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;746:43;;;:::i;:::-;;;;;;;;;;;;;;;;;;;798:24;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;1492:58;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1616:49;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1776:31;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1154:36;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1820:28;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1296:38;;;:::i;:::-;;;;;;;;;;;;;;;;;;;2053:27;;;;;;;;;;;;;:::o;1116:31::-;;;;;;;;;;;;;;;;;;:::o;1199:29::-;;;;:::o;1855:48::-;;;;;;;;;;;;;;;;;;;;;;:::o;1086:21::-;;;;;;;;;;;;;:::o;715:18::-;;;;;;;;;;;;:::o;1557:52::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;959:29::-;;;;;;;;;;;;;;;;;;:::o;1969:27::-;;;;;;;;;;;;;;;;;;:::o;1728:35::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;869:29::-;;;;:::o;1684:37::-;;;;;;;;;;;;;;;;;;;;;;:::o;746:43::-;784:5;746:43;:::o;798:24::-;;;;;;;;;;;;;:::o;1492:58::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;1616:49::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;1776:31::-;;;;;;;;;;;;;;;;;;:::o;1154:36::-;;;;;;;;;;;;;;;;;;:::o;1820:28::-;;;;;;;;;;;;;;;;;;:::o;1296:38::-;;;;:::o",
-  "source": "// SPDX-License-Identifier: UNLICENSED\r\npragma solidity ^0.6.0;\r\n\r\nimport '../../Interfaces/IERC20Interface.sol';\r\nimport '../../Interfaces/CurveStrategyInterface.sol';\r\n\r\n/*contract WithdrawQueue {\r\n    mapping(uint256 => address) withdrawQ;\r\n    uint256 first = 1;\r\n    uint256 last = 0;\r\n    address data;\r\n\r\n    function addToQ(address addr) internal {\r\n        last += 1;\r\n        withdrawQ[last] = addr;\r\n    }\r\n\r\n    function getFromQ() internal returns(address) {\r\n        require(last >= first);\r\n\r\n        data = withdrawQ[first];\r\n\r\n        delete withdrawQ[first];\r\n        first += 1;\r\n\r\n        return data;\r\n    }\r\n    \r\n}*/\r\n\r\n\r\ncontract RoyaleLPstorage{\r\n    \r\n    //storage for pool features\r\n    bool public paused;\r\n    \r\n    uint256 public constant DENOMINATOR = 10000;\r\n\r\n    uint128 public fees = 25; // for .25% fee, for 1.75% fee => 175\r\n\r\n    uint256 public poolPart = 750 ; // 7.5% of total Liquidity will remain in the pool\r\n\r\n    uint256[3] public selfBalance;\r\n\r\n    IERC20[3] tokens;\r\n\r\n    IERC20 rpToken;\r\n\r\n    rCurveStrategy curveStrategy;\r\n    \r\n    address public wallet;\r\n\r\n    uint[3] public YieldPoolBalance;\r\n    uint[3] public liquidityProvidersAPY;\r\n\r\n    uint256 public threshold = 50;\r\n    //storage for user related to supply and withdraw\r\n    \r\n    uint256 public lock_period = 1 minutes;\r\n\r\n    struct depositDetails {\r\n        uint256 index;\r\n        uint256 amount;\r\n        uint256 time;\r\n        uint256 remAmt;\r\n        \r\n    }\r\n    \r\n    mapping(address => depositDetails[]) public amountSupplied;\r\n    mapping(address => uint256[3]) public amountWithdraw;\r\n    mapping(address => uint256[3]) public amountBurnt;\r\n    \r\n    \r\n    mapping(address => bool) public isInQ;\r\n    address[] public withdrawRecipients;\r\n    \r\n    uint256[3] public totalWithdraw;\r\n    \r\n    uint[3] public reserveAmount;\r\n    mapping(address => bool)public reserveRecipients;\r\n    \r\n    \r\n    \r\n    //storage to store total loan given\r\n    uint256[3] public loanGiven;  \r\n    \r\n    //storage realated to loan contract\r\n     address public loanContract;\r\n}",
+  "sourceMap": "172:1350:7:-:0;;;292:2;270:24;;;;;;;;;;;;;;;;;;;;367:3;341:29;;773:9;744:38;;172:1350;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "172:1350:7:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;606:28;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1491:27;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;528:35;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;498:21;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;1293:48;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;466:23;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;576:21;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;989:52;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1407:27;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1166:35;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;341:29;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1116:37;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;218:43;;;:::i;:::-;;;;;;;;;;;;;;;;;;;270:24;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;431:26;;;:::i;:::-;;;;;;;;;;;;;;;;;;;924:58;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1048:49;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1214:31;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;641:33;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1258:28;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;744:38;;;:::i;:::-;;;;;;;;;;;;;;;;;;;606:28;;;;:::o;1491:27::-;;;;;;;;;;;;;:::o;528:35::-;;;;;;;;;;;;;:::o;498:21::-;;;;;;;;;;;;;:::o;1293:48::-;;;;;;;;;;;;;;;;;;;;;;:::o;466:23::-;;;;;;;;;;;;;;;;;;;;;;;:::o;576:21::-;;;;;;;;;;;;;:::o;989:52::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;1407:27::-;;;;;;;;;;;;;;;;;;:::o;1166:35::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;341:29::-;;;;:::o;1116:37::-;;;;;;;;;;;;;;;;;;;;;;:::o;218:43::-;256:5;218:43;:::o;270:24::-;;;;;;;;;;;;:::o;431:26::-;;;;:::o;924:58::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;1048:49::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;1214:31::-;;;;;;;;;;;;;;;;;;:::o;641:33::-;;;;:::o;1258:28::-;;;;;;;;;;;;;;;;;;:::o;744:38::-;;;;:::o",
+  "source": "// SPDX-License-Identifier: UNLICENSED\r\npragma solidity ^0.6.0;\r\n\r\nimport '../../Interfaces/IERC20Interface.sol';\r\nimport '../../Interfaces/CurveStrategyInterface.sol';\r\n\r\ncontract RoyaleLPstorage{\r\n    \r\n \r\n    \r\n    uint256 public constant DENOMINATOR = 10000;\r\n\r\n    uint128 public fees = 25; // for .25% fee, for 1.75% fee => 175\r\n\r\n    uint256 public poolPart = 750 ; // 7.5% of total Liquidity will remain in the pool\r\n\r\n    uint256 public selfBalance;\r\n\r\n    IERC20[3] public tokens;\r\n\r\n    IERC20 public rpToken;\r\n\r\n    rCurveStrategy public curveStrategy;\r\n    \r\n    address public wallet;\r\n\r\n    uint public YieldPoolBalance;\r\n    uint public liquidityProvidersAPY;\r\n\r\n    //storage for user related to supply and withdraw\r\n    \r\n    uint256 public lock_period = 1 minutes;\r\n\r\n    struct depositDetails {\r\n        uint index;\r\n        uint amount;\r\n        uint256 time;\r\n        uint256 remAmt;\r\n    }\r\n    \r\n    mapping(address => depositDetails[]) public amountSupplied;\r\n    mapping(address => uint256[3]) public amountWithdraw;\r\n    mapping(address => uint256[3]) public amountBurnt;\r\n    \r\n    \r\n    mapping(address => bool) public isInQ;\r\n    \r\n    address[] public withdrawRecipients;\r\n    \r\n    uint256[3] public totalWithdraw;\r\n    \r\n    uint[3] public reserveAmount;\r\n    mapping(address => bool)public reserveRecipients;\r\n    \r\n    \r\n    \r\n    //storage to store total loan given\r\n    uint256[3] public loanGiven;  \r\n    \r\n    //storage realated to loan contract\r\n     address public loanContract;\r\n}",
   "sourcePath": "C:\\Users\\vishn\\OneDrive\\Desktop\\RoyaleProject\\RoyaleFinance\\royale-contracts\\contracts\\Pool\\RoyaleLPVariables.sol",
   "ast": {
     "absolutePath": "/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/contracts/Pool/RoyaleLPVariables.sol",
     "exportedSymbols": {
       "RoyaleLPstorage": [
-        3274
+        2614
       ]
     },
-    "id": 3275,
+    "id": 2615,
     "license": "UNLICENSED",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3181,
+        "id": 2532,
         "literals": [
           "solidity",
           "^",
@@ -392,27 +393,27 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "40:23:12"
+        "src": "40:23:7"
       },
       {
         "absolutePath": "/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/IERC20Interface.sol",
         "file": "../../Interfaces/IERC20Interface.sol",
-        "id": 3182,
+        "id": 2533,
         "nodeType": "ImportDirective",
-        "scope": 3275,
-        "sourceUnit": 261,
-        "src": "67:46:12",
+        "scope": 2615,
+        "sourceUnit": 272,
+        "src": "67:46:7",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
         "absolutePath": "/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/CurveStrategyInterface.sol",
         "file": "../../Interfaces/CurveStrategyInterface.sol",
-        "id": 3183,
+        "id": 2534,
         "nodeType": "ImportDirective",
-        "scope": 3275,
+        "scope": 2615,
         "sourceUnit": 193,
-        "src": "115:53:12",
+        "src": "115:53:7",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -423,52 +424,23 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 3274,
+        "id": 2614,
         "linearizedBaseContracts": [
-          3274
+          2614
         ],
         "name": "RoyaleLPstorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "constant": false,
-            "functionSelector": "5c975abb",
-            "id": 3185,
-            "mutability": "mutable",
-            "name": "paused",
-            "nodeType": "VariableDeclaration",
-            "overrides": null,
-            "scope": 3274,
-            "src": "715:18:12",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_bool",
-              "typeString": "bool"
-            },
-            "typeName": {
-              "id": 3184,
-              "name": "bool",
-              "nodeType": "ElementaryTypeName",
-              "src": "715:4:12",
-              "typeDescriptions": {
-                "typeIdentifier": "t_bool",
-                "typeString": "bool"
-              }
-            },
-            "value": null,
-            "visibility": "public"
-          },
-          {
             "constant": true,
             "functionSelector": "918f8674",
-            "id": 3188,
+            "id": 2537,
             "mutability": "constant",
             "name": "DENOMINATOR",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "746:43:12",
+            "scope": 2614,
+            "src": "218:43:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -476,10 +448,10 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 3186,
+              "id": 2535,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "746:7:12",
+              "src": "218:7:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -488,14 +460,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "3130303030",
-              "id": 3187,
+              "id": 2536,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "784:5:12",
+              "src": "256:5:7",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_10000_by_1",
@@ -508,13 +480,13 @@
           {
             "constant": false,
             "functionSelector": "9af1d35a",
-            "id": 3191,
+            "id": 2540,
             "mutability": "mutable",
             "name": "fees",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "798:24:12",
+            "scope": 2614,
+            "src": "270:24:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -522,10 +494,10 @@
               "typeString": "uint128"
             },
             "typeName": {
-              "id": 3189,
+              "id": 2538,
               "name": "uint128",
               "nodeType": "ElementaryTypeName",
-              "src": "798:7:12",
+              "src": "270:7:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint128",
                 "typeString": "uint128"
@@ -534,14 +506,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "3235",
-              "id": 3190,
+              "id": 2539,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "820:2:12",
+              "src": "292:2:7",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_25_by_1",
@@ -554,13 +526,13 @@
           {
             "constant": false,
             "functionSelector": "8e9b0326",
-            "id": 3194,
+            "id": 2543,
             "mutability": "mutable",
             "name": "poolPart",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "869:29:12",
+            "scope": 2614,
+            "src": "341:29:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -568,10 +540,10 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 3192,
+              "id": 2541,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "869:7:12",
+              "src": "341:7:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -580,14 +552,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "373530",
-              "id": 3193,
+              "id": 2542,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "895:3:12",
+              "src": "367:3:7",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_750_by_1",
@@ -599,55 +571,28 @@
           },
           {
             "constant": false,
-            "functionSelector": "69850424",
-            "id": 3198,
+            "functionSelector": "b0bed0ba",
+            "id": 2545,
             "mutability": "mutable",
             "name": "selfBalance",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "959:29:12",
+            "scope": 2614,
+            "src": "431:26:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_array$_t_uint256_$3_storage",
-              "typeString": "uint256[3]"
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
             },
             "typeName": {
-              "baseType": {
-                "id": 3195,
-                "name": "uint256",
-                "nodeType": "ElementaryTypeName",
-                "src": "959:7:12",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint256",
-                  "typeString": "uint256"
-                }
-              },
-              "id": 3197,
-              "length": {
-                "argumentTypes": null,
-                "hexValue": "33",
-                "id": 3196,
-                "isConstant": false,
-                "isLValue": false,
-                "isPure": true,
-                "kind": "number",
-                "lValueRequested": false,
-                "nodeType": "Literal",
-                "src": "967:1:12",
-                "subdenomination": null,
-                "typeDescriptions": {
-                  "typeIdentifier": "t_rational_3_by_1",
-                  "typeString": "int_const 3"
-                },
-                "value": "3"
-              },
-              "nodeType": "ArrayTypeName",
-              "src": "959:10:12",
+              "id": 2544,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "431:7:7",
               "typeDescriptions": {
-                "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
-                "typeString": "uint256[3]"
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
               }
             },
             "value": null,
@@ -655,44 +600,45 @@
           },
           {
             "constant": false,
-            "id": 3202,
+            "functionSelector": "4f64b2be",
+            "id": 2549,
             "mutability": "mutable",
             "name": "tokens",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "997:16:12",
+            "scope": 2614,
+            "src": "466:23:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_array$_t_contract$_IERC20_$260_$3_storage",
+              "typeIdentifier": "t_array$_t_contract$_IERC20_$271_$3_storage",
               "typeString": "contract IERC20[3]"
             },
             "typeName": {
               "baseType": {
                 "contractScope": null,
-                "id": 3199,
+                "id": 2546,
                 "name": "IERC20",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 260,
-                "src": "997:6:12",
+                "referencedDeclaration": 271,
+                "src": "466:6:7",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_contract$_IERC20_$260",
+                  "typeIdentifier": "t_contract$_IERC20_$271",
                   "typeString": "contract IERC20"
                 }
               },
-              "id": 3201,
+              "id": 2548,
               "length": {
                 "argumentTypes": null,
                 "hexValue": "33",
-                "id": 3200,
+                "id": 2547,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
                 "kind": "number",
                 "lValueRequested": false,
                 "nodeType": "Literal",
-                "src": "1004:1:12",
+                "src": "473:1:7",
                 "subdenomination": null,
                 "typeDescriptions": {
                   "typeIdentifier": "t_rational_3_by_1",
@@ -701,54 +647,56 @@
                 "value": "3"
               },
               "nodeType": "ArrayTypeName",
-              "src": "997:9:12",
+              "src": "466:9:7",
               "typeDescriptions": {
-                "typeIdentifier": "t_array$_t_contract$_IERC20_$260_$3_storage_ptr",
+                "typeIdentifier": "t_array$_t_contract$_IERC20_$271_$3_storage_ptr",
                 "typeString": "contract IERC20[3]"
               }
             },
             "value": null,
-            "visibility": "internal"
+            "visibility": "public"
           },
           {
             "constant": false,
-            "id": 3204,
+            "functionSelector": "42f1bd5d",
+            "id": 2551,
             "mutability": "mutable",
             "name": "rpToken",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1022:14:12",
+            "scope": 2614,
+            "src": "498:21:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_IERC20_$260",
+              "typeIdentifier": "t_contract$_IERC20_$271",
               "typeString": "contract IERC20"
             },
             "typeName": {
               "contractScope": null,
-              "id": 3203,
+              "id": 2550,
               "name": "IERC20",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 260,
-              "src": "1022:6:12",
+              "referencedDeclaration": 271,
+              "src": "498:6:7",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_IERC20_$260",
+                "typeIdentifier": "t_contract$_IERC20_$271",
                 "typeString": "contract IERC20"
               }
             },
             "value": null,
-            "visibility": "internal"
+            "visibility": "public"
           },
           {
             "constant": false,
-            "id": 3206,
+            "functionSelector": "38b18314",
+            "id": 2553,
             "mutability": "mutable",
             "name": "curveStrategy",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1045:28:12",
+            "scope": 2614,
+            "src": "528:35:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -757,29 +705,29 @@
             },
             "typeName": {
               "contractScope": null,
-              "id": 3205,
+              "id": 2552,
               "name": "rCurveStrategy",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 192,
-              "src": "1045:14:12",
+              "src": "528:14:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_contract$_rCurveStrategy_$192",
                 "typeString": "contract rCurveStrategy"
               }
             },
             "value": null,
-            "visibility": "internal"
+            "visibility": "public"
           },
           {
             "constant": false,
             "functionSelector": "521eb273",
-            "id": 3208,
+            "id": 2555,
             "mutability": "mutable",
             "name": "wallet",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1086:21:12",
+            "scope": 2614,
+            "src": "576:21:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -787,10 +735,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 3207,
+              "id": 2554,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "1086:7:12",
+              "src": "576:7:7",
               "stateMutability": "nonpayable",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
@@ -802,126 +750,14 @@
           },
           {
             "constant": false,
-            "functionSelector": "31805a2b",
-            "id": 3212,
+            "functionSelector": "25340b8c",
+            "id": 2557,
             "mutability": "mutable",
             "name": "YieldPoolBalance",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1116:31:12",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_array$_t_uint256_$3_storage",
-              "typeString": "uint256[3]"
-            },
-            "typeName": {
-              "baseType": {
-                "id": 3209,
-                "name": "uint",
-                "nodeType": "ElementaryTypeName",
-                "src": "1116:4:12",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint256",
-                  "typeString": "uint256"
-                }
-              },
-              "id": 3211,
-              "length": {
-                "argumentTypes": null,
-                "hexValue": "33",
-                "id": 3210,
-                "isConstant": false,
-                "isLValue": false,
-                "isPure": true,
-                "kind": "number",
-                "lValueRequested": false,
-                "nodeType": "Literal",
-                "src": "1121:1:12",
-                "subdenomination": null,
-                "typeDescriptions": {
-                  "typeIdentifier": "t_rational_3_by_1",
-                  "typeString": "int_const 3"
-                },
-                "value": "3"
-              },
-              "nodeType": "ArrayTypeName",
-              "src": "1116:7:12",
-              "typeDescriptions": {
-                "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
-                "typeString": "uint256[3]"
-              }
-            },
-            "value": null,
-            "visibility": "public"
-          },
-          {
-            "constant": false,
-            "functionSelector": "eabc9e31",
-            "id": 3216,
-            "mutability": "mutable",
-            "name": "liquidityProvidersAPY",
-            "nodeType": "VariableDeclaration",
-            "overrides": null,
-            "scope": 3274,
-            "src": "1154:36:12",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_array$_t_uint256_$3_storage",
-              "typeString": "uint256[3]"
-            },
-            "typeName": {
-              "baseType": {
-                "id": 3213,
-                "name": "uint",
-                "nodeType": "ElementaryTypeName",
-                "src": "1154:4:12",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint256",
-                  "typeString": "uint256"
-                }
-              },
-              "id": 3215,
-              "length": {
-                "argumentTypes": null,
-                "hexValue": "33",
-                "id": 3214,
-                "isConstant": false,
-                "isLValue": false,
-                "isPure": true,
-                "kind": "number",
-                "lValueRequested": false,
-                "nodeType": "Literal",
-                "src": "1159:1:12",
-                "subdenomination": null,
-                "typeDescriptions": {
-                  "typeIdentifier": "t_rational_3_by_1",
-                  "typeString": "int_const 3"
-                },
-                "value": "3"
-              },
-              "nodeType": "ArrayTypeName",
-              "src": "1154:7:12",
-              "typeDescriptions": {
-                "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
-                "typeString": "uint256[3]"
-              }
-            },
-            "value": null,
-            "visibility": "public"
-          },
-          {
-            "constant": false,
-            "functionSelector": "42cde4e8",
-            "id": 3219,
-            "mutability": "mutable",
-            "name": "threshold",
-            "nodeType": "VariableDeclaration",
-            "overrides": null,
-            "scope": 3274,
-            "src": "1199:29:12",
+            "scope": 2614,
+            "src": "606:28:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -929,45 +765,28 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 3217,
-              "name": "uint256",
+              "id": 2556,
+              "name": "uint",
               "nodeType": "ElementaryTypeName",
-              "src": "1199:7:12",
+              "src": "606:4:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
               }
             },
-            "value": {
-              "argumentTypes": null,
-              "hexValue": "3530",
-              "id": 3218,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "1226:2:12",
-              "subdenomination": null,
-              "typeDescriptions": {
-                "typeIdentifier": "t_rational_50_by_1",
-                "typeString": "int_const 50"
-              },
-              "value": "50"
-            },
+            "value": null,
             "visibility": "public"
           },
           {
             "constant": false,
-            "functionSelector": "f83e9a20",
-            "id": 3222,
+            "functionSelector": "df7ce7e4",
+            "id": 2559,
             "mutability": "mutable",
-            "name": "lock_period",
+            "name": "liquidityProvidersAPY",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1296:38:12",
+            "scope": 2614,
+            "src": "641:33:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -975,10 +794,39 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 3220,
+              "id": 2558,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "641:4:7",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "f83e9a20",
+            "id": 2562,
+            "mutability": "mutable",
+            "name": "lock_period",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 2614,
+            "src": "744:38:7",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 2560,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "1296:7:12",
+              "src": "744:7:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -987,14 +835,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "31",
-              "id": 3221,
+              "id": 2561,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "1325:9:12",
+              "src": "773:9:7",
               "subdenomination": "minutes",
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_60_by_1",
@@ -1006,17 +854,17 @@
           },
           {
             "canonicalName": "RoyaleLPstorage.depositDetails",
-            "id": 3231,
+            "id": 2571,
             "members": [
               {
                 "constant": false,
-                "id": 3224,
+                "id": 2564,
                 "mutability": "mutable",
                 "name": "index",
                 "nodeType": "VariableDeclaration",
                 "overrides": null,
-                "scope": 3231,
-                "src": "1376:13:12",
+                "scope": 2571,
+                "src": "824:10:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1024,10 +872,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3223,
-                  "name": "uint256",
+                  "id": 2563,
+                  "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1376:7:12",
+                  "src": "824:4:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1038,13 +886,13 @@
               },
               {
                 "constant": false,
-                "id": 3226,
+                "id": 2566,
                 "mutability": "mutable",
                 "name": "amount",
                 "nodeType": "VariableDeclaration",
                 "overrides": null,
-                "scope": 3231,
-                "src": "1400:14:12",
+                "scope": 2571,
+                "src": "845:11:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1052,10 +900,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3225,
-                  "name": "uint256",
+                  "id": 2565,
+                  "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1400:7:12",
+                  "src": "845:4:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1066,13 +914,13 @@
               },
               {
                 "constant": false,
-                "id": 3228,
+                "id": 2568,
                 "mutability": "mutable",
                 "name": "time",
                 "nodeType": "VariableDeclaration",
                 "overrides": null,
-                "scope": 3231,
-                "src": "1425:12:12",
+                "scope": 2571,
+                "src": "867:12:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1080,10 +928,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3227,
+                  "id": 2567,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1425:7:12",
+                  "src": "867:7:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1094,13 +942,13 @@
               },
               {
                 "constant": false,
-                "id": 3230,
+                "id": 2570,
                 "mutability": "mutable",
                 "name": "remAmt",
                 "nodeType": "VariableDeclaration",
                 "overrides": null,
-                "scope": 3231,
-                "src": "1448:14:12",
+                "scope": 2571,
+                "src": "890:14:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1108,10 +956,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3229,
+                  "id": 2569,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1448:7:12",
+                  "src": "890:7:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1123,63 +971,63 @@
             ],
             "name": "depositDetails",
             "nodeType": "StructDefinition",
-            "scope": 3274,
-            "src": "1343:137:12",
+            "scope": 2614,
+            "src": "791:121:7",
             "visibility": "public"
           },
           {
             "constant": false,
             "functionSelector": "c23177b2",
-            "id": 3236,
+            "id": 2576,
             "mutability": "mutable",
             "name": "amountSupplied",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1492:58:12",
+            "scope": 2614,
+            "src": "924:58:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_depositDetails_$3231_storage_$dyn_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_depositDetails_$2571_storage_$dyn_storage_$",
               "typeString": "mapping(address => struct RoyaleLPstorage.depositDetails[])"
             },
             "typeName": {
-              "id": 3235,
+              "id": 2575,
               "keyType": {
-                "id": 3232,
+                "id": 2572,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "1500:7:12",
+                "src": "932:7:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "1492:36:12",
+              "src": "924:36:7",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_depositDetails_$3231_storage_$dyn_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_depositDetails_$2571_storage_$dyn_storage_$",
                 "typeString": "mapping(address => struct RoyaleLPstorage.depositDetails[])"
               },
               "valueType": {
                 "baseType": {
                   "contractScope": null,
-                  "id": 3233,
+                  "id": 2573,
                   "name": "depositDetails",
                   "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 3231,
-                  "src": "1511:14:12",
+                  "referencedDeclaration": 2571,
+                  "src": "943:14:7",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_depositDetails_$3231_storage_ptr",
+                    "typeIdentifier": "t_struct$_depositDetails_$2571_storage_ptr",
                     "typeString": "struct RoyaleLPstorage.depositDetails"
                   }
                 },
-                "id": 3234,
+                "id": 2574,
                 "length": null,
                 "nodeType": "ArrayTypeName",
-                "src": "1511:16:12",
+                "src": "943:16:7",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_array$_t_struct$_depositDetails_$3231_storage_$dyn_storage_ptr",
+                  "typeIdentifier": "t_array$_t_struct$_depositDetails_$2571_storage_$dyn_storage_ptr",
                   "typeString": "struct RoyaleLPstorage.depositDetails[]"
                 }
               }
@@ -1190,13 +1038,13 @@
           {
             "constant": false,
             "functionSelector": "5cd60cd1",
-            "id": 3242,
+            "id": 2582,
             "mutability": "mutable",
             "name": "amountWithdraw",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1557:52:12",
+            "scope": 2614,
+            "src": "989:52:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1204,46 +1052,46 @@
               "typeString": "mapping(address => uint256[3])"
             },
             "typeName": {
-              "id": 3241,
+              "id": 2581,
               "keyType": {
-                "id": 3237,
+                "id": 2577,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "1565:7:12",
+                "src": "997:7:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "1557:30:12",
+              "src": "989:30:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$3_storage_$",
                 "typeString": "mapping(address => uint256[3])"
               },
               "valueType": {
                 "baseType": {
-                  "id": 3238,
+                  "id": 2578,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1576:7:12",
+                  "src": "1008:7:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
                   }
                 },
-                "id": 3240,
+                "id": 2580,
                 "length": {
                   "argumentTypes": null,
                   "hexValue": "33",
-                  "id": 3239,
+                  "id": 2579,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
                   "kind": "number",
                   "lValueRequested": false,
                   "nodeType": "Literal",
-                  "src": "1584:1:12",
+                  "src": "1016:1:7",
                   "subdenomination": null,
                   "typeDescriptions": {
                     "typeIdentifier": "t_rational_3_by_1",
@@ -1252,7 +1100,7 @@
                   "value": "3"
                 },
                 "nodeType": "ArrayTypeName",
-                "src": "1576:10:12",
+                "src": "1008:10:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
                   "typeString": "uint256[3]"
@@ -1265,13 +1113,13 @@
           {
             "constant": false,
             "functionSelector": "c6b93df7",
-            "id": 3248,
+            "id": 2588,
             "mutability": "mutable",
             "name": "amountBurnt",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1616:49:12",
+            "scope": 2614,
+            "src": "1048:49:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1279,46 +1127,46 @@
               "typeString": "mapping(address => uint256[3])"
             },
             "typeName": {
-              "id": 3247,
+              "id": 2587,
               "keyType": {
-                "id": 3243,
+                "id": 2583,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "1624:7:12",
+                "src": "1056:7:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "1616:30:12",
+              "src": "1048:30:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$3_storage_$",
                 "typeString": "mapping(address => uint256[3])"
               },
               "valueType": {
                 "baseType": {
-                  "id": 3244,
+                  "id": 2584,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1635:7:12",
+                  "src": "1067:7:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
                   }
                 },
-                "id": 3246,
+                "id": 2586,
                 "length": {
                   "argumentTypes": null,
                   "hexValue": "33",
-                  "id": 3245,
+                  "id": 2585,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
                   "kind": "number",
                   "lValueRequested": false,
                   "nodeType": "Literal",
-                  "src": "1643:1:12",
+                  "src": "1075:1:7",
                   "subdenomination": null,
                   "typeDescriptions": {
                     "typeIdentifier": "t_rational_3_by_1",
@@ -1327,7 +1175,7 @@
                   "value": "3"
                 },
                 "nodeType": "ArrayTypeName",
-                "src": "1635:10:12",
+                "src": "1067:10:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
                   "typeString": "uint256[3]"
@@ -1340,13 +1188,13 @@
           {
             "constant": false,
             "functionSelector": "905f692e",
-            "id": 3252,
+            "id": 2592,
             "mutability": "mutable",
             "name": "isInQ",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1684:37:12",
+            "scope": 2614,
+            "src": "1116:37:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1354,28 +1202,28 @@
               "typeString": "mapping(address => bool)"
             },
             "typeName": {
-              "id": 3251,
+              "id": 2591,
               "keyType": {
-                "id": 3249,
+                "id": 2589,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "1692:7:12",
+                "src": "1124:7:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "1684:24:12",
+              "src": "1116:24:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                 "typeString": "mapping(address => bool)"
               },
               "valueType": {
-                "id": 3250,
+                "id": 2590,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
-                "src": "1703:4:12",
+                "src": "1135:4:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_bool",
                   "typeString": "bool"
@@ -1388,13 +1236,13 @@
           {
             "constant": false,
             "functionSelector": "876171dc",
-            "id": 3255,
+            "id": 2595,
             "mutability": "mutable",
             "name": "withdrawRecipients",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1728:35:12",
+            "scope": 2614,
+            "src": "1166:35:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1403,20 +1251,20 @@
             },
             "typeName": {
               "baseType": {
-                "id": 3253,
+                "id": 2593,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "1728:7:12",
+                "src": "1166:7:7",
                 "stateMutability": "nonpayable",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
-              "id": 3254,
+              "id": 2594,
               "length": null,
               "nodeType": "ArrayTypeName",
-              "src": "1728:9:12",
+              "src": "1166:9:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                 "typeString": "address[]"
@@ -1428,13 +1276,13 @@
           {
             "constant": false,
             "functionSelector": "db28bfd0",
-            "id": 3259,
+            "id": 2599,
             "mutability": "mutable",
             "name": "totalWithdraw",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1776:31:12",
+            "scope": 2614,
+            "src": "1214:31:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1443,27 +1291,27 @@
             },
             "typeName": {
               "baseType": {
-                "id": 3256,
+                "id": 2596,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
-                "src": "1776:7:12",
+                "src": "1214:7:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_uint256",
                   "typeString": "uint256"
                 }
               },
-              "id": 3258,
+              "id": 2598,
               "length": {
                 "argumentTypes": null,
                 "hexValue": "33",
-                "id": 3257,
+                "id": 2597,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
                 "kind": "number",
                 "lValueRequested": false,
                 "nodeType": "Literal",
-                "src": "1784:1:12",
+                "src": "1222:1:7",
                 "subdenomination": null,
                 "typeDescriptions": {
                   "typeIdentifier": "t_rational_3_by_1",
@@ -1472,7 +1320,7 @@
                 "value": "3"
               },
               "nodeType": "ArrayTypeName",
-              "src": "1776:10:12",
+              "src": "1214:10:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
                 "typeString": "uint256[3]"
@@ -1484,13 +1332,13 @@
           {
             "constant": false,
             "functionSelector": "f0dd71c7",
-            "id": 3263,
+            "id": 2603,
             "mutability": "mutable",
             "name": "reserveAmount",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1820:28:12",
+            "scope": 2614,
+            "src": "1258:28:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1499,27 +1347,27 @@
             },
             "typeName": {
               "baseType": {
-                "id": 3260,
+                "id": 2600,
                 "name": "uint",
                 "nodeType": "ElementaryTypeName",
-                "src": "1820:4:12",
+                "src": "1258:4:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_uint256",
                   "typeString": "uint256"
                 }
               },
-              "id": 3262,
+              "id": 2602,
               "length": {
                 "argumentTypes": null,
                 "hexValue": "33",
-                "id": 3261,
+                "id": 2601,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
                 "kind": "number",
                 "lValueRequested": false,
                 "nodeType": "Literal",
-                "src": "1825:1:12",
+                "src": "1263:1:7",
                 "subdenomination": null,
                 "typeDescriptions": {
                   "typeIdentifier": "t_rational_3_by_1",
@@ -1528,7 +1376,7 @@
                 "value": "3"
               },
               "nodeType": "ArrayTypeName",
-              "src": "1820:7:12",
+              "src": "1258:7:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
                 "typeString": "uint256[3]"
@@ -1540,13 +1388,13 @@
           {
             "constant": false,
             "functionSelector": "449deb6b",
-            "id": 3267,
+            "id": 2607,
             "mutability": "mutable",
             "name": "reserveRecipients",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1855:48:12",
+            "scope": 2614,
+            "src": "1293:48:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1554,28 +1402,28 @@
               "typeString": "mapping(address => bool)"
             },
             "typeName": {
-              "id": 3266,
+              "id": 2606,
               "keyType": {
-                "id": 3264,
+                "id": 2604,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "1863:7:12",
+                "src": "1301:7:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "1855:24:12",
+              "src": "1293:24:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                 "typeString": "mapping(address => bool)"
               },
               "valueType": {
-                "id": 3265,
+                "id": 2605,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
-                "src": "1874:4:12",
+                "src": "1312:4:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_bool",
                   "typeString": "bool"
@@ -1588,13 +1436,13 @@
           {
             "constant": false,
             "functionSelector": "6d6ea257",
-            "id": 3271,
+            "id": 2611,
             "mutability": "mutable",
             "name": "loanGiven",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1969:27:12",
+            "scope": 2614,
+            "src": "1407:27:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1603,27 +1451,27 @@
             },
             "typeName": {
               "baseType": {
-                "id": 3268,
+                "id": 2608,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
-                "src": "1969:7:12",
+                "src": "1407:7:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_uint256",
                   "typeString": "uint256"
                 }
               },
-              "id": 3270,
+              "id": 2610,
               "length": {
                 "argumentTypes": null,
                 "hexValue": "33",
-                "id": 3269,
+                "id": 2609,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
                 "kind": "number",
                 "lValueRequested": false,
                 "nodeType": "Literal",
-                "src": "1977:1:12",
+                "src": "1415:1:7",
                 "subdenomination": null,
                 "typeDescriptions": {
                   "typeIdentifier": "t_rational_3_by_1",
@@ -1632,7 +1480,7 @@
                 "value": "3"
               },
               "nodeType": "ArrayTypeName",
-              "src": "1969:10:12",
+              "src": "1407:10:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
                 "typeString": "uint256[3]"
@@ -1644,13 +1492,13 @@
           {
             "constant": false,
             "functionSelector": "253f284b",
-            "id": 3273,
+            "id": 2613,
             "mutability": "mutable",
             "name": "loanContract",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "2053:27:12",
+            "scope": 2614,
+            "src": "1491:27:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1658,10 +1506,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 3272,
+              "id": 2612,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "2053:7:12",
+              "src": "1491:7:7",
               "stateMutability": "nonpayable",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
@@ -1672,25 +1520,25 @@
             "visibility": "public"
           }
         ],
-        "scope": 3275,
-        "src": "645:1439:12"
+        "scope": 2615,
+        "src": "172:1350:7"
       }
     ],
-    "src": "40:2044:12"
+    "src": "40:1482:7"
   },
   "legacyAST": {
     "absolutePath": "/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/contracts/Pool/RoyaleLPVariables.sol",
     "exportedSymbols": {
       "RoyaleLPstorage": [
-        3274
+        2614
       ]
     },
-    "id": 3275,
+    "id": 2615,
     "license": "UNLICENSED",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3181,
+        "id": 2532,
         "literals": [
           "solidity",
           "^",
@@ -1698,27 +1546,27 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "40:23:12"
+        "src": "40:23:7"
       },
       {
         "absolutePath": "/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/IERC20Interface.sol",
         "file": "../../Interfaces/IERC20Interface.sol",
-        "id": 3182,
+        "id": 2533,
         "nodeType": "ImportDirective",
-        "scope": 3275,
-        "sourceUnit": 261,
-        "src": "67:46:12",
+        "scope": 2615,
+        "sourceUnit": 272,
+        "src": "67:46:7",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
         "absolutePath": "/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/CurveStrategyInterface.sol",
         "file": "../../Interfaces/CurveStrategyInterface.sol",
-        "id": 3183,
+        "id": 2534,
         "nodeType": "ImportDirective",
-        "scope": 3275,
+        "scope": 2615,
         "sourceUnit": 193,
-        "src": "115:53:12",
+        "src": "115:53:7",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -1729,52 +1577,23 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 3274,
+        "id": 2614,
         "linearizedBaseContracts": [
-          3274
+          2614
         ],
         "name": "RoyaleLPstorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "constant": false,
-            "functionSelector": "5c975abb",
-            "id": 3185,
-            "mutability": "mutable",
-            "name": "paused",
-            "nodeType": "VariableDeclaration",
-            "overrides": null,
-            "scope": 3274,
-            "src": "715:18:12",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_bool",
-              "typeString": "bool"
-            },
-            "typeName": {
-              "id": 3184,
-              "name": "bool",
-              "nodeType": "ElementaryTypeName",
-              "src": "715:4:12",
-              "typeDescriptions": {
-                "typeIdentifier": "t_bool",
-                "typeString": "bool"
-              }
-            },
-            "value": null,
-            "visibility": "public"
-          },
-          {
             "constant": true,
             "functionSelector": "918f8674",
-            "id": 3188,
+            "id": 2537,
             "mutability": "constant",
             "name": "DENOMINATOR",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "746:43:12",
+            "scope": 2614,
+            "src": "218:43:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1782,10 +1601,10 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 3186,
+              "id": 2535,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "746:7:12",
+              "src": "218:7:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -1794,14 +1613,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "3130303030",
-              "id": 3187,
+              "id": 2536,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "784:5:12",
+              "src": "256:5:7",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_10000_by_1",
@@ -1814,13 +1633,13 @@
           {
             "constant": false,
             "functionSelector": "9af1d35a",
-            "id": 3191,
+            "id": 2540,
             "mutability": "mutable",
             "name": "fees",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "798:24:12",
+            "scope": 2614,
+            "src": "270:24:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1828,10 +1647,10 @@
               "typeString": "uint128"
             },
             "typeName": {
-              "id": 3189,
+              "id": 2538,
               "name": "uint128",
               "nodeType": "ElementaryTypeName",
-              "src": "798:7:12",
+              "src": "270:7:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint128",
                 "typeString": "uint128"
@@ -1840,14 +1659,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "3235",
-              "id": 3190,
+              "id": 2539,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "820:2:12",
+              "src": "292:2:7",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_25_by_1",
@@ -1860,13 +1679,13 @@
           {
             "constant": false,
             "functionSelector": "8e9b0326",
-            "id": 3194,
+            "id": 2543,
             "mutability": "mutable",
             "name": "poolPart",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "869:29:12",
+            "scope": 2614,
+            "src": "341:29:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1874,10 +1693,10 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 3192,
+              "id": 2541,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "869:7:12",
+              "src": "341:7:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -1886,14 +1705,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "373530",
-              "id": 3193,
+              "id": 2542,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "895:3:12",
+              "src": "367:3:7",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_750_by_1",
@@ -1905,55 +1724,28 @@
           },
           {
             "constant": false,
-            "functionSelector": "69850424",
-            "id": 3198,
+            "functionSelector": "b0bed0ba",
+            "id": 2545,
             "mutability": "mutable",
             "name": "selfBalance",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "959:29:12",
+            "scope": 2614,
+            "src": "431:26:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_array$_t_uint256_$3_storage",
-              "typeString": "uint256[3]"
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
             },
             "typeName": {
-              "baseType": {
-                "id": 3195,
-                "name": "uint256",
-                "nodeType": "ElementaryTypeName",
-                "src": "959:7:12",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint256",
-                  "typeString": "uint256"
-                }
-              },
-              "id": 3197,
-              "length": {
-                "argumentTypes": null,
-                "hexValue": "33",
-                "id": 3196,
-                "isConstant": false,
-                "isLValue": false,
-                "isPure": true,
-                "kind": "number",
-                "lValueRequested": false,
-                "nodeType": "Literal",
-                "src": "967:1:12",
-                "subdenomination": null,
-                "typeDescriptions": {
-                  "typeIdentifier": "t_rational_3_by_1",
-                  "typeString": "int_const 3"
-                },
-                "value": "3"
-              },
-              "nodeType": "ArrayTypeName",
-              "src": "959:10:12",
+              "id": 2544,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "431:7:7",
               "typeDescriptions": {
-                "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
-                "typeString": "uint256[3]"
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
               }
             },
             "value": null,
@@ -1961,44 +1753,45 @@
           },
           {
             "constant": false,
-            "id": 3202,
+            "functionSelector": "4f64b2be",
+            "id": 2549,
             "mutability": "mutable",
             "name": "tokens",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "997:16:12",
+            "scope": 2614,
+            "src": "466:23:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_array$_t_contract$_IERC20_$260_$3_storage",
+              "typeIdentifier": "t_array$_t_contract$_IERC20_$271_$3_storage",
               "typeString": "contract IERC20[3]"
             },
             "typeName": {
               "baseType": {
                 "contractScope": null,
-                "id": 3199,
+                "id": 2546,
                 "name": "IERC20",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 260,
-                "src": "997:6:12",
+                "referencedDeclaration": 271,
+                "src": "466:6:7",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_contract$_IERC20_$260",
+                  "typeIdentifier": "t_contract$_IERC20_$271",
                   "typeString": "contract IERC20"
                 }
               },
-              "id": 3201,
+              "id": 2548,
               "length": {
                 "argumentTypes": null,
                 "hexValue": "33",
-                "id": 3200,
+                "id": 2547,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
                 "kind": "number",
                 "lValueRequested": false,
                 "nodeType": "Literal",
-                "src": "1004:1:12",
+                "src": "473:1:7",
                 "subdenomination": null,
                 "typeDescriptions": {
                   "typeIdentifier": "t_rational_3_by_1",
@@ -2007,54 +1800,56 @@
                 "value": "3"
               },
               "nodeType": "ArrayTypeName",
-              "src": "997:9:12",
+              "src": "466:9:7",
               "typeDescriptions": {
-                "typeIdentifier": "t_array$_t_contract$_IERC20_$260_$3_storage_ptr",
+                "typeIdentifier": "t_array$_t_contract$_IERC20_$271_$3_storage_ptr",
                 "typeString": "contract IERC20[3]"
               }
             },
             "value": null,
-            "visibility": "internal"
+            "visibility": "public"
           },
           {
             "constant": false,
-            "id": 3204,
+            "functionSelector": "42f1bd5d",
+            "id": 2551,
             "mutability": "mutable",
             "name": "rpToken",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1022:14:12",
+            "scope": 2614,
+            "src": "498:21:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_IERC20_$260",
+              "typeIdentifier": "t_contract$_IERC20_$271",
               "typeString": "contract IERC20"
             },
             "typeName": {
               "contractScope": null,
-              "id": 3203,
+              "id": 2550,
               "name": "IERC20",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 260,
-              "src": "1022:6:12",
+              "referencedDeclaration": 271,
+              "src": "498:6:7",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_IERC20_$260",
+                "typeIdentifier": "t_contract$_IERC20_$271",
                 "typeString": "contract IERC20"
               }
             },
             "value": null,
-            "visibility": "internal"
+            "visibility": "public"
           },
           {
             "constant": false,
-            "id": 3206,
+            "functionSelector": "38b18314",
+            "id": 2553,
             "mutability": "mutable",
             "name": "curveStrategy",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1045:28:12",
+            "scope": 2614,
+            "src": "528:35:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -2063,29 +1858,29 @@
             },
             "typeName": {
               "contractScope": null,
-              "id": 3205,
+              "id": 2552,
               "name": "rCurveStrategy",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 192,
-              "src": "1045:14:12",
+              "src": "528:14:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_contract$_rCurveStrategy_$192",
                 "typeString": "contract rCurveStrategy"
               }
             },
             "value": null,
-            "visibility": "internal"
+            "visibility": "public"
           },
           {
             "constant": false,
             "functionSelector": "521eb273",
-            "id": 3208,
+            "id": 2555,
             "mutability": "mutable",
             "name": "wallet",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1086:21:12",
+            "scope": 2614,
+            "src": "576:21:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -2093,10 +1888,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 3207,
+              "id": 2554,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "1086:7:12",
+              "src": "576:7:7",
               "stateMutability": "nonpayable",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
@@ -2108,126 +1903,14 @@
           },
           {
             "constant": false,
-            "functionSelector": "31805a2b",
-            "id": 3212,
+            "functionSelector": "25340b8c",
+            "id": 2557,
             "mutability": "mutable",
             "name": "YieldPoolBalance",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1116:31:12",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_array$_t_uint256_$3_storage",
-              "typeString": "uint256[3]"
-            },
-            "typeName": {
-              "baseType": {
-                "id": 3209,
-                "name": "uint",
-                "nodeType": "ElementaryTypeName",
-                "src": "1116:4:12",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint256",
-                  "typeString": "uint256"
-                }
-              },
-              "id": 3211,
-              "length": {
-                "argumentTypes": null,
-                "hexValue": "33",
-                "id": 3210,
-                "isConstant": false,
-                "isLValue": false,
-                "isPure": true,
-                "kind": "number",
-                "lValueRequested": false,
-                "nodeType": "Literal",
-                "src": "1121:1:12",
-                "subdenomination": null,
-                "typeDescriptions": {
-                  "typeIdentifier": "t_rational_3_by_1",
-                  "typeString": "int_const 3"
-                },
-                "value": "3"
-              },
-              "nodeType": "ArrayTypeName",
-              "src": "1116:7:12",
-              "typeDescriptions": {
-                "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
-                "typeString": "uint256[3]"
-              }
-            },
-            "value": null,
-            "visibility": "public"
-          },
-          {
-            "constant": false,
-            "functionSelector": "eabc9e31",
-            "id": 3216,
-            "mutability": "mutable",
-            "name": "liquidityProvidersAPY",
-            "nodeType": "VariableDeclaration",
-            "overrides": null,
-            "scope": 3274,
-            "src": "1154:36:12",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_array$_t_uint256_$3_storage",
-              "typeString": "uint256[3]"
-            },
-            "typeName": {
-              "baseType": {
-                "id": 3213,
-                "name": "uint",
-                "nodeType": "ElementaryTypeName",
-                "src": "1154:4:12",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_uint256",
-                  "typeString": "uint256"
-                }
-              },
-              "id": 3215,
-              "length": {
-                "argumentTypes": null,
-                "hexValue": "33",
-                "id": 3214,
-                "isConstant": false,
-                "isLValue": false,
-                "isPure": true,
-                "kind": "number",
-                "lValueRequested": false,
-                "nodeType": "Literal",
-                "src": "1159:1:12",
-                "subdenomination": null,
-                "typeDescriptions": {
-                  "typeIdentifier": "t_rational_3_by_1",
-                  "typeString": "int_const 3"
-                },
-                "value": "3"
-              },
-              "nodeType": "ArrayTypeName",
-              "src": "1154:7:12",
-              "typeDescriptions": {
-                "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
-                "typeString": "uint256[3]"
-              }
-            },
-            "value": null,
-            "visibility": "public"
-          },
-          {
-            "constant": false,
-            "functionSelector": "42cde4e8",
-            "id": 3219,
-            "mutability": "mutable",
-            "name": "threshold",
-            "nodeType": "VariableDeclaration",
-            "overrides": null,
-            "scope": 3274,
-            "src": "1199:29:12",
+            "scope": 2614,
+            "src": "606:28:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -2235,45 +1918,28 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 3217,
-              "name": "uint256",
+              "id": 2556,
+              "name": "uint",
               "nodeType": "ElementaryTypeName",
-              "src": "1199:7:12",
+              "src": "606:4:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
               }
             },
-            "value": {
-              "argumentTypes": null,
-              "hexValue": "3530",
-              "id": 3218,
-              "isConstant": false,
-              "isLValue": false,
-              "isPure": true,
-              "kind": "number",
-              "lValueRequested": false,
-              "nodeType": "Literal",
-              "src": "1226:2:12",
-              "subdenomination": null,
-              "typeDescriptions": {
-                "typeIdentifier": "t_rational_50_by_1",
-                "typeString": "int_const 50"
-              },
-              "value": "50"
-            },
+            "value": null,
             "visibility": "public"
           },
           {
             "constant": false,
-            "functionSelector": "f83e9a20",
-            "id": 3222,
+            "functionSelector": "df7ce7e4",
+            "id": 2559,
             "mutability": "mutable",
-            "name": "lock_period",
+            "name": "liquidityProvidersAPY",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1296:38:12",
+            "scope": 2614,
+            "src": "641:33:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -2281,10 +1947,39 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 3220,
+              "id": 2558,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "641:4:7",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "f83e9a20",
+            "id": 2562,
+            "mutability": "mutable",
+            "name": "lock_period",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 2614,
+            "src": "744:38:7",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 2560,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "1296:7:12",
+              "src": "744:7:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -2293,14 +1988,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "31",
-              "id": 3221,
+              "id": 2561,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "1325:9:12",
+              "src": "773:9:7",
               "subdenomination": "minutes",
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_60_by_1",
@@ -2312,17 +2007,17 @@
           },
           {
             "canonicalName": "RoyaleLPstorage.depositDetails",
-            "id": 3231,
+            "id": 2571,
             "members": [
               {
                 "constant": false,
-                "id": 3224,
+                "id": 2564,
                 "mutability": "mutable",
                 "name": "index",
                 "nodeType": "VariableDeclaration",
                 "overrides": null,
-                "scope": 3231,
-                "src": "1376:13:12",
+                "scope": 2571,
+                "src": "824:10:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -2330,10 +2025,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3223,
-                  "name": "uint256",
+                  "id": 2563,
+                  "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1376:7:12",
+                  "src": "824:4:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -2344,13 +2039,13 @@
               },
               {
                 "constant": false,
-                "id": 3226,
+                "id": 2566,
                 "mutability": "mutable",
                 "name": "amount",
                 "nodeType": "VariableDeclaration",
                 "overrides": null,
-                "scope": 3231,
-                "src": "1400:14:12",
+                "scope": 2571,
+                "src": "845:11:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -2358,10 +2053,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3225,
-                  "name": "uint256",
+                  "id": 2565,
+                  "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1400:7:12",
+                  "src": "845:4:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -2372,13 +2067,13 @@
               },
               {
                 "constant": false,
-                "id": 3228,
+                "id": 2568,
                 "mutability": "mutable",
                 "name": "time",
                 "nodeType": "VariableDeclaration",
                 "overrides": null,
-                "scope": 3231,
-                "src": "1425:12:12",
+                "scope": 2571,
+                "src": "867:12:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -2386,10 +2081,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3227,
+                  "id": 2567,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1425:7:12",
+                  "src": "867:7:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -2400,13 +2095,13 @@
               },
               {
                 "constant": false,
-                "id": 3230,
+                "id": 2570,
                 "mutability": "mutable",
                 "name": "remAmt",
                 "nodeType": "VariableDeclaration",
                 "overrides": null,
-                "scope": 3231,
-                "src": "1448:14:12",
+                "scope": 2571,
+                "src": "890:14:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -2414,10 +2109,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3229,
+                  "id": 2569,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1448:7:12",
+                  "src": "890:7:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -2429,63 +2124,63 @@
             ],
             "name": "depositDetails",
             "nodeType": "StructDefinition",
-            "scope": 3274,
-            "src": "1343:137:12",
+            "scope": 2614,
+            "src": "791:121:7",
             "visibility": "public"
           },
           {
             "constant": false,
             "functionSelector": "c23177b2",
-            "id": 3236,
+            "id": 2576,
             "mutability": "mutable",
             "name": "amountSupplied",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1492:58:12",
+            "scope": 2614,
+            "src": "924:58:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_depositDetails_$3231_storage_$dyn_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_depositDetails_$2571_storage_$dyn_storage_$",
               "typeString": "mapping(address => struct RoyaleLPstorage.depositDetails[])"
             },
             "typeName": {
-              "id": 3235,
+              "id": 2575,
               "keyType": {
-                "id": 3232,
+                "id": 2572,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "1500:7:12",
+                "src": "932:7:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "1492:36:12",
+              "src": "924:36:7",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_depositDetails_$3231_storage_$dyn_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_struct$_depositDetails_$2571_storage_$dyn_storage_$",
                 "typeString": "mapping(address => struct RoyaleLPstorage.depositDetails[])"
               },
               "valueType": {
                 "baseType": {
                   "contractScope": null,
-                  "id": 3233,
+                  "id": 2573,
                   "name": "depositDetails",
                   "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 3231,
-                  "src": "1511:14:12",
+                  "referencedDeclaration": 2571,
+                  "src": "943:14:7",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_depositDetails_$3231_storage_ptr",
+                    "typeIdentifier": "t_struct$_depositDetails_$2571_storage_ptr",
                     "typeString": "struct RoyaleLPstorage.depositDetails"
                   }
                 },
-                "id": 3234,
+                "id": 2574,
                 "length": null,
                 "nodeType": "ArrayTypeName",
-                "src": "1511:16:12",
+                "src": "943:16:7",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_array$_t_struct$_depositDetails_$3231_storage_$dyn_storage_ptr",
+                  "typeIdentifier": "t_array$_t_struct$_depositDetails_$2571_storage_$dyn_storage_ptr",
                   "typeString": "struct RoyaleLPstorage.depositDetails[]"
                 }
               }
@@ -2496,13 +2191,13 @@
           {
             "constant": false,
             "functionSelector": "5cd60cd1",
-            "id": 3242,
+            "id": 2582,
             "mutability": "mutable",
             "name": "amountWithdraw",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1557:52:12",
+            "scope": 2614,
+            "src": "989:52:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -2510,46 +2205,46 @@
               "typeString": "mapping(address => uint256[3])"
             },
             "typeName": {
-              "id": 3241,
+              "id": 2581,
               "keyType": {
-                "id": 3237,
+                "id": 2577,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "1565:7:12",
+                "src": "997:7:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "1557:30:12",
+              "src": "989:30:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$3_storage_$",
                 "typeString": "mapping(address => uint256[3])"
               },
               "valueType": {
                 "baseType": {
-                  "id": 3238,
+                  "id": 2578,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1576:7:12",
+                  "src": "1008:7:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
                   }
                 },
-                "id": 3240,
+                "id": 2580,
                 "length": {
                   "argumentTypes": null,
                   "hexValue": "33",
-                  "id": 3239,
+                  "id": 2579,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
                   "kind": "number",
                   "lValueRequested": false,
                   "nodeType": "Literal",
-                  "src": "1584:1:12",
+                  "src": "1016:1:7",
                   "subdenomination": null,
                   "typeDescriptions": {
                     "typeIdentifier": "t_rational_3_by_1",
@@ -2558,7 +2253,7 @@
                   "value": "3"
                 },
                 "nodeType": "ArrayTypeName",
-                "src": "1576:10:12",
+                "src": "1008:10:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
                   "typeString": "uint256[3]"
@@ -2571,13 +2266,13 @@
           {
             "constant": false,
             "functionSelector": "c6b93df7",
-            "id": 3248,
+            "id": 2588,
             "mutability": "mutable",
             "name": "amountBurnt",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1616:49:12",
+            "scope": 2614,
+            "src": "1048:49:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -2585,46 +2280,46 @@
               "typeString": "mapping(address => uint256[3])"
             },
             "typeName": {
-              "id": 3247,
+              "id": 2587,
               "keyType": {
-                "id": 3243,
+                "id": 2583,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "1624:7:12",
+                "src": "1056:7:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "1616:30:12",
+              "src": "1048:30:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$3_storage_$",
                 "typeString": "mapping(address => uint256[3])"
               },
               "valueType": {
                 "baseType": {
-                  "id": 3244,
+                  "id": 2584,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1635:7:12",
+                  "src": "1067:7:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
                   }
                 },
-                "id": 3246,
+                "id": 2586,
                 "length": {
                   "argumentTypes": null,
                   "hexValue": "33",
-                  "id": 3245,
+                  "id": 2585,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
                   "kind": "number",
                   "lValueRequested": false,
                   "nodeType": "Literal",
-                  "src": "1643:1:12",
+                  "src": "1075:1:7",
                   "subdenomination": null,
                   "typeDescriptions": {
                     "typeIdentifier": "t_rational_3_by_1",
@@ -2633,7 +2328,7 @@
                   "value": "3"
                 },
                 "nodeType": "ArrayTypeName",
-                "src": "1635:10:12",
+                "src": "1067:10:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
                   "typeString": "uint256[3]"
@@ -2646,13 +2341,13 @@
           {
             "constant": false,
             "functionSelector": "905f692e",
-            "id": 3252,
+            "id": 2592,
             "mutability": "mutable",
             "name": "isInQ",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1684:37:12",
+            "scope": 2614,
+            "src": "1116:37:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -2660,28 +2355,28 @@
               "typeString": "mapping(address => bool)"
             },
             "typeName": {
-              "id": 3251,
+              "id": 2591,
               "keyType": {
-                "id": 3249,
+                "id": 2589,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "1692:7:12",
+                "src": "1124:7:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "1684:24:12",
+              "src": "1116:24:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                 "typeString": "mapping(address => bool)"
               },
               "valueType": {
-                "id": 3250,
+                "id": 2590,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
-                "src": "1703:4:12",
+                "src": "1135:4:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_bool",
                   "typeString": "bool"
@@ -2694,13 +2389,13 @@
           {
             "constant": false,
             "functionSelector": "876171dc",
-            "id": 3255,
+            "id": 2595,
             "mutability": "mutable",
             "name": "withdrawRecipients",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1728:35:12",
+            "scope": 2614,
+            "src": "1166:35:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -2709,20 +2404,20 @@
             },
             "typeName": {
               "baseType": {
-                "id": 3253,
+                "id": 2593,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "1728:7:12",
+                "src": "1166:7:7",
                 "stateMutability": "nonpayable",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
-              "id": 3254,
+              "id": 2594,
               "length": null,
               "nodeType": "ArrayTypeName",
-              "src": "1728:9:12",
+              "src": "1166:9:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                 "typeString": "address[]"
@@ -2734,13 +2429,13 @@
           {
             "constant": false,
             "functionSelector": "db28bfd0",
-            "id": 3259,
+            "id": 2599,
             "mutability": "mutable",
             "name": "totalWithdraw",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1776:31:12",
+            "scope": 2614,
+            "src": "1214:31:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -2749,27 +2444,27 @@
             },
             "typeName": {
               "baseType": {
-                "id": 3256,
+                "id": 2596,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
-                "src": "1776:7:12",
+                "src": "1214:7:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_uint256",
                   "typeString": "uint256"
                 }
               },
-              "id": 3258,
+              "id": 2598,
               "length": {
                 "argumentTypes": null,
                 "hexValue": "33",
-                "id": 3257,
+                "id": 2597,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
                 "kind": "number",
                 "lValueRequested": false,
                 "nodeType": "Literal",
-                "src": "1784:1:12",
+                "src": "1222:1:7",
                 "subdenomination": null,
                 "typeDescriptions": {
                   "typeIdentifier": "t_rational_3_by_1",
@@ -2778,7 +2473,7 @@
                 "value": "3"
               },
               "nodeType": "ArrayTypeName",
-              "src": "1776:10:12",
+              "src": "1214:10:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
                 "typeString": "uint256[3]"
@@ -2790,13 +2485,13 @@
           {
             "constant": false,
             "functionSelector": "f0dd71c7",
-            "id": 3263,
+            "id": 2603,
             "mutability": "mutable",
             "name": "reserveAmount",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1820:28:12",
+            "scope": 2614,
+            "src": "1258:28:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -2805,27 +2500,27 @@
             },
             "typeName": {
               "baseType": {
-                "id": 3260,
+                "id": 2600,
                 "name": "uint",
                 "nodeType": "ElementaryTypeName",
-                "src": "1820:4:12",
+                "src": "1258:4:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_uint256",
                   "typeString": "uint256"
                 }
               },
-              "id": 3262,
+              "id": 2602,
               "length": {
                 "argumentTypes": null,
                 "hexValue": "33",
-                "id": 3261,
+                "id": 2601,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
                 "kind": "number",
                 "lValueRequested": false,
                 "nodeType": "Literal",
-                "src": "1825:1:12",
+                "src": "1263:1:7",
                 "subdenomination": null,
                 "typeDescriptions": {
                   "typeIdentifier": "t_rational_3_by_1",
@@ -2834,7 +2529,7 @@
                 "value": "3"
               },
               "nodeType": "ArrayTypeName",
-              "src": "1820:7:12",
+              "src": "1258:7:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
                 "typeString": "uint256[3]"
@@ -2846,13 +2541,13 @@
           {
             "constant": false,
             "functionSelector": "449deb6b",
-            "id": 3267,
+            "id": 2607,
             "mutability": "mutable",
             "name": "reserveRecipients",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1855:48:12",
+            "scope": 2614,
+            "src": "1293:48:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -2860,28 +2555,28 @@
               "typeString": "mapping(address => bool)"
             },
             "typeName": {
-              "id": 3266,
+              "id": 2606,
               "keyType": {
-                "id": 3264,
+                "id": 2604,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "1863:7:12",
+                "src": "1301:7:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "1855:24:12",
+              "src": "1293:24:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                 "typeString": "mapping(address => bool)"
               },
               "valueType": {
-                "id": 3265,
+                "id": 2605,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
-                "src": "1874:4:12",
+                "src": "1312:4:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_bool",
                   "typeString": "bool"
@@ -2894,13 +2589,13 @@
           {
             "constant": false,
             "functionSelector": "6d6ea257",
-            "id": 3271,
+            "id": 2611,
             "mutability": "mutable",
             "name": "loanGiven",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "1969:27:12",
+            "scope": 2614,
+            "src": "1407:27:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -2909,27 +2604,27 @@
             },
             "typeName": {
               "baseType": {
-                "id": 3268,
+                "id": 2608,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
-                "src": "1969:7:12",
+                "src": "1407:7:7",
                 "typeDescriptions": {
                   "typeIdentifier": "t_uint256",
                   "typeString": "uint256"
                 }
               },
-              "id": 3270,
+              "id": 2610,
               "length": {
                 "argumentTypes": null,
                 "hexValue": "33",
-                "id": 3269,
+                "id": 2609,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
                 "kind": "number",
                 "lValueRequested": false,
                 "nodeType": "Literal",
-                "src": "1977:1:12",
+                "src": "1415:1:7",
                 "subdenomination": null,
                 "typeDescriptions": {
                   "typeIdentifier": "t_rational_3_by_1",
@@ -2938,7 +2633,7 @@
                 "value": "3"
               },
               "nodeType": "ArrayTypeName",
-              "src": "1969:10:12",
+              "src": "1407:10:7",
               "typeDescriptions": {
                 "typeIdentifier": "t_array$_t_uint256_$3_storage_ptr",
                 "typeString": "uint256[3]"
@@ -2950,13 +2645,13 @@
           {
             "constant": false,
             "functionSelector": "253f284b",
-            "id": 3273,
+            "id": 2613,
             "mutability": "mutable",
             "name": "loanContract",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 3274,
-            "src": "2053:27:12",
+            "scope": 2614,
+            "src": "1491:27:7",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -2964,10 +2659,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 3272,
+              "id": 2612,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "2053:7:12",
+              "src": "1491:7:7",
               "stateMutability": "nonpayable",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
@@ -2978,11 +2673,11 @@
             "visibility": "public"
           }
         ],
-        "scope": 3275,
-        "src": "645:1439:12"
+        "scope": 2615,
+        "src": "172:1350:7"
       }
     ],
-    "src": "40:2044:12"
+    "src": "40:1482:7"
   },
   "compiler": {
     "name": "solc",
@@ -2990,7 +2685,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.2",
-  "updatedAt": "2021-02-17T14:26:52.424Z",
+  "updatedAt": "2021-03-10T13:10:44.273Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

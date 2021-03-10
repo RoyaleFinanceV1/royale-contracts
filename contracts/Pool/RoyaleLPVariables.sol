@@ -4,35 +4,9 @@ pragma solidity ^0.6.0;
 import '../../Interfaces/IERC20Interface.sol';
 import '../../Interfaces/CurveStrategyInterface.sol';
 
-/*contract WithdrawQueue {
-    mapping(uint256 => address) withdrawQ;
-    uint256 first = 1;
-    uint256 last = 0;
-    address data;
-
-    function addToQ(address addr) internal {
-        last += 1;
-        withdrawQ[last] = addr;
-    }
-
-    function getFromQ() internal returns(address) {
-        require(last >= first);
-
-        data = withdrawQ[first];
-
-        delete withdrawQ[first];
-        first += 1;
-
-        return data;
-    }
-    
-}*/
-
-
 contract RoyaleLPstorage{
     
-    //storage for pool features
-    bool public paused;
+ 
     
     uint256 public constant DENOMINATOR = 10000;
 
@@ -40,30 +14,28 @@ contract RoyaleLPstorage{
 
     uint256 public poolPart = 750 ; // 7.5% of total Liquidity will remain in the pool
 
-    uint256[3] public selfBalance;
+    uint256 public selfBalance;
 
-    IERC20[3] tokens;
+    IERC20[3] public tokens;
 
-    IERC20 rpToken;
+    IERC20 public rpToken;
 
-    rCurveStrategy curveStrategy;
+    rCurveStrategy public curveStrategy;
     
     address public wallet;
 
-    uint[3] public YieldPoolBalance;
-    uint[3] public liquidityProvidersAPY;
+    uint public YieldPoolBalance;
+    uint public liquidityProvidersAPY;
 
-    uint256 public threshold = 50;
     //storage for user related to supply and withdraw
     
     uint256 public lock_period = 1 minutes;
 
     struct depositDetails {
-        uint256 index;
-        uint256 amount;
+        uint index;
+        uint amount;
         uint256 time;
         uint256 remAmt;
-        
     }
     
     mapping(address => depositDetails[]) public amountSupplied;
@@ -72,6 +44,7 @@ contract RoyaleLPstorage{
     
     
     mapping(address => bool) public isInQ;
+    
     address[] public withdrawRecipients;
     
     uint256[3] public totalWithdraw;

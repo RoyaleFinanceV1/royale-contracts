@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.0;
 
-import "./ERC20.sol";
+import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 
 contract RPToken is ERC20 {
     address public minter;
     address public wallet;
     
 
-    constructor(address _wallet) public ERC20("Royale Protocol", "RPT",3000) {
+    constructor(address _wallet) public ERC20("Royale Protocol", "RPT") {
            wallet=_wallet;
     }
     
@@ -17,9 +17,13 @@ contract RPToken is ERC20 {
         _;
     }
     
-     modifier onlyWallet(){
+    modifier onlyWallet(){
       require(wallet==msg.sender, "Not Authorized");
       _;
+    }
+
+    function transferOwnership(address _owner)external onlyWallet{
+        wallet=_owner;
     }
     
     function setMinter(address addr) external  onlyWallet{

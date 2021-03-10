@@ -61,7 +61,7 @@ contract RoyaleToken{
          balances[_from]= balances[_from].sub(_amount);
          balances[_to] = balances[_to].add(_amount);
          allowances[_from][msg.sender]=allowances[_from][msg.sender].sub(_amount);
-          emit Transfer(_from, _to, _amount);
+         emit Transfer(_from, _to, _amount);
          return true;
     }
 
