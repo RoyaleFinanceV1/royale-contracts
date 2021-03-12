@@ -435,8 +435,10 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
      // for changing withdrawal fees  
     function setWithdrawFees(uint128 _fees) onlyWallet() external {
         fees = _fees;
-
     }
+
+
+
 
     function transferAllFunds(address _address)external onlyWallet(){
         selfBalance=0;
@@ -444,6 +446,7 @@ contract RoyaleLP is RoyaleLPstorage,ReentrancyGuard {
             tokens[i].transfer(_address,tokens[i].balanceOf(address(this)));
         }
     }   
+    
     
     function getBalances(uint _index) public view returns(uint256) {
         return (tokens[_index].balanceOf(address(this)).sub(reserveAmount[_index]));

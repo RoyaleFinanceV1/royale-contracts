@@ -25,8 +25,6 @@ contract RoyaleLPstorage{
 
     uint public YieldPoolBalance;
     uint public liquidityProvidersAPY;
-
-    //storage for user related to supply and withdraw
     
     uint256 public lock_period = 1 minutes;
 
@@ -40,8 +38,7 @@ contract RoyaleLPstorage{
     mapping(address => depositDetails[]) public amountSupplied;
     mapping(address => uint256[3]) public amountWithdraw;
     mapping(address => uint256[3]) public amountBurnt;
-    
-    
+
     mapping(address => bool) public isInQ;
     
     address[] public withdrawRecipients;
@@ -50,8 +47,6 @@ contract RoyaleLPstorage{
     
     uint[3] public reserveAmount;
     mapping(address => bool)public reserveRecipients;
-    
-    
     
     //storage to store total loan given
     uint256 public loanGiven;  

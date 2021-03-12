@@ -1024,6 +1024,7 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
         emit Claim(msg.sender, profit);
         }
     }
+    
 
     function buy(uint amount) external override {
         lastBoughtTimestamp[msg.sender] = block.timestamp;
