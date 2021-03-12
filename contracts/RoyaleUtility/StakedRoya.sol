@@ -1,16 +1,8 @@
-/**
- *Submitted for verification at Etherscan.io on 2021-01-29
-*/
-
-/**
- *Submitted for verification at Etherscan.io on 2020-09-24
-*/
-
-// File: contracts/interfaces/IERC20.sol
-
 // SPDX-License-Identifier: agpl-3.0
 pragma solidity 0.6.12;
 pragma experimental ABIEncoderV2;
+
+
 
 /**
  * @dev Interface of the ERC20 standard as defined in the EIP.
@@ -28,6 +20,7 @@ interface IERC20 {
   function balanceOf(address account) external view returns (uint256);
 
   /**
+   * 
    * @dev Moves `amount` tokens from the caller's account to `recipient`.
    *
    * Returns a boolean value indicating whether the operation succeeded.
@@ -1158,6 +1151,16 @@ contract StakedToken is IStakedRoya, ERC20WithSnapshot, VersionedInitializable, 
     _setRoyaGovernance(royaGovernance);
   }
 
+  function getStakersCooldowns(address user) public view returns(uint256){
+    uint256 cooldownStartTimestamp = stakersCooldowns[user];
+    if (block.timestamp < cooldownStartTimestamp.add(COOLDOWN_SECONDS))
+        return 1;
+    else if (block.timestamp.sub(cooldownStartTimestamp.add(COOLDOWN_SECONDS)) <= UNSTAKE_WINDOW)
+        return 2;
+    else 
+        return 0;
+  }
+
   function stake(address onBehalfOf, uint256 amount) external override {
     require(amount != 0, 'INVALID_ZERO_AMOUNT');
     uint256 balanceOfUser = balanceOf(onBehalfOf);
@@ -1399,7 +1402,7 @@ pragma solidity 0.6.12;
  **/
 contract StakedRoya is StakedToken {
   string internal constant NAME = 'Staked Roya';
-  string internal constant SYMBOL = 'stkAAVE';
+  string internal constant SYMBOL = 'stkRoya';
   uint8 internal constant DECIMALS = 18;
   
   constructor(

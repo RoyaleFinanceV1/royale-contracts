@@ -2,11 +2,10 @@
 pragma solidity ^0.6.0;
 
 import '../../Interfaces/IERC20Interface.sol';
-import '../../Interfaces/CurveStrategyInterface.sol';
+import '../../Interfaces/StrategyInterface.sol';
 
 contract RoyaleLPstorage{
     
- 
     
     uint256 public constant DENOMINATOR = 10000;
 
@@ -20,7 +19,7 @@ contract RoyaleLPstorage{
 
     IERC20 public rpToken;
 
-    rCurveStrategy public curveStrategy;
+    rStrategy public strategy;
     
     address public wallet;
 
@@ -55,8 +54,6 @@ contract RoyaleLPstorage{
     
     
     //storage to store total loan given
-    uint256[3] public loanGiven;  
+    uint256 public loanGiven;  
     
-    //storage realated to loan contract
-     address public loanContract;
 }
