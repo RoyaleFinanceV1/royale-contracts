@@ -1185,7 +1185,6 @@ contract RoyaleFlushStakingLot is StakingLot, IStakingLotERC20 {
         StakingLot(_token, "FROYA", "fRoya", rnft) {
         USDC = usdc;
     }
-    
 
     function sendProfit(uint amount) external override {
         uint _totalSupply = totalSupply();
