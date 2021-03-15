@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.0;
 
-import '@openzeppelin/contracts/math/SafeMath.sol';
-import '../../Interfaces/IERC20Interface.sol';
+import './SafeERC20.sol';
 import '../../Interfaces/CurveInterface.sol';
 import '../../Interfaces/UniswapInterface.sol';
 
 contract CurveStrategy {
 
+    using SafeERC20 for IERC20;
     using SafeMath for uint256;
 
     address public royaleAddress;
@@ -26,7 +26,7 @@ contract CurveStrategy {
     
     uint256 public constant DENOMINATOR = 10000;
 
-    uint256 public DepositSlip = 100;
+    uint256 public depositSlip = 100;
 
     uint256 public withdrawSlip = 200;
 
@@ -95,6 +95,14 @@ contract CurveStrategy {
     function changeRoyaleLP(address _address)external onlyWallet(){
         royaleAddress=_address;
     }
+    
+    function changeDepositSlip(uint _value)external onlyWallet(){
+        depositSlip=_value;
+    }
+    
+    function changeWithdrawSlip(uint _value)external onlyWallet(){
+        withdrawSlip=_value;
+    }
 
 
     // deposits stable tokens into the 3pool and stake recived LPtoken(3CRV) in the curve 3pool gauge
@@ -104,7 +112,8 @@ contract CurveStrategy {
             if(amounts[i] > 0) {
                uint decimal;
                decimal=tokens[i].decimals();
-               tokens[i].approve(address(pool), amounts[i]); 
+               tokens[i].safeApprove(address(pool),0);
+               tokens[i].safeApprove(address(pool), amounts[i]); 
                currentTotal =currentTotal.add(amounts[i].mul(1e18).div(10**decimal));
             }
         }
@@ -118,7 +127,7 @@ contract CurveStrategy {
             totalProfit =totalProfit.sub(returnedAmount);
         } */
         uint256 mintAmount = currentTotal.mul(1e18).div(pool.get_virtual_price());
-        pool.add_liquidity(amounts,  mintAmount.mul(DENOMINATOR.sub(DepositSlip)).div(DENOMINATOR));
+        pool.add_liquidity(amounts,  mintAmount.mul(DENOMINATOR.sub(depositSlip)).div(DENOMINATOR));
         //virtualPrice=pool.get_virtual_price();
         stakeLP();   
     }
@@ -131,7 +140,7 @@ contract CurveStrategy {
         pool.remove_liquidity_imbalance(amounts, max_burn);
         for(uint8 i=0;i<3;i++){
             if(amounts[i]!=0){
-               tokens[i].transfer(royaleAddress, tokens[i].balanceOf(address(this)));
+               tokens[i].safeTransfer(royaleAddress, tokens[i].balanceOf(address(this)));
             }
         } 
         stakeLP();
@@ -145,15 +154,11 @@ contract CurveStrategy {
         for(uint8 i=0;i<3;i++){
             if(tokens[i].balanceOf(address(this))!=0){
                 withdrawAmt[i]=tokens[i].balanceOf(address(this));
-                tokens[i].transfer(royaleAddress,withdrawAmt[i]); 
+                tokens[i].safeTransfer(royaleAddress,withdrawAmt[i]); 
             }
         }
         return withdrawAmt; 
     } 
-
-
-
-    
     
     // Functions to stake and unstake LPTokens(Ycrv) and claim CRV
 
@@ -161,7 +166,8 @@ contract CurveStrategy {
     //Stakes LP token(3CRV) into the curve 3pool gauage
     function stakeLP() public onlyAuthorized() {
         uint depositAmt = poolToken.balanceOf(address(this)) ;
-        poolToken.approve(address(gauge), depositAmt);
+        poolToken.safeApprove(address(gauge),0);
+        poolToken.safeApprove(address(gauge), depositAmt);
         gauge.deposit(depositAmt);  
         emit staked(depositAmt);
     }
@@ -189,7 +195,8 @@ contract CurveStrategy {
 
    //For locking CRV tokens in the curve lock
     function createLock(uint256 _value,uint256 _unlockTime) external onlyWallet(){
-        IERC20(crvAddr).approve(address(voteEscrow), _value);
+        crvAddr.safeApprove(address(voteEscrow), 0);
+        crvAddr.safeApprove(address(voteEscrow), _value);
         voteEscrow.create_lock(_value, _unlockTime);
         emit locked(_value);
     }
@@ -197,7 +204,8 @@ contract CurveStrategy {
 
     //Increasing lock CRV amount
     function increaseLockAmount(uint256 _value) external onlyWallet(){
-        IERC20(crvAddr).approve(address(voteEscrow), _value);
+        crvAddr.safeApprove(address(voteEscrow), 0);
+        crvAddr.safeApprove(address(voteEscrow), _value);
         voteEscrow.increase_amount(_value);
         emit locked(_value);
     }
@@ -218,7 +226,7 @@ contract CurveStrategy {
         uint[3] memory minimum;
         pool.remove_liquidity(postCoin-prevCoin,minimum);
         for(uint i=0;i<3;i++){
-            tokens[i].transfer(yieldDistributor,tokens[i].balanceOf(address(this)));
+            tokens[i].safeTransfer(yieldDistributor,tokens[i].balanceOf(address(this)));
         }
         emit yieldTransfered();
     }
@@ -229,7 +237,8 @@ contract CurveStrategy {
         uint256 prevCoin = tokens[_index].balanceOf(address(this));
         require(crvAmt > 0, "insufficient CRV");
         crvAmt=crvAmt.mul(crvBreak).div(DENOMINATOR);
-        crvAddr.approve(address(uniAddr), crvAmt);
+        crvAddr.safeApprove(address(uniAddr), 0);
+        crvAddr.safeApprove(address(uniAddr), crvAmt);
         address[] memory path; 
         if(TEST) {
             path = new address[](2);
@@ -250,7 +259,7 @@ contract CurveStrategy {
             now + 1800
         );
         uint256 postCoin=tokens[_index].balanceOf(address(this));
-        tokens[_index].transfer(yieldDistributor,postCoin.sub(prevCoin));
+        tokens[_index].safeTransfer(yieldDistributor,postCoin.sub(prevCoin));
         emit yieldTransfered(_index,postCoin.sub(prevCoin));
     }
 
@@ -271,7 +280,7 @@ contract CurveStrategy {
           return minimumVeCRV;
     }
     
-    event yieldTransfered(uint,uint); 
+    event yieldTransfered(uint,uint);
     event yieldTransfered();
     event staked(uint);
     event unstaked(uint);
