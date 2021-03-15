@@ -14,7 +14,6 @@ interface IERC20{
     function transferFrom(address,address,uint256) external  returns(bool);
 
     function transfer(address,uint256) external  returns(bool);
-
     function mint(address , uint256 ) external ;
     function burn(address , uint256 ) external ;
 

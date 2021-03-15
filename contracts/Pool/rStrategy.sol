@@ -6,6 +6,7 @@ import '../../Interfaces/CurveInterface.sol';
 import '../../Interfaces/UniswapInterface.sol';
 
 contract CurveStrategy {
+    
 
     using SafeERC20 for IERC20;
     using SafeMath for uint256;
