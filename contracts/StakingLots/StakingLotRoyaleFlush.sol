@@ -914,17 +914,13 @@ contract CommonConstants {
 contract ERC1155Receiver is CommonConstants {
 
     // Keep values from last received contract.
-    bool public shouldReject;
+    bool shouldReject;
 
     bytes public lastData;
     address public lastOperator;
     address public lastFrom;
     uint256 public lastId;
     uint256 public lastValue;
-
-    function setShouldReject(bool _value) public {
-        shouldReject = _value;
-    }
 
     function onERC1155Received(address _operator, address _from, uint256 _id, uint256 _value, bytes calldata _data) external returns(bytes4) {
         lastOperator = _operator;
@@ -1039,7 +1035,7 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
         require(RNFT.balanceOf(msg.sender, id) > 0,"No NFT to claim discount");
         require(totalSupply() + amount <= MAX_SUPPLY);
         
-        uint256 NEW_LOT_PRICE = LOT_PRICE - ((LOT_PRICE * 20 * ACCURACY) / (100 * ACCURACY));
+        uint256 NEW_LOT_PRICE = LOT_PRICE * 8 / 10;
         _mint(msg.sender, amount);
         hasNFT[msg.sender][id] = true;
         RNFT.safeTransferFrom(msg.sender, address(this), id, 1, '0x');
@@ -1055,7 +1051,7 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
         uint256 NEW_LOT_PRICE = LOT_PRICE;
         uint256 discountedAmount = 0;
         if(isDiscounted[msg.sender]>0){
-            NEW_LOT_PRICE = LOT_PRICE - ((LOT_PRICE * 20 * ACCURACY) / (100 * ACCURACY));
+            NEW_LOT_PRICE = LOT_PRICE * 8 / 10;
             if(amount>isDiscounted[msg.sender]){
                 discountedAmount = isDiscounted[msg.sender];
                 isDiscounted[msg.sender] = 0;
@@ -1077,7 +1073,7 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
         uint256 NEW_LOT_PRICE = LOT_PRICE;
         uint256 discountedAmount = 0;
         if(isDiscounted[msg.sender]>0){
-            NEW_LOT_PRICE = LOT_PRICE - ((LOT_PRICE * 20 * ACCURACY) / (100 * ACCURACY));
+            NEW_LOT_PRICE = LOT_PRICE * 8 / 10;
             if(amount>isDiscounted[msg.sender]){
                 discountedAmount = isDiscounted[msg.sender];
                 isDiscounted[msg.sender] = 0;
@@ -1126,7 +1122,7 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
             lastBoughtTimestamp[from].add(lockupPeriod) > block.timestamp &&
             lastBoughtTimestamp[from] > lastBoughtTimestamp[to]
         ) {
-            require(
+            require( 
                 !_revertTransfersInLockUpPeriod[to],
                 "the recipient does not accept blocked funds"
             );
@@ -1134,8 +1130,14 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
         }
         
         if(isDiscounted[from]>0){
+            if(isDiscounted[from] >= amount){
             isDiscounted[from] -= amount;
             isDiscounted[to] += amount;
+            }
+            else{
+                isDiscounted[to] += isDiscounted[from];
+                isDiscounted[from] = 0;
+            }
         }
     }
     
@@ -1185,7 +1187,6 @@ contract RoyaleFlushStakingLot is StakingLot, IStakingLotERC20 {
         StakingLot(_token, "FROYA", "fRoya", rnft) {
         USDC = usdc;
     }
-    
 
     function sendProfit(uint amount) external override {
         uint _totalSupply = totalSupply();

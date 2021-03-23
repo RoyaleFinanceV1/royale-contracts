@@ -26,6 +26,8 @@ contract RoyaleLP is ReentrancyGuard {
     rStrategy public strategy;
     
     address public wallet;
+    
+    address public nominatedWallet;
 
     uint public YieldPoolBalance;
     uint public liquidityProvidersAPY;
@@ -49,6 +51,8 @@ contract RoyaleLP is ReentrancyGuard {
     mapping(address => bool) public isInQ;
     
     address[] public withdrawRecipients;
+    
+    uint public maxWithdrawRequests=50;
     
     uint256[3] public totalWithdraw;
     
@@ -76,9 +80,12 @@ contract RoyaleLP is ReentrancyGuard {
     event userRecieved(address user,uint amount);
     event userAddedToQ(address user,uint amount);
     event yieldAdded(uint amount);
+    event walletNominated(address newOwner);
+    event walletChanged(address oldOwner, address newOwner);
    
     
     constructor(address[3] memory _tokens,address _rpToken,address _wallet) public {
+        require(_wallet != address(0), "Wallet address cannot be 0");
         for(uint8 i=0; i<3; i++) {
             tokens[i] = IERC20(_tokens[i]);
         }
@@ -86,8 +93,16 @@ contract RoyaleLP is ReentrancyGuard {
         wallet=_wallet;
     }
     
-     function transferOwnership(address _wallet) external onlyWallet(){
-        wallet =_wallet;
+    function nominateNewOwner(address _wallet) external onlyWallet {
+        nominatedWallet = _wallet;
+        emit walletNominated(_wallet);
+    }
+
+    function acceptOwnership() external {
+        require(msg.sender == nominatedWallet, "You must be nominated before you can accept ownership");
+        emit walletChanged(wallet, nominatedWallet);
+        wallet = nominatedWallet;
+        nominatedWallet = address(0);
     }
 
 
@@ -151,6 +166,7 @@ contract RoyaleLP is ReentrancyGuard {
             emit userRecieved(msg.sender, temp); 
          }
          else {
+             require(withdrawRecipients.length<maxWithdrawRequests || isInQ[msg.sender],"requests limit Exceeded");
             _takeBackQ(amount,burnAmt,_index);
             emit userAddedToQ(msg.sender, amount);
         }
@@ -267,7 +283,6 @@ contract RoyaleLP is ReentrancyGuard {
     //For depositing liquidity to the pool.
     //_index will be 0/1/2     0-DAI , 1-USDC , 2-USDT
     function supply(uint256 amount,uint256 _index) external nonReentrant  validAmount(amount){
-        
         uint decimal;
         uint256 mintAmount=calcRptAmount(amount,_index);
         amountSupplied[msg.sender].push(depositDetails(_index,amount,now,mintAmount));
@@ -286,11 +301,7 @@ contract RoyaleLP is ReentrancyGuard {
         require(!reserveRecipients[msg.sender],"Claim first");
         require(rpToken.balanceOf(msg.sender) >= amount, "low RPT");
         (,uint availableRPT)=availableLiquidity(msg.sender,_index,true );
-        bool instant=true;
-         if(availableRPT < amount) {
-             instant=false;
-        }
-        require(instant,"NA");
+        require(availableRPT>=amount,"NA");
         uint256 total = calculateTotalToken(true);
         uint256 tokenAmount;
         tokenAmount=amount.mul(total).div(rpToken.totalSupply());
