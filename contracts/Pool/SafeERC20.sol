@@ -2,9 +2,9 @@
 
 pragma solidity >=0.6.0 <0.8.0;
 
-import "../../Interfaces/IERC20Interface.sol";
 import '@openzeppelin/contracts/math/SafeMath.sol';
-import '@openzeppelin/contracts/utils/Address.sol';
+import "../../Interfaces/IERC20Interface.sol";
+import './Address.sol';
 
 library SafeERC20 {
     using SafeMath for uint256;

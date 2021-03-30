@@ -13,7 +13,6 @@ contract MRoya is ERC20 {
         wallet = _wallet;
     }
 
-
     modifier onlyWallet {
         require(msg.sender == wallet, "not authorized");
         _;

@@ -47,12 +47,11 @@ contract RoyaleLP is ReentrancyGuard {
     mapping(address => uint256[3]) public amountWithdraw;
     mapping(address => uint256[3]) public amountBurnt;
     
-    
     mapping(address => bool) public isInQ;
     
     address[] public withdrawRecipients;
     
-    uint public maxWithdrawRequests=50;
+    uint public maxWithdrawRequests=25;
     
     uint256[3] public totalWithdraw;
     
@@ -118,10 +117,7 @@ contract RoyaleLP is ReentrancyGuard {
         }
         return false;
     }
-    
 
-   
-    
     // This function deposits the liquidity to yield generation pool using yield Strategy contract
     function _deposit(uint256[3] memory amounts) internal {
         strategy.deposit(amounts);
@@ -361,7 +357,7 @@ contract RoyaleLP is ReentrancyGuard {
             decimal=tokens[i].decimals();
             amounts[i]=getBalances(i);
             tokenBalance=balanceAmount.mul(10**decimal).div(10**18);
-            if(amounts[i]>tokenBalance){
+            if(amounts[i]>tokenBalance) {
                 amounts[i]=amounts[i].sub(tokenBalance);
                 tokens[i].safeTransfer(address(strategy),amounts[i]);
             }

@@ -54,7 +54,7 @@ contract CurveStrategy {
     }
 
     modifier onlyRoyaleLP() {
-        require(msg.sender == royaleAddress || true, "Not authorized");
+        require(msg.sender == royaleAddress, "Not authorized");
         _;
     }
 
@@ -85,7 +85,6 @@ contract CurveStrategy {
         wethAddr=_wethAddress;
         
     }
-
 
     function setCRVBreak(uint256 _percentage)external onlyWallet(){
         crvBreak=_percentage;

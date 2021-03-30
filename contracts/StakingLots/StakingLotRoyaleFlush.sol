@@ -1116,6 +1116,7 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal override {
+	require(amount>0,"Invalid amount");
         if (from != address(0)) saveProfit(from);
         if (to != address(0)) saveProfit(to);
         if (
