@@ -82,8 +82,7 @@ contract CurveStrategy {
         minter=Minter(_minter);
         uniAddr=UniswapI(_uniAddress);
         crvAddr=IERC20(_crvAddress);
-        wethAddr=_wethAddress;
-        
+        wethAddr=_wethAddress;    
     }
 
     function setCRVBreak(uint256 _percentage)external onlyWallet(){
@@ -131,18 +130,8 @@ contract CurveStrategy {
                currentTotal =currentTotal.add(amounts[i].mul(1e18).div(10**decimal));
             }
         }
-       /* uint256 returnedAmount;
-        bool status;
-        (returnedAmount,status)=calculateProfit();
-        if(status){
-            totalProfit =totalProfit.add(returnedAmount);
-        }
-        else{
-            totalProfit =totalProfit.sub(returnedAmount);
-        } */
         uint256 mintAmount = currentTotal.mul(1e18).div(pool.get_virtual_price());
         pool.add_liquidity(amounts,  mintAmount.mul(DENOMINATOR.sub(depositSlip)).div(DENOMINATOR));
-        //virtualPrice=pool.get_virtual_price();
         stakeLP();   
     }
 
@@ -279,16 +268,6 @@ contract CurveStrategy {
         tokens[_index].safeTransfer(yieldDistributor,postCoin.sub(prevCoin));
         emit yieldTransfered(_index,postCoin.sub(prevCoin));
     }
-
-   /* function calculateProfit()public view returns(uint256,bool){
-        if(pool.get_virtual_price() >= virtualPrice){
-            return (gauge.balanceOf(address(this)).mul(pool.get_virtual_price().sub(virtualPrice)).div(10**18),true);
-        }    
-        else{
-            return (gauge.balanceOf(address(this)).mul(virtualPrice.sub(pool.get_virtual_price())).div(10**18),false);
-        }
-        
-    }*/
 
     //calulates how much VeCRV is needed to get 2.5X boost.
     function gaugeVeCRVCalculator() public view returns(uint256){
