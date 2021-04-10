@@ -26,6 +26,8 @@ contract RoyaleLP is ReentrancyGuard {
     rStrategy public strategy;
     
     address public wallet;
+    
+    address public nominatedWallet;
 
     uint public YieldPoolBalance;
     uint public liquidityProvidersAPY;
@@ -45,10 +47,11 @@ contract RoyaleLP is ReentrancyGuard {
     mapping(address => uint256[3]) public amountWithdraw;
     mapping(address => uint256[3]) public amountBurnt;
     
-    
     mapping(address => bool) public isInQ;
     
     address[] public withdrawRecipients;
+    
+    uint public maxWithdrawRequests=25;
     
     uint256[3] public totalWithdraw;
     
@@ -76,9 +79,12 @@ contract RoyaleLP is ReentrancyGuard {
     event userRecieved(address user,uint amount);
     event userAddedToQ(address user,uint amount);
     event yieldAdded(uint amount);
+    event walletNominated(address newOwner);
+    event walletChanged(address oldOwner, address newOwner);
    
     
     constructor(address[3] memory _tokens,address _rpToken,address _wallet) public {
+        require(_wallet != address(0), "Wallet address cannot be 0");
         for(uint8 i=0; i<3; i++) {
             tokens[i] = IERC20(_tokens[i]);
         }
@@ -86,8 +92,16 @@ contract RoyaleLP is ReentrancyGuard {
         wallet=_wallet;
     }
     
-     function transferOwnership(address _wallet) external onlyWallet(){
-        wallet =_wallet;
+    function nominateNewOwner(address _wallet) external onlyWallet {
+        nominatedWallet = _wallet;
+        emit walletNominated(_wallet);
+    }
+
+    function acceptOwnership() external {
+        require(msg.sender == nominatedWallet, "You must be nominated before you can accept ownership");
+        emit walletChanged(wallet, nominatedWallet);
+        wallet = nominatedWallet;
+        nominatedWallet = address(0);
     }
 
 
@@ -103,10 +117,7 @@ contract RoyaleLP is ReentrancyGuard {
         }
         return false;
     }
-    
 
-   
-    
     // This function deposits the liquidity to yield generation pool using yield Strategy contract
     function _deposit(uint256[3] memory amounts) internal {
         strategy.deposit(amounts);
@@ -141,7 +152,7 @@ contract RoyaleLP is ReentrancyGuard {
         uint256 poolBalance;
         poolBalance = getBalances(_index);
         rpToken.burn(msg.sender, burnAmt);
-        if(amount < poolBalance) {
+        if(amount <= poolBalance) {
             uint decimal;
             decimal=tokens[_index].decimals();
             uint temp = amount.sub(amount.mul(fees).div(DENOMINATOR));
@@ -151,6 +162,7 @@ contract RoyaleLP is ReentrancyGuard {
             emit userRecieved(msg.sender, temp); 
          }
          else {
+             require(withdrawRecipients.length<maxWithdrawRequests || isInQ[msg.sender],"requests limit Exceeded");
             _takeBackQ(amount,burnAmt,_index);
             emit userAddedToQ(msg.sender, amount);
         }
@@ -162,7 +174,10 @@ contract RoyaleLP is ReentrancyGuard {
     function _takeBackQ(uint256 amount,uint256 _burnAmount,uint256 _index) internal {
         amountWithdraw[msg.sender][_index] =amountWithdraw[msg.sender][_index].add( amount);
         amountBurnt[msg.sender][_index]=amountBurnt[msg.sender][_index].add(_burnAmount);
-        totalWithdraw[_index] =totalWithdraw[_index].add(amount);
+        uint currentPoolAmount=getBalances(_index);
+        uint withdrawAmount=amount.sub(currentPoolAmount);
+        reserveAmount[_index] = reserveAmount[_index].add(currentPoolAmount);
+        totalWithdraw[_index]=totalWithdraw[_index].add(withdrawAmount);
         uint total;
         total=(totalWithdraw[1].add(totalWithdraw[2])).mul(1e18).div(10**6);
         require((totalWithdraw[0]+total)<=YieldPoolBalance,"Not enough balance");
@@ -247,7 +262,6 @@ contract RoyaleLP is ReentrancyGuard {
         uint256 decimal;
         uint withdrawTotal;
         uint reserveTotal;
-       
         for(uint8 i=0; i<3; i++) {
             decimal = tokens[i].decimals();
             withdrawTotal=withdrawTotal.add(totalWithdraw[i].mul(1e18).div(10**decimal));
@@ -267,7 +281,6 @@ contract RoyaleLP is ReentrancyGuard {
     //For depositing liquidity to the pool.
     //_index will be 0/1/2     0-DAI , 1-USDC , 2-USDT
     function supply(uint256 amount,uint256 _index) external nonReentrant  validAmount(amount){
-        
         uint decimal;
         uint256 mintAmount=calcRptAmount(amount,_index);
         amountSupplied[msg.sender].push(depositDetails(_index,amount,now,mintAmount));
@@ -286,11 +299,7 @@ contract RoyaleLP is ReentrancyGuard {
         require(!reserveRecipients[msg.sender],"Claim first");
         require(rpToken.balanceOf(msg.sender) >= amount, "low RPT");
         (,uint availableRPT)=availableLiquidity(msg.sender,_index,true );
-        bool instant=true;
-         if(availableRPT < amount) {
-             instant=false;
-        }
-        require(instant,"NA");
+        require(availableRPT>=amount,"NA");
         uint256 total = calculateTotalToken(true);
         uint256 tokenAmount;
         tokenAmount=amount.mul(total).div(rpToken.totalSupply());
@@ -303,7 +312,6 @@ contract RoyaleLP is ReentrancyGuard {
     //For claiming withdrawal after user added to the reserve recipient.
     function claimTokens() external  nonReentrant{
         require(reserveRecipients[msg.sender] , "request withdraw first");
-        
         uint totalBurnt;
         uint decimal;
         for(uint8 i=0; i<3; i++) {
@@ -323,7 +331,6 @@ contract RoyaleLP is ReentrancyGuard {
         reserveRecipients[msg.sender] = false;
     }
 
-
     // this function deposits without minting RPT.
     //Used to deposit Yield
     function depositYield(uint256 amount,uint _index) external{
@@ -338,7 +345,7 @@ contract RoyaleLP is ReentrancyGuard {
 
     /* CORE FUNCTIONS (called by owner only) */
 
-    //Transfer token to rStrategy by maintaining pool ratio.
+    //Transfer token z`1   o rStrategy by maintaining pool ratio.
     function deposit() onlyWallet() external  {
         uint256[3] memory amounts;
         uint256 totalAmount;
@@ -350,7 +357,7 @@ contract RoyaleLP is ReentrancyGuard {
             decimal=tokens[i].decimals();
             amounts[i]=getBalances(i);
             tokenBalance=balanceAmount.mul(10**decimal).div(10**18);
-            if(amounts[i]>tokenBalance){
+            if(amounts[i]>tokenBalance) {
                 amounts[i]=amounts[i].sub(tokenBalance);
                 tokens[i].safeTransfer(address(strategy),amounts[i]);
             }
@@ -386,7 +393,7 @@ contract RoyaleLP is ReentrancyGuard {
     }
 
 
-    //function for rebalancing royale pool(ratio)      
+    //function for rebalancing royale pool(ratio)       
     function rebalance() onlyWallet() external {
         uint256 currentAmount;
         uint256[3] memory amountToWithdraw;
@@ -489,14 +496,7 @@ contract RoyaleLP is ReentrancyGuard {
     
     function changeLoanPart(uint256 _value)onlyWallet() external{
         loanPart=_value;
-    }
-
-   /* function transferAllFunds(address _address)external onlyWallet(){
-        selfBalance=0;
-        for(uint8 i=0;i<3;i++){
-            tokens[i].safeTransfer(_address,tokens[i].balanceOf(address(this)));
-        }
-    } */  
+    } 
     
     function getBalances(uint _index) public view returns(uint256) {
         return (tokens[_index].balanceOf(address(this)).sub(reserveAmount[_index]));

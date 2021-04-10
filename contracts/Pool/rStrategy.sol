@@ -6,7 +6,6 @@ import '../../Interfaces/CurveInterface.sol';
 import '../../Interfaces/UniswapInterface.sol';
 
 contract CurveStrategy {
-    
 
     using SafeERC20 for IERC20;
     using SafeMath for uint256;
@@ -30,8 +29,11 @@ contract CurveStrategy {
     uint256 public depositSlip = 100;
 
     uint256 public withdrawSlip = 200;
+    
+    uint256 public uniswapSlippage=50;
 
     address public wallet;
+    address public nominatedWallet;
     
    // uint256 public totalProfit;
     
@@ -52,7 +54,7 @@ contract CurveStrategy {
     }
 
     modifier onlyRoyaleLP() {
-        require(msg.sender == royaleAddress || true, "Not authorized");
+        require(msg.sender == royaleAddress, "Not authorized");
         _;
     }
 
@@ -80,17 +82,23 @@ contract CurveStrategy {
         minter=Minter(_minter);
         uniAddr=UniswapI(_uniAddress);
         crvAddr=IERC20(_crvAddress);
-        wethAddr=_wethAddress;
-        
+        wethAddr=_wethAddress;    
     }
-
 
     function setCRVBreak(uint256 _percentage)external onlyWallet(){
         crvBreak=_percentage;
     }
 
-    function transferOwnership(address _wallet) external onlyWallet(){
-        wallet=_wallet;
+    function nominateNewOwner(address _wallet) external onlyWallet {
+        nominatedWallet = _wallet;
+        emit walletNominated(_wallet);
+    }
+
+    function acceptOwnership() external {
+        require(msg.sender == nominatedWallet, "You must be nominated before you can accept ownership");
+        emit walletChanged(wallet, nominatedWallet);
+        wallet = nominatedWallet;
+        nominatedWallet = address(0);
     }
 
     function changeRoyaleLP(address _address)external onlyWallet(){
@@ -103,6 +111,10 @@ contract CurveStrategy {
     
     function changeWithdrawSlip(uint _value)external onlyWallet(){
         withdrawSlip=_value;
+    }
+    
+    function changeUniswapSlippage(uint _value) external onlyWallet(){
+        uniswapSlippage=_value;
     }
 
 
@@ -118,18 +130,8 @@ contract CurveStrategy {
                currentTotal =currentTotal.add(amounts[i].mul(1e18).div(10**decimal));
             }
         }
-       /* uint256 returnedAmount;
-        bool status;
-        (returnedAmount,status)=calculateProfit();
-        if(status){
-            totalProfit =totalProfit.add(returnedAmount);
-        }
-        else{
-            totalProfit =totalProfit.sub(returnedAmount);
-        } */
         uint256 mintAmount = currentTotal.mul(1e18).div(pool.get_virtual_price());
         pool.add_liquidity(amounts,  mintAmount.mul(DENOMINATOR.sub(depositSlip)).div(DENOMINATOR));
-        //virtualPrice=pool.get_virtual_price();
         stakeLP();   
     }
 
@@ -231,7 +233,7 @@ contract CurveStrategy {
         }
         emit yieldTransfered();
     }
-
+    
     // Function to sell CRV using uniswap to any stable token and send that token to an address
     function sellCRV(uint8 _index) public onlyWallet() returns(uint256) {  //here index=0 means convert crv into DAI , index=1 means crv into USDC , index=2 means crv into USDT
         uint256 crvAmt = IERC20(crvAddr).balanceOf(address(this));
@@ -252,9 +254,12 @@ contract CurveStrategy {
             path[1] = wethAddr;
             path[2] = address(tokens[_index]);
         }
+        uint[] memory amount=UniswapI(uniAddr).getAmountsOut(crvAmt,path);
+        uint calulatedAmount=amount[amount.length.sub(1)];
+        uint minimumAmount=calulatedAmount.sub(calulatedAmount.mul(uniswapSlippage).div(DENOMINATOR));
         UniswapI(uniAddr).swapExactTokensForTokens(
             crvAmt, 
-            uint256(0), 
+            minimumAmount, 
             path, 
             address(this), 
             now + 1800
@@ -264,16 +269,6 @@ contract CurveStrategy {
         emit yieldTransfered(_index,postCoin.sub(prevCoin));
     }
 
-   /* function calculateProfit()public view returns(uint256,bool){
-        if(pool.get_virtual_price() >= virtualPrice){
-            return (gauge.balanceOf(address(this)).mul(pool.get_virtual_price().sub(virtualPrice)).div(10**18),true);
-        }    
-        else{
-            return (gauge.balanceOf(address(this)).mul(virtualPrice.sub(pool.get_virtual_price())).div(10**18),false);
-        }
-        
-    }*/
-
     //calulates how much VeCRV is needed to get 2.5X boost.
     function gaugeVeCRVCalculator() public view returns(uint256){
           uint minimumVeCRV ;
@@ -281,12 +276,14 @@ contract CurveStrategy {
           return minimumVeCRV;
     }
     
-    event yieldTransfered(uint,uint);
+    event yieldTransfered(uint index,uint coin);
     event yieldTransfered();
-    event staked(uint);
-    event unstaked(uint);
+    event staked(uint amount);
+    event unstaked(uint amount);
     event crvClaimed();
-    event locked(uint);
+    event locked(uint amount);
     event unlocked();
+    event walletNominated(address newOwner);
+    event walletChanged(address oldOwner, address newOwner);
 
 }
