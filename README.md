@@ -1,7 +1,7 @@
 # Royale V1
 
 
-In-depth Royale V2 project is available at [royale.finance](https://royale.finance/).
+In-depth Royale project is available at [royale.finance](https://royale.finance/).
 
 
 # Local Development
