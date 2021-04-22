@@ -835,16 +835,17 @@ pragma solidity ^0.6.0;
  */
 contract Ownable is Context {
     address private _owner;
+    address private _nominatedOwner;
 
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+    event OwnershipNominated(address indexed previousOwner, address indexed newOwner);
 
     /**
      * @dev Initializes the contract setting the deployer as the initial owner.
      */
-    constructor () internal {
-        address msgSender = _msgSender();
-        _owner = msgSender;
-        emit OwnershipTransferred(address(0), msgSender);
+    constructor (address _multisigWallet) internal {
+        _owner = _multisigWallet;
+        emit OwnershipTransferred(address(0), _multisigWallet);
     }
 
     /**
@@ -869,20 +870,27 @@ contract Ownable is Context {
      * NOTE: Renouncing ownership will leave the contract without an owner,
      * thereby removing any functionality that is only available to the owner.
      */
-    function renounceOwnership() internal virtual onlyOwner {
-        emit OwnershipTransferred(_owner, address(0));
-        _owner = address(0);
-    }
-
+     
+     
+     
     /**
      * @dev Transfers ownership of the contract to a new account (`newOwner`).
      * Can only be called by the current owner.
      */
-    function transferOwnership(address newOwner) public virtual onlyOwner {
-        require(newOwner != address(0), "Ownable: new owner is the zero address");
-        emit OwnershipTransferred(_owner, newOwner);
-        _owner = newOwner;
+     
+    
+    function nominateNewOwner(address _wallet) external onlyOwner {
+        _nominatedOwner = _wallet;
+        emit OwnershipNominated(_owner,_wallet);
     }
+
+    function acceptOwnership() external {
+        require(msg.sender == _nominatedOwner, "You must be nominated before you can accept ownership");
+        emit OwnershipTransferred(_owner, _nominatedOwner);
+        _owner = _nominatedOwner;
+        _nominatedOwner = address(0);
+    }
+
 }
 
 
@@ -982,7 +990,7 @@ pragma solidity 0.6.12;
 
 
 abstract
-contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
+contract StakingLot is ERC20, IStakingLot, ERC1155Receiver, Ownable {
     using SafeERC20 for IERC20;
     using SafeMath for uint;
 
@@ -1007,9 +1015,9 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
     bool public allowNFTDiscounts;
 
 
-    constructor(ERC20 _token, string memory name, string memory short, RoyaNFT _rnft)
+    constructor(ERC20 _token, string memory name, string memory short, RoyaNFT _rnft, address _multisigWallet)
         public
-        ERC20(name, short)
+        ERC20(name, short) Ownable(_multisigWallet)
     {
         ROYA = _token;
         _setupDecimals(0);
@@ -1079,7 +1087,7 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
         _revertTransfersInLockUpPeriod[msg.sender] = value;
     }
     
-    function setAllowNFTDiscounts(bool value) external {
+    function setAllowNFTDiscounts(bool value) external onlyOwner {
         allowNFTDiscounts = value;
     }
 
@@ -1150,8 +1158,8 @@ contract RoyaleQueenStakingLot is StakingLot, IStakingLotERC20 {
 
     IERC20 public immutable USDC;
 
-    constructor(ERC20 _token, ERC20 usdc, RoyaNFT rnft) public
-        StakingLot(_token, "QROYA", "qRoya", rnft) {
+    constructor(ERC20 _token, ERC20 usdc, RoyaNFT rnft, address _multisigWallet) public
+        StakingLot(_token, "QROYA", "qRoya", rnft, _multisigWallet) {
         USDC = usdc;
     }
 
