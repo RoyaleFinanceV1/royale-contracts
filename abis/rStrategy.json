@@ -41,16 +41,16 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256[3]\",\"name\":\"\",\"type\":\"uint256[3]\"}],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[3]\",\"name\":\"\",\"type\":\"uint256[3]\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdrawAll\",\"outputs\":[{\"internalType\":\"uint256[3]\",\"name\":\"\",\"type\":\"uint256[3]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/StrategyInterface.sol\":\"rStrategy\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/StrategyInterface.sol\":{\"keccak256\":\"0xeeea85fdea6ed4baa2e38c341ee3bb244c1848888b14aa374c15720594f29960\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://39379d03e6038fb9ed11fcaee5364690ca4a70783ee186d591e5ee4865942ad8\",\"dweb:/ipfs/QmeDYpr7Qqs4yV95cgJGmwXqzpiiE3qLm4ShY7UFpFD6SB\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256[3]\",\"name\":\"\",\"type\":\"uint256[3]\"}],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[3]\",\"name\":\"\",\"type\":\"uint256[3]\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdrawAll\",\"outputs\":[{\"internalType\":\"uint256[3]\",\"name\":\"\",\"type\":\"uint256[3]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/vishn/OneDrive/Desktop/codezero2pi/royaleSecondAudit/royale-contracts/Interfaces/StrategyInterface.sol\":\"rStrategy\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/vishn/OneDrive/Desktop/codezero2pi/royaleSecondAudit/royale-contracts/Interfaces/StrategyInterface.sol\":{\"keccak256\":\"0xeeea85fdea6ed4baa2e38c341ee3bb244c1848888b14aa374c15720594f29960\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://39379d03e6038fb9ed11fcaee5364690ca4a70783ee186d591e5ee4865942ad8\",\"dweb:/ipfs/QmeDYpr7Qqs4yV95cgJGmwXqzpiiE3qLm4ShY7UFpFD6SB\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: UNLICENSED\r\npragma solidity ^0.6.0;\r\n\r\n\r\ninterface rStrategy {\r\n\r\n    function deposit(uint256[3] calldata) external;\r\n    function withdraw(uint256[3] calldata) external;\r\n    function withdrawAll()  external returns(uint256[3] memory);\r\n    \r\n}\r\n",
-  "sourcePath": "C:\\Users\\vishn\\OneDrive\\Desktop\\RoyaleProject\\RoyaleFinance\\royale-contracts\\Interfaces\\StrategyInterface.sol",
+  "sourcePath": "C:\\Users\\vishn\\OneDrive\\Desktop\\codezero2pi\\royaleSecondAudit\\royale-contracts\\Interfaces\\StrategyInterface.sol",
   "ast": {
-    "absolutePath": "/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/StrategyInterface.sol",
+    "absolutePath": "/C/Users/vishn/OneDrive/Desktop/codezero2pi/royaleSecondAudit/royale-contracts/Interfaces/StrategyInterface.sol",
     "exportedSymbols": {
       "rStrategy": [
         280
@@ -348,7 +348,7 @@
     "src": "40:236:2"
   },
   "legacyAST": {
-    "absolutePath": "/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/StrategyInterface.sol",
+    "absolutePath": "/C/Users/vishn/OneDrive/Desktop/codezero2pi/royaleSecondAudit/royale-contracts/Interfaces/StrategyInterface.sol",
     "exportedSymbols": {
       "rStrategy": [
         280
@@ -651,7 +651,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.2",
-  "updatedAt": "2021-03-23T08:36:24.862Z",
+  "updatedAt": "2021-04-22T12:41:57.017Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

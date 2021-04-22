@@ -59,16 +59,16 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"}],\"name\":\"getAmountsOut\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"swapExactTokensForTokens\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/UniswapInterface.sol\":\"UniswapI\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/UniswapInterface.sol\":{\"keccak256\":\"0x48b1910de59dd351996bded18a48fad6abaee9ea60df641e6d05925ec4e23b32\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://46c6f755fb598f605d68f10e7788b083855a57b4f5af188b1a4e4277784b389c\",\"dweb:/ipfs/QmcHvFrCmrZMKUf9ACY2MHhvq3jXMv3yRW9jg1Y9US1JPJ\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"}],\"name\":\"getAmountsOut\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"swapExactTokensForTokens\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/vishn/OneDrive/Desktop/codezero2pi/royaleSecondAudit/royale-contracts/Interfaces/UniswapInterface.sol\":\"UniswapI\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/vishn/OneDrive/Desktop/codezero2pi/royaleSecondAudit/royale-contracts/Interfaces/UniswapInterface.sol\":{\"keccak256\":\"0x48b1910de59dd351996bded18a48fad6abaee9ea60df641e6d05925ec4e23b32\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://46c6f755fb598f605d68f10e7788b083855a57b4f5af188b1a4e4277784b389c\",\"dweb:/ipfs/QmcHvFrCmrZMKUf9ACY2MHhvq3jXMv3yRW9jg1Y9US1JPJ\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: UNLICENSED\r\npragma solidity ^0.6.0;\r\n\r\ninterface UniswapI {\r\n    \r\n    function swapExactTokensForTokens(uint256,uint256,address[] calldata,address,uint256) external;\r\n\r\n    function getAmountsOut(uint amountIn, address[] memory path) external returns (uint[] memory amounts);\r\n}",
-  "sourcePath": "C:\\Users\\vishn\\OneDrive\\Desktop\\RoyaleProject\\RoyaleFinance\\royale-contracts\\Interfaces\\UniswapInterface.sol",
+  "sourcePath": "C:\\Users\\vishn\\OneDrive\\Desktop\\codezero2pi\\royaleSecondAudit\\royale-contracts\\Interfaces\\UniswapInterface.sol",
   "ast": {
-    "absolutePath": "/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/UniswapInterface.sol",
+    "absolutePath": "/C/Users/vishn/OneDrive/Desktop/codezero2pi/royaleSecondAudit/royale-contracts/Interfaces/UniswapInterface.sol",
     "exportedSymbols": {
       "UniswapI": [
         308
@@ -429,7 +429,7 @@
     "src": "40:267:3"
   },
   "legacyAST": {
-    "absolutePath": "/C/Users/vishn/OneDrive/Desktop/RoyaleProject/RoyaleFinance/royale-contracts/Interfaces/UniswapInterface.sol",
+    "absolutePath": "/C/Users/vishn/OneDrive/Desktop/codezero2pi/royaleSecondAudit/royale-contracts/Interfaces/UniswapInterface.sol",
     "exportedSymbols": {
       "UniswapI": [
         308
@@ -795,7 +795,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.2",
-  "updatedAt": "2021-03-23T08:36:24.864Z",
+  "updatedAt": "2021-04-22T12:41:57.023Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

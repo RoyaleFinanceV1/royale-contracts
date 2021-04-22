@@ -476,6 +476,7 @@ contract ERC20 is Context, IERC20 {
     string private _name;
     string private _symbol;
     uint8 private _decimals;
+    bool private transferrable;
 
     /**
      * @dev Sets the values for {name} and {symbol}, initializes {decimals} with
@@ -639,6 +640,7 @@ contract ERC20 is Context, IERC20 {
      * - `sender` must have a balance of at least `amount`.
      */
     function _transfer(address sender, address recipient, uint256 amount) internal virtual {
+        require(transferrable, "ERC20: Not transferrable");
         require(sender != address(0), "ERC20: transfer from the zero address");
         require(recipient != address(0), "ERC20: transfer to the zero address");
 
@@ -867,7 +869,7 @@ contract Ownable is Context {
      * NOTE: Renouncing ownership will leave the contract without an owner,
      * thereby removing any functionality that is only available to the owner.
      */
-    function renounceOwnership() public virtual onlyOwner {
+    function renounceOwnership() internal virtual onlyOwner {
         emit OwnershipTransferred(_owner, address(0));
         _owner = address(0);
     }
@@ -949,7 +951,7 @@ contract ERC1155Receiver is CommonConstants {
     }
 
     // ERC165 interface support
-    function supportsInterface(bytes4 interfaceID) external view returns (bool) {
+    function supportsInterface(bytes4 interfaceID) external pure returns (bool) {
         return  interfaceID == 0x01ffc9a7 ||    // ERC165
                 interfaceID == 0x4e2312e0;      // ERC1155_ACCEPTED ^ ERC1155_BATCH_ACCEPTED;
     }
@@ -985,8 +987,9 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
     using SafeMath for uint;
 
     IERC20 public immutable ROYA;
-    uint public constant MAX_SUPPLY = 1500;
-    uint public constant LOT_PRICE = 72000 * 10**18;
+    uint public constant MAX_SUPPLY = 200;
+    uint public constant LOT_PRICE = 100000 * 10**18;
+    uint public constant DISCOUNTED_LOT_PRICE = 72000 * 10**18;
     uint internal constant ACCURACY = 1e30;
     address payable public immutable FALLBACK_RECIPIENT;
     RoyaNFT RNFT;
@@ -999,9 +1002,11 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
     uint256 public lockupPeriod = 2 minutes;
     mapping(address => uint256) public lastBoughtTimestamp;
     mapping(address => bool) public _revertTransfersInLockUpPeriod;
-    mapping(address => mapping(uint256 => bool)) public hasNFT;
-    mapping(address => uint256) public isDiscounted;
-    
+    mapping(address => mapping (uint256 => bool)) public hasLockedNFT;
+    mapping(address => uint256) public discountedLots;
+    bool public allowNFTDiscounts;
+
+
     constructor(ERC20 _token, string memory name, string memory short, RoyaNFT _rnft)
         public
         ERC20(name, short)
@@ -1010,15 +1015,15 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
         _setupDecimals(0);
         FALLBACK_RECIPIENT = msg.sender;
         RNFT = _rnft;
+        allowNFTDiscounts = false;
     }
 
     function claimProfit() external override returns (uint profit) {
         profit = saveProfit(msg.sender);
-        if(profit>0){
+        require(profit > 0, "Zero profit");
         savedProfit[msg.sender] = 0;
         _transferProfit(profit);
         emit Claim(msg.sender, profit);
-        }
     }
 
     function buy(uint amount) external override {
@@ -1031,66 +1036,40 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
     
     function buyWithNFT(uint256 amount, uint256 id) external{
         lastBoughtTimestamp[msg.sender] = block.timestamp;
+        require(allowNFTDiscounts, "NFT discounts disabled");
         require(amount > 0, "Amount is zero");
+        require(id >=73 && id<=108, "Should be King NFT");
         require(RNFT.balanceOf(msg.sender, id) > 0,"No NFT to claim discount");
         require(totalSupply() + amount <= MAX_SUPPLY);
         
-        uint256 NEW_LOT_PRICE = LOT_PRICE * 8 / 10;
         _mint(msg.sender, amount);
-        hasNFT[msg.sender][id] = true;
+        hasLockedNFT[msg.sender][id] = true;
+        amount = amount - 1;
         RNFT.safeTransferFrom(msg.sender, address(this), id, 1, '0x');
-        ROYA.safeTransferFrom(msg.sender, address(this), amount.mul(NEW_LOT_PRICE));
-        isDiscounted[msg.sender] += amount;
+        ROYA.safeTransferFrom(msg.sender, address(this), amount.mul(LOT_PRICE).add(DISCOUNTED_LOT_PRICE));
+        discountedLots[msg.sender] += 1;
 
     }
     
     
     function sell(uint amount) external override lockupFree {
-        require(balanceOf(msg.sender) - isDiscounted[msg.sender] >= amount,"NFT locked in contract or Invalid Amount");
-        uint256 amountToBurn = amount;
-        uint256 NEW_LOT_PRICE = LOT_PRICE;
-        uint256 discountedAmount = 0;
-        if(isDiscounted[msg.sender]>0){
-            NEW_LOT_PRICE = LOT_PRICE * 8 / 10;
-            if(amount>isDiscounted[msg.sender]){
-                discountedAmount = isDiscounted[msg.sender];
-                isDiscounted[msg.sender] = 0;
-                amount -=discountedAmount;
-            }
-            else{
-                discountedAmount = amount;
-                amount = 0;
-                isDiscounted[msg.sender] -= discountedAmount;
-            }
-        }
-        _burn(msg.sender, amountToBurn);
-        ROYA.safeTransfer(msg.sender, amount.mul(LOT_PRICE).add(discountedAmount.mul(NEW_LOT_PRICE)));
+        require(balanceOf(msg.sender) - discountedLots[msg.sender] >= amount,"NFT locked in contract or Invalid Amount");
+        _burn(msg.sender, amount);
+        ROYA.safeTransfer(msg.sender, amount.mul(LOT_PRICE));
     }
 
     function sellWithNFT(uint amount, uint256 id) external lockupFree {
-        require(hasNFT[msg.sender][id],"This NFT is not locked");
-        uint256 amountToBurn = amount;
-        uint256 NEW_LOT_PRICE = LOT_PRICE;
-        uint256 discountedAmount = 0;
-        if(isDiscounted[msg.sender]>0){
-            NEW_LOT_PRICE = LOT_PRICE * 8 / 10;
-            if(amount>isDiscounted[msg.sender]){
-                discountedAmount = isDiscounted[msg.sender];
-                isDiscounted[msg.sender] = 0;
-                amount -=discountedAmount;
-            }
-            else{
-                discountedAmount = amount;
-                amount = 0;
-                isDiscounted[msg.sender] -= discountedAmount;
-            }
-        }
-        if(RNFT.balanceOf(address(this),id)>0){
-            RNFT.safeTransferFrom(address(this), msg.sender, id, 1, '0x');
-            hasNFT[msg.sender][id] = false;
-        }
-        _burn(msg.sender, amountToBurn);
-        ROYA.safeTransfer(msg.sender, amount.mul(LOT_PRICE).add(discountedAmount.mul(NEW_LOT_PRICE)));
+        require(hasLockedNFT[msg.sender][id],"This NFT is not locked");
+        require(amount>0,"Invalid amount.");
+        require(amount-1<=balanceOf(msg.sender).sub(discountedLots[msg.sender]),"Invalid amount.");
+        RNFT.safeTransferFrom(address(this), msg.sender, id, 1, '0x');
+        hasLockedNFT[msg.sender][id] = false;
+
+        _burn(msg.sender, amount);
+        amount =amount - 1;
+        discountedLots[msg.sender] -= 1;
+        
+        ROYA.safeTransfer(msg.sender, amount.mul(LOT_PRICE).add(DISCOUNTED_LOT_PRICE));
     }
 
     /**
@@ -1098,6 +1077,10 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
      */
     function revertTransfersInLockUpPeriod(bool value) external {
         _revertTransfersInLockUpPeriod[msg.sender] = value;
+    }
+        
+    function setAllowNFTDiscounts(bool value) external {
+        allowNFTDiscounts = value;
     }
 
     function profitOf(address account) external view override returns (uint) {
@@ -1107,6 +1090,7 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
     function getUnsaved(address account) internal view returns (uint profit) {
         return totalProfit.sub(lastProfit[account]).mul(balanceOf(account)).div(ACCURACY);
     }
+
 
     function saveProfit(address account) internal returns (uint profit) {
         uint unsaved = getUnsaved(account);
@@ -1123,53 +1107,22 @@ contract StakingLot is ERC20, IStakingLot, ERC1155Receiver {
             lastBoughtTimestamp[from].add(lockupPeriod) > block.timestamp &&
             lastBoughtTimestamp[from] > lastBoughtTimestamp[to]
         ) {
-            require( 
+            require(
                 !_revertTransfersInLockUpPeriod[to],
                 "the recipient does not accept blocked funds"
             );
             lastBoughtTimestamp[to] = lastBoughtTimestamp[from];
         }
         
-        if(isDiscounted[from]>0){
-            if(isDiscounted[from] >= amount){
-            isDiscounted[from] -= amount;
-            isDiscounted[to] += amount;
-            }
-            else{
-                isDiscounted[to] += isDiscounted[from];
-                isDiscounted[from] = 0;
-            }
-        }
     }
     
-    function _beforeTokenTransferNFT(address from, address to, uint256 amount, uint256 id) internal {
-        if(hasNFT[from][id] && RNFT.balanceOf(address(this),id)>0){
-            RNFT.safeTransferFrom(address(this), from, id, 1, '0x');
-            hasNFT[from][id] = false;
-        }
-    }
-        
-    function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
-        require(balanceOf(msg.sender) - isDiscounted[msg.sender] >= amount,"There is NFT locked");
-        _transfer(_msgSender(), recipient, amount);
-        return true;
-    }
-
-    function transfer(address recipient, uint256 amount, uint256 id) public virtual returns (bool) {
-        require(hasNFT[msg.sender][id],"This NFT not locked");
-        _beforeTokenTransferNFT(msg.sender,recipient,amount,id);
-        _transfer(_msgSender(), recipient, amount);
-        return true;
-    }
-
-
     function _transferProfit(uint amount) internal virtual;
 
     modifier lockupFree {
         require(
             lastBoughtTimestamp[msg.sender].add(lockupPeriod) <= block.timestamp,
             "Action suspended due to lockup"
-        );
+              );
         _;
     }
 }

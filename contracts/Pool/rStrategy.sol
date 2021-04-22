@@ -41,7 +41,7 @@ contract CurveStrategy {
 
    // uint256 public virtualPrice;
  
-    bool public TEST = true; // For testing uniswap , should be removed on deployment to the mainnet
+    bool public TEST = false; // For testing uniswap , should be removed on deployment to the mainnet
 
     modifier onlyAuthorized(){
       require(wallet == msg.sender|| msg.sender==royaleAddress, "Not authorized");
@@ -69,7 +69,9 @@ contract CurveStrategy {
          address _minter,
          address _uniAddress,
          address _crvAddress,
-         address _wethAddress
+         address _wethAddress,
+         address _voteEscrow,
+         address _feeDistributor
          ) public {
 
         wallet=_wallet;
@@ -82,7 +84,9 @@ contract CurveStrategy {
         minter=Minter(_minter);
         uniAddr=UniswapI(_uniAddress);
         crvAddr=IERC20(_crvAddress);
-        wethAddr=_wethAddress;    
+        wethAddr=_wethAddress;  
+        feeDistributor = FeeDistributor(_feeDistributor);
+        voteEscrow = VoteEscrow(_voteEscrow);
     }
 
     function setCRVBreak(uint256 _percentage)external onlyWallet(){
@@ -104,6 +108,10 @@ contract CurveStrategy {
     function changeRoyaleLP(address _address)external onlyWallet(){
         royaleAddress=_address;
     }
+
+    function changeYieldDistributor(address _address)external onlyWallet(){
+        yieldDistributor=_address;
+    }
     
     function changeDepositSlip(uint _value)external onlyWallet(){
         depositSlip=_value;
@@ -117,8 +125,7 @@ contract CurveStrategy {
         uniswapSlippage=_value;
     }
 
-
-    // deposits stable tokens into the 3pool and stake recived LPtoken(3CRV) in the curve 3pool gauge
+// deposits stable tokens into the 3pool and stake recived LPtoken(3CRV) in the curve 3pool gauge
     function deposit(uint[3] memory amounts) external onlyRoyaleLP(){
         uint currentTotal;
         for(uint8 i=0; i<3; i++) {
@@ -219,8 +226,7 @@ contract CurveStrategy {
         emit unlocked();
     }
 
-
-   //For claiming recieved 3CRV tokens which are given for locking CRV and
+//For claiming recieved 3CRV tokens which are given for locking CRV and
    // withdrawing stable tokens from curve 3pool using those 3CRV and sending those stable tokens to an address
     function claim3CRV()public onlyWallet(){
         uint prevCoin=poolToken.balanceOf(address(this));
