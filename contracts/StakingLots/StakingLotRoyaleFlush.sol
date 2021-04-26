@@ -1146,7 +1146,7 @@ contract RoyaleFlushStakingLot is StakingLot, IStakingLotERC20 {
     IERC20 public immutable USDC;
 
     constructor(ERC20 _token, ERC20 usdc, RoyaNFT rnft, address _multisigWallet) public
-        StakingLot(_token, "QROYA", "qRoya", rnft, _multisigWallet) {
+        StakingLot(_token, "FROYA", "fRoya", rnft, _multisigWallet) {
         USDC = usdc;
     }
 
