@@ -241,7 +241,7 @@ contract CurveStrategy {
     }
     
     // Function to sell CRV using uniswap to any stable token and send that token to an address
-    function sellCRV(uint8 _index) public onlyWallet() returns(uint256) {  //here index=0 means convert crv into DAI , index=1 means crv into USDC , index=2 means crv into USDT
+    function sellCRV(uint8 _index,uint _amount) public onlyWallet() returns(uint256) {  //here index=0 means convert crv into DAI , index=1 means crv into USDC , index=2 means crv into USDT
         uint256 crvAmt = IERC20(crvAddr).balanceOf(address(this));
         uint256 prevCoin = tokens[_index].balanceOf(address(this));
         require(crvAmt > 0, "insufficient CRV");
@@ -260,9 +260,7 @@ contract CurveStrategy {
             path[1] = wethAddr;
             path[2] = address(tokens[_index]);
         }
-        uint[] memory amount=UniswapI(uniAddr).getAmountsOut(crvAmt,path);
-        uint calulatedAmount=amount[amount.length.sub(1)];
-        uint minimumAmount=calulatedAmount.sub(calulatedAmount.mul(uniswapSlippage).div(DENOMINATOR));
+        uint minimumAmount=_amount.sub(_amount.mul(uniswapSlippage).div(DENOMINATOR));
         UniswapI(uniAddr).swapExactTokensForTokens(
             crvAmt, 
             minimumAmount, 
