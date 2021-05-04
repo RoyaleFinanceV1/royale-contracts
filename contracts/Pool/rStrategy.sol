@@ -22,8 +22,7 @@ contract CurveStrategy {
     UniswapI  public uniAddr;
     IERC20 public crvAddr;
     address public wethAddr;
-    
-    
+     
     uint256 public constant DENOMINATOR = 10000;
 
     uint256 public depositSlip = 100;
@@ -41,7 +40,7 @@ contract CurveStrategy {
 
    // uint256 public virtualPrice;
  
-    bool public TEST = false; // For testing uniswap , should be removed on deployment to the mainnet
+    bool public TEST = true; // For testing uniswap , should be removed on deployment to the mainnet
 
     modifier onlyAuthorized(){
       require(wallet == msg.sender|| msg.sender==royaleAddress, "Not authorized");
@@ -143,17 +142,23 @@ contract CurveStrategy {
     }
 
     //withdraws stable tokens from the 3pool.Unstake required LPtokens and stake LP tokens if not used.
-    function withdraw(uint[3] memory amounts) external onlyRoyaleLP() {
-        uint256 max_burn = pool.calc_token_amount(amounts,false);
-        max_burn=max_burn.mul(DENOMINATOR.add(withdrawSlip)).div(DENOMINATOR);
-        unstakeLP(max_burn);
-        pool.remove_liquidity_imbalance(amounts, max_burn);
+    function withdraw(uint[3] memory amounts,uint[3] memory max_burn) external onlyRoyaleLP() {
+        //uint256 max_burn = pool.calc_token_amount(amounts,false);
+        uint burnAmount;
+        for(uint i=0;i<3;i++){
+             burnAmount = burnAmount.add(max_burn[i]);
+        }
+        burnAmount=burnAmount.mul(DENOMINATOR.add(withdrawSlip)).div(DENOMINATOR);
+        unstakeLP(burnAmount);
+        pool.remove_liquidity_imbalance(amounts, burnAmount);
         for(uint8 i=0;i<3;i++){
             if(amounts[i]!=0){
                tokens[i].safeTransfer(royaleAddress, tokens[i].balanceOf(address(this)));
             }
+        }
+        if(poolToken.balanceOf(address(this))>0){
+            stakeLP();
         } 
-        stakeLP();
     }
 
    //unstake all the LPtokens and withdraw all the Stable tokens from 3pool 
@@ -235,9 +240,9 @@ contract CurveStrategy {
         uint[3] memory minimum;
         pool.remove_liquidity(postCoin-prevCoin,minimum);
         for(uint i=0;i<3;i++){
+            emit yieldTransfered(i,tokens[i].balanceOf(address(this)));
             tokens[i].safeTransfer(yieldDistributor,tokens[i].balanceOf(address(this)));
         }
-        emit yieldTransfered();
     }
     
     // Function to sell CRV using uniswap to any stable token and send that token to an address
@@ -281,7 +286,6 @@ contract CurveStrategy {
     }
     
     event yieldTransfered(uint index,uint coin);
-    event yieldTransfered();
     event staked(uint amount);
     event unstaked(uint amount);
     event crvClaimed();
