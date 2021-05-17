@@ -75,10 +75,13 @@ contract RoyaleLP is ReentrancyGuard {
     }
     
     // EVENTS 
-    event userSupplied(address user,uint amount);
-    event userRecieved(address user,uint amount);
-    event userAddedToQ(address user,uint amount);
-    event yieldAdded(uint amount);
+    event userSupplied(address user,uint amount,uint index);
+    event userRecieved(address user,uint amount,uint index);
+    event userAddedToQ(address user,uint amount,uint index);
+    event feesTransfered(address user,uint amount,uint index);
+    event loanTransfered(address recipient,uint amount,uint index);
+    event loanRepayed(uint amount,uint index);
+    event yieldAdded(uint amount,uint index);
     event walletNominated(address newOwner);
     event walletChanged(address oldOwner, address newOwner);
    
@@ -155,16 +158,19 @@ contract RoyaleLP is ReentrancyGuard {
         if(amount <= poolBalance) {
             uint decimal;
             decimal=tokens[_index].decimals();
-            uint temp = amount.sub(amount.mul(fees).div(DENOMINATOR));
-            selfBalance=selfBalance.sub(temp.mul(10**18).div(10**decimal));
+            uint temp = amount.mul(fees).div(DENOMINATOR);
+            selfBalance=selfBalance.sub(amount.mul(10**18).div(10**decimal));
             updateLockedRPT(msg.sender,burnAmt);
-            tokens[_index].safeTransfer(msg.sender, temp);
-            emit userRecieved(msg.sender, temp); 
+            tokens[_index].safeTransfer(msg.sender, amount.sub(temp));
+            emit userRecieved(msg.sender, amount.sub(temp),_index); 
+            tokens[_index].safeTransfer(wallet,temp);
+            emit feesTransfered(wallet,temp,_index);
+            
          }
          else {
              require(withdrawRecipients.length<maxWithdrawRequests || isInQ[msg.sender],"requests limit Exceeded");
             _takeBackQ(amount,burnAmt,_index);
-            emit userAddedToQ(msg.sender, amount);
+            emit userAddedToQ(msg.sender, amount,_index);
         }
     }
 
@@ -208,8 +214,8 @@ contract RoyaleLP is ReentrancyGuard {
     }
 
     // this will withdraw Liquidity from yield genaration pool using yield Strategy
-    function _withdraw(uint256[3] memory amounts) internal {
-        strategy.withdraw(amounts);
+    function _withdraw(uint256[3] memory amounts , uint[3] memory max_burn) internal {
+        strategy.withdraw(amounts,max_burn);
         uint decimal;
         for(uint8 i=0;i<3;i++){
             decimal=tokens[i].decimals();
@@ -288,7 +294,7 @@ contract RoyaleLP is ReentrancyGuard {
         selfBalance=selfBalance.add(amount.mul(10**18).div(10**decimal));
         tokens[_index].safeTransferFrom(msg.sender, address(this), amount);
         rpToken.mint(msg.sender, mintAmount);
-        emit userSupplied(msg.sender, amount);
+        emit userSupplied(msg.sender, amount,_index);
     }
 
     
@@ -317,14 +323,16 @@ contract RoyaleLP is ReentrancyGuard {
         for(uint8 i=0; i<3; i++) {
             if(amountWithdraw[msg.sender][i] > 0) {
                 decimal=tokens[i].decimals();
-                uint temp = amountWithdraw[msg.sender][i].sub((amountWithdraw[msg.sender][i].mul(fees)).div(DENOMINATOR));
+                uint temp = (amountWithdraw[msg.sender][i].mul(fees)).div(DENOMINATOR);
                 reserveAmount[i] =reserveAmount[i].sub(amountWithdraw[msg.sender][i]);
-                selfBalance = selfBalance.sub(temp.mul(1e18).div(10**decimal));
+                selfBalance = selfBalance.sub(amountWithdraw[msg.sender][i].mul(1e18).div(10**decimal));
                 totalBurnt =totalBurnt.add(amountBurnt[msg.sender][i]);
+                tokens[i].safeTransfer(msg.sender, amountWithdraw[msg.sender][i].sub(temp));
+                emit userRecieved(msg.sender,amountWithdraw[msg.sender][i].sub(temp),i);
                 amountWithdraw[msg.sender][i] = 0;
                 amountBurnt[msg.sender][i]=0;
-                tokens[i].safeTransfer(msg.sender,  temp);
-                emit userRecieved(msg.sender,temp);
+                tokens[i].safeTransfer(wallet,temp);
+                emit feesTransfered(wallet,temp,i);
             }
         }
         updateLockedRPT(msg.sender,totalBurnt);
@@ -339,7 +347,7 @@ contract RoyaleLP is ReentrancyGuard {
         selfBalance=selfBalance.add(amount.mul(1e18).div(10**decimal));
         liquidityProvidersAPY=liquidityProvidersAPY.add(amount.mul(1e18).div(10**decimal));
         tokens[_index].safeTransferFrom(msg.sender,address(this),amount);
-        emit yieldAdded(amount);
+        emit yieldAdded(amount,_index);
     }
 
 
@@ -372,9 +380,9 @@ contract RoyaleLP is ReentrancyGuard {
     
 
     //Withdraw from Yield genaration pool.
-    function withdraw() onlyWallet() external  {
+    function withdraw(uint[3] memory max_burn) onlyWallet() external  {
         require(checkValidArray(totalWithdraw), "queue empty");
-        _withdraw(totalWithdraw);
+        _withdraw(totalWithdraw,max_burn);
         updateWithdrawQueue();
     }
 
@@ -394,7 +402,7 @@ contract RoyaleLP is ReentrancyGuard {
 
 
     //function for rebalancing royale pool(ratio)       
-    function rebalance() onlyWallet() external {
+    function rebalance(uint[3] memory max_burn) onlyWallet() external {
         uint256 currentAmount;
         uint256[3] memory amountToWithdraw;
         uint256[3] memory amountToDeposit;
@@ -425,14 +433,14 @@ contract RoyaleLP is ReentrancyGuard {
              
         }
         if(checkValidArray(amountToWithdraw)) {
-            _withdraw(amountToWithdraw);
+            _withdraw(amountToWithdraw,max_burn);
             
         }
 
     }
     
     //For withdrawing loan from the royale Pool
-    function withdrawLoan(uint[3] memory amounts,address _recipient)external onlyWallet(){
+    function withdrawLoan(uint[3] memory amounts,address _recipient,uint[3] memory max_burn)external onlyWallet(){
         require(checkValidArray(amounts),"amount can not zero");
         uint decimal;
         uint total;
@@ -442,12 +450,22 @@ contract RoyaleLP is ReentrancyGuard {
         }
         require(loanGiven.add(total)<=(calculateTotalToken(true).mul(loanPart).div(DENOMINATOR)),"Exceed limit");
         require(total<calculateTotalToken(false),"Not enough balance");
-        _withdraw(amounts);
+        bool strategyWithdraw=false;
+        for(uint i=0;i<3;i++){
+            if(amounts[i]>getBalances(i)){
+                strategyWithdraw=true;
+                break;
+            }
+        }
+        if(strategyWithdraw){
+           _withdraw(amounts,max_burn); 
+        }
         loanGiven =loanGiven.add(total);
         selfBalance=selfBalance.sub(total);
         for(uint8 i=0; i<3; i++) {
             if(amounts[i] > 0) {
                 tokens[i].safeTransfer(_recipient, amounts[i]);
+                emit loanTransfered(_recipient,amounts[i],i);
             }
         }
         
@@ -463,6 +481,7 @@ contract RoyaleLP is ReentrancyGuard {
                 loanGiven =loanGiven.sub(amounts[i].mul(1e18).div(10**decimal));
                 selfBalance=selfBalance.add(amounts[i].mul(1e18).div(10**decimal));
                 tokens[i].safeTransferFrom(msg.sender,address(this),amounts[i]);
+                emit loanRepayed(amounts[i],i);
             }
         }
     }

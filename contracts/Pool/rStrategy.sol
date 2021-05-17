@@ -22,8 +22,7 @@ contract CurveStrategy {
     UniswapI  public uniAddr;
     IERC20 public crvAddr;
     address public wethAddr;
-    
-    
+     
     uint256 public constant DENOMINATOR = 10000;
 
     uint256 public depositSlip = 100;
@@ -69,7 +68,9 @@ contract CurveStrategy {
          address _minter,
          address _uniAddress,
          address _crvAddress,
-         address _wethAddress
+         address _wethAddress,
+         address _voteEscrow,
+         address _feeDistributor
          ) public {
 
         wallet=_wallet;
@@ -82,7 +83,9 @@ contract CurveStrategy {
         minter=Minter(_minter);
         uniAddr=UniswapI(_uniAddress);
         crvAddr=IERC20(_crvAddress);
-        wethAddr=_wethAddress;    
+        wethAddr=_wethAddress;  
+        feeDistributor = FeeDistributor(_feeDistributor);
+        voteEscrow = VoteEscrow(_voteEscrow);
     }
 
     function setCRVBreak(uint256 _percentage)external onlyWallet(){
@@ -104,6 +107,10 @@ contract CurveStrategy {
     function changeRoyaleLP(address _address)external onlyWallet(){
         royaleAddress=_address;
     }
+
+    function changeYieldDistributor(address _address)external onlyWallet(){
+        yieldDistributor=_address;
+    }
     
     function changeDepositSlip(uint _value)external onlyWallet(){
         depositSlip=_value;
@@ -117,8 +124,7 @@ contract CurveStrategy {
         uniswapSlippage=_value;
     }
 
-
-    // deposits stable tokens into the 3pool and stake recived LPtoken(3CRV) in the curve 3pool gauge
+// deposits stable tokens into the 3pool and stake recived LPtoken(3CRV) in the curve 3pool gauge
     function deposit(uint[3] memory amounts) external onlyRoyaleLP(){
         uint currentTotal;
         for(uint8 i=0; i<3; i++) {
@@ -136,17 +142,23 @@ contract CurveStrategy {
     }
 
     //withdraws stable tokens from the 3pool.Unstake required LPtokens and stake LP tokens if not used.
-    function withdraw(uint[3] memory amounts) external onlyRoyaleLP() {
-        uint256 max_burn = pool.calc_token_amount(amounts,false);
-        max_burn=max_burn.mul(DENOMINATOR.add(withdrawSlip)).div(DENOMINATOR);
-        unstakeLP(max_burn);
-        pool.remove_liquidity_imbalance(amounts, max_burn);
+    function withdraw(uint[3] memory amounts,uint[3] memory max_burn) external onlyRoyaleLP() {
+        //uint256 max_burn = pool.calc_token_amount(amounts,false);
+        uint burnAmount;
+        for(uint i=0;i<3;i++){
+             burnAmount = burnAmount.add(max_burn[i]);
+        }
+        burnAmount=burnAmount.mul(DENOMINATOR.add(withdrawSlip)).div(DENOMINATOR);
+        unstakeLP(burnAmount);
+        pool.remove_liquidity_imbalance(amounts, burnAmount);
         for(uint8 i=0;i<3;i++){
             if(amounts[i]!=0){
                tokens[i].safeTransfer(royaleAddress, tokens[i].balanceOf(address(this)));
             }
+        }
+        if(poolToken.balanceOf(address(this))>0){
+            stakeLP();
         } 
-        stakeLP();
     }
 
    //unstake all the LPtokens and withdraw all the Stable tokens from 3pool 
@@ -219,8 +231,7 @@ contract CurveStrategy {
         emit unlocked();
     }
 
-
-   //For claiming recieved 3CRV tokens which are given for locking CRV and
+//For claiming recieved 3CRV tokens which are given for locking CRV and
    // withdrawing stable tokens from curve 3pool using those 3CRV and sending those stable tokens to an address
     function claim3CRV()public onlyWallet(){
         uint prevCoin=poolToken.balanceOf(address(this));
@@ -229,13 +240,13 @@ contract CurveStrategy {
         uint[3] memory minimum;
         pool.remove_liquidity(postCoin-prevCoin,minimum);
         for(uint i=0;i<3;i++){
+            emit yieldTransfered(i,tokens[i].balanceOf(address(this)));
             tokens[i].safeTransfer(yieldDistributor,tokens[i].balanceOf(address(this)));
         }
-        emit yieldTransfered();
     }
     
     // Function to sell CRV using uniswap to any stable token and send that token to an address
-    function sellCRV(uint8 _index) public onlyWallet() returns(uint256) {  //here index=0 means convert crv into DAI , index=1 means crv into USDC , index=2 means crv into USDT
+    function sellCRV(uint8 _index,uint _amount) public onlyWallet() returns(uint256) {  //here index=0 means convert crv into DAI , index=1 means crv into USDC , index=2 means crv into USDT
         uint256 crvAmt = IERC20(crvAddr).balanceOf(address(this));
         uint256 prevCoin = tokens[_index].balanceOf(address(this));
         require(crvAmt > 0, "insufficient CRV");
@@ -254,9 +265,7 @@ contract CurveStrategy {
             path[1] = wethAddr;
             path[2] = address(tokens[_index]);
         }
-        uint[] memory amount=UniswapI(uniAddr).getAmountsOut(crvAmt,path);
-        uint calulatedAmount=amount[amount.length.sub(1)];
-        uint minimumAmount=calulatedAmount.sub(calulatedAmount.mul(uniswapSlippage).div(DENOMINATOR));
+        uint minimumAmount=_amount.sub(_amount.mul(uniswapSlippage).div(DENOMINATOR));
         UniswapI(uniAddr).swapExactTokensForTokens(
             crvAmt, 
             minimumAmount, 
@@ -277,7 +286,6 @@ contract CurveStrategy {
     }
     
     event yieldTransfered(uint index,uint coin);
-    event yieldTransfered();
     event staked(uint amount);
     event unstaked(uint amount);
     event crvClaimed();
