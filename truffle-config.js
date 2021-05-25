@@ -4,6 +4,30 @@ module.exports = {
 
   networks: {
 
+    testnet: {
+      networkCheckTimeout: 1000000,
+      provider: () => new HDWalletProvider(mnemonic, `https://data-seed-prebsc-1-s1.binance.org:8545`,0,2),
+      from:publicKey,
+      network_id: 97,
+      gasPrice: 10000000000,
+      gas: 5500000,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true
+    },
+
+    bsc: {
+      networkCheckTimeout: 1000000,
+      provider: () => new HDWalletProvider(mnemonic, `https://bsc-dataseed1.binance.org`,0,2),
+      from:publicKey,
+      network_id: 56,
+      gasPrice: 10000000000,
+      gas: 5500000,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true
+    },
+
     ropsten: {
       networkCheckTimeout: 1000000,
       provider: () => new HDWalletProvider(mnemonic, ropstenInfura, 0,2),

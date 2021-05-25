@@ -187,6 +187,7 @@ contract CurveStrategy {
         emit staked(depositAmt);
     }
 
+
     //For unstaking LP tokens(3CRV)
     function unstakeLP(uint _amount) public  onlyAuthorized(){
         require(gauge.balanceOf(address(this)) >= _amount,"You have not staked that much amount");
