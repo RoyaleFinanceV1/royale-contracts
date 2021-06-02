@@ -4,6 +4,30 @@ module.exports = {
 
   networks: {
 
+    maticTestnet: {
+      networkCheckTimeout: 1000000,
+      provider: () => new HDWalletProvider(mnemonic, `https://rpc-mumbai.matic.today`,0,5),
+      from:publicKey,
+      network_id: 80001,
+      gasPrice: 5000000000,
+      gas: 5500000,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true
+    },
+
+    maticMainnet: {
+      networkCheckTimeout: 1000000,
+      provider: () => new HDWalletProvider(mnemonic, `https://rpc-mainnet.matic.network`,0,5),
+      from:publicKey,
+      network_id: 137,
+      gasPrice: 5000000000,
+      gas: 5500000,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true
+    },
+
     ropsten: {
       networkCheckTimeout: 1000000,
       provider: () => new HDWalletProvider(mnemonic, ropstenInfura, 0,2),
@@ -50,7 +74,7 @@ module.exports = {
   compilers: {
     solc: {
       version: "^0.6.0",    // Fetch exact version from solc-bin (default: truffle's version)
-      /* settings: {
+     /*  settings: {
         optimizer: {
           enabled: true,
           runs: 200
